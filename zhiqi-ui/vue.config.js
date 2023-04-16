@@ -6,7 +6,7 @@ function resolve(dir) {
 }
 
 const name = process.env.VUE_APP_TITLE || '知其管理系统'
-const port = process.env.port || process.env.npm_confgi_port || 95
+const port = process.env.port || process.env.npm_confgi_port || 9095
 
 module.exports = {
   // 部署生产环境和开发环境下的URL。

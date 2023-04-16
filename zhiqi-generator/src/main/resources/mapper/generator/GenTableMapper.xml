@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiqi.generator.mapper.GenTableMapper">
+    <resultMap id="GenTableResult" type="GenTable">
+        <id property="tableId" column=""/>
+    </resultMap>
+
+
+    <select id="selectGenTableByName" resultType="com.zhiqi.generator.model.GenTable"></select>
+    <select id="selectDbTableList" resultType="com.zhiqi.generator.model.GenTable"></select>
+</mapper>

@@ -12,15 +12,11 @@
     <artifactId>zhiqi-system</artifactId>
     <description>系统模块</description>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.ryujung</groupId>
             <artifactId>zhiqi-common</artifactId>
         </dependency>
     </dependencies>
+
 </project>

@@ -34,7 +34,7 @@ public class GenConfig {
         GenConfig.packageName = packageName;
     }
 
-    public static boolean isAutoRemovePre() {
+    public static boolean getAutoRemovePre() {
         return autoRemovePre;
     }
 

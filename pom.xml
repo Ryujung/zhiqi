@@ -11,6 +11,7 @@
         <module>zhiqi-common</module>
         <module>zhiqi-system</module>
         <module>zhiqi-generator</module>
+        <module>zhiqi-framework</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -178,6 +179,11 @@
                 <version>${zhiqi.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.ryujung</groupId>
+                <artifactId>zhiqi-framework</artifactId>
+                <version>${zhiqi.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

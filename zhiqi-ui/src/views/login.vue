@@ -1,6 +1,5 @@
 <template>
   <div class="login">
-    <!-- TODO login form html-->
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" label-width="100px" class="login-form">
       <h3 class="title">知其后台管理系统</h3>
       <el-form-item label="用户名" prop="validateUsername">
@@ -78,13 +77,18 @@ export default {
     }
   },
   created() {
-    getKaptchaCode()
-    getUserInfoFromCookie()
+    this.getKaptchaCode()
+    this.getUserInfoFromCookie()
   },
   methods: {
     getKaptchaCode() {
-      getCodeImg().then((res) => {
+      getCodeImg().then(res => {
         // TODO captcha request and show
+        this.captchaOnOff = res.chaptchaOnOff === undefined ? true : res.chaptchaOnOff;
+        if (this.chaptchaOnOff) {
+          this.codeUrl = "data:image/gif;base64," + res.img
+          this.loginForm.uuid = res.uuid
+        }
       })
     },
     getUserInfoFromCookie() {
@@ -93,8 +97,7 @@ export default {
       const rememberMe = Cookies.get('remeberMe')
       this.loginForm = {
         username: username === undefined ? this.loginForm.username : username,
-        password:
-          password === undefined ? this.loginForm.password : decrypt(password),
+        password: password === undefined ? this.loginForm.password : decrypt(password),
         rememberMe: rememberMe === undefined ? false : Boolean(rememberMe)
       }
     },
