@@ -17,5 +17,11 @@ public interface GenTableMapper {
      */
     GenTable selectGenTableByName(String tableName);
 
+    /**
+     * 根据名称获取生成表对象
+     *
+     * @param genTable
+     * @return
+     */
     List<GenTable> selectDbTableList(GenTable genTable);
 }

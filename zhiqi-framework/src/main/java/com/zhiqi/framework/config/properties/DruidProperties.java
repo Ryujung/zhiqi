@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
  * @author RyuJung
  * @since 2023/4/16-18:57
  */
-@Configuration("druidProperties")
+@Configuration
 public class DruidProperties {
 
     @Value("${spring.datasource.druid.initialSize}")
@@ -44,8 +44,7 @@ public class DruidProperties {
     @Value("${spring.datasource.druid.testOnReturn}")
     private boolean testOnReturn;
 
-    public DruidDataSource dataSource(DruidDataSource datasource)
-    {
+    public DruidDataSource dataSource(DruidDataSource datasource) {
         /** 配置初始化大小、最小、最大 */
         datasource.setInitialSize(initialSize);
         datasource.setMaxActive(maxActive);

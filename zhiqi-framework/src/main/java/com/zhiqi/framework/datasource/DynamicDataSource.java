@@ -16,6 +16,7 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
         super.setTargetDataSources(dataSourceMap);
         super.afterPropertiesSet();
     }
+
     @Override
     protected Object determineCurrentLookupKey() {
         return DataSourceContextHolder.getDataSourceType();

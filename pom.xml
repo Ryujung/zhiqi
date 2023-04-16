@@ -12,6 +12,7 @@
         <module>zhiqi-system</module>
         <module>zhiqi-generator</module>
         <module>zhiqi-framework</module>
+        <module>zhiqi-admin</module>
     </modules>
     <packaging>pom</packaging>
 

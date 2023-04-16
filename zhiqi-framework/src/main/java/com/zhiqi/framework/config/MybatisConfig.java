@@ -22,7 +22,6 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -38,7 +37,7 @@ public class MybatisConfig {
     public static final String DEFAULT_RESOURCE_PATH_PATTERN = "**/*.class";
 
     @Bean
-    public SqlSessionFactory sqlSessionFactory(@Qualifier("dynamicDataSource") DataSource dataSource) {
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         String typeAliasesPackage = env.getProperty("mybatis.typeAliasesPackage");
         String mapperLocations = env.getProperty("mybatis.mapperLocations");
         String configLocation = env.getProperty("mybatis.configLocation");
@@ -51,7 +50,7 @@ public class MybatisConfig {
         sessionFactory.setTypeAliasesPackage(typeAliasesPackage);
         sessionFactory.setMapperLocations(resolveMapperLocations(StringUtils.split(mapperLocations, ",")));
         sessionFactory.setConfigLocation(resolveConfigLocation(configLocation));
-        return null;
+        return sessionFactory.getObject();
     }
 
     private String setTypeAliasesPackage(String typeAliasesPackage) {

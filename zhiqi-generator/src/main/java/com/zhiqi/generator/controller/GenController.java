@@ -30,6 +30,11 @@ public class GenController extends BaseController {
         return getTableData(tableList);
     }
 
+    private TableDataInfo getTableData(List<GenTable> tableList) {
+        // TODO controller getTableData
+        return null;
+    }
+
     @PostMapping("/download/{tableName}")
     public void download(HttpServletResponse response, @PathVariable("tableName") String tableName) throws IOException {
         byte[] data = genTableService.downloadCode(tableName);

@@ -1,5 +1,6 @@
 package com.zhiqi.generator.util;
 
+import com.ryujung.zhiqi.common.contant.Constants;
 import org.apache.velocity.app.Velocity;
 
 import java.util.Properties;
