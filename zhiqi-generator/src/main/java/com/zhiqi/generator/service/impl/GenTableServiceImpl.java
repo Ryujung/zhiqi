@@ -1,7 +1,7 @@
 package com.zhiqi.generator.service.impl;
 
-import com.zhiqi.generator.mapper.GenTableMapper;
 import com.zhiqi.generator.domain.GenTable;
+import com.zhiqi.generator.mapper.GenTableMapper;
 import com.zhiqi.generator.service.GenTableService;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;

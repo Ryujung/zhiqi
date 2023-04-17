@@ -27,11 +27,12 @@ server:
 # MyBatis配置
 mybatis:
   # 搜索指定包别名
-  type-aliases-package: com.zhiqi.**.domain
+  typeAliasesPackage: com.zhiqi.**.domain
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
-  mapper-locations: classpath*:mapper/**/*Mapper.xml
+#  mapperLocations: classpath*:mapper/**/*Mapper.xml
+  mapperLocations: classpath*:mapper/generator/*Mapper.xml
   # 加载全局的配置文件
-  config-location: classpath:mybatis/mybatis-config.xml
+  configLocation: classpath:mybatis/mybatis-config.xml
 
 spring:
   profiles:

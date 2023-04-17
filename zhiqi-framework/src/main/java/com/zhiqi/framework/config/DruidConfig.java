@@ -5,6 +5,7 @@ import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.alibaba.druid.spring.boot.autoconfigure.properties.DruidStatProperties;
 import com.alibaba.druid.util.Utils;
 import com.ryujung.zhiqi.common.enums.DataSourceType;
+import com.ryujung.zhiqi.common.utils.spring.SpringUtils;
 import com.zhiqi.framework.config.properties.DruidProperties;
 import com.zhiqi.framework.datasource.DynamicDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,14 +30,14 @@ import java.util.HashMap;
 @Configuration
 public class DruidConfig {
 
-    @Bean
+    @Bean(name = "masterDataSource")
     @ConfigurationProperties("spring.datasource.druid.master")
     public DataSource masterDataSource(DruidProperties druidProperties) {
         DruidDataSource datasource = DruidDataSourceBuilder.create().build();
         return druidProperties.dataSource(datasource);
     }
 
-    @Bean
+    @Bean(name = "slaveDataSource")
     @ConfigurationProperties("spring.datasource.druid.slave")
     @ConditionalOnProperty(prefix = "spring.datasource.druid.slave", name = "enabled", havingValue = "true")
     public DataSource slaveDataSource(DruidProperties druidProperties) {
@@ -46,11 +47,15 @@ public class DruidConfig {
 
     @Bean(name = "dynamicDataSource")
     @Primary
-    public DataSource dataSource(@Qualifier("masterDataSource") DataSource masterDataSource,
-                                 @Qualifier("slaveDataSource") DataSource slaveDataSource) {
+    public DynamicDataSource dataSource(@Qualifier("masterDataSource") DataSource masterDataSource) {
         HashMap<Object, Object> dataSourceMap = new HashMap<>(16);
         dataSourceMap.put(DataSourceType.MASTER.name(), masterDataSource);
-        dataSourceMap.put(DataSourceType.SLAVE.name(), slaveDataSource);
+        try {
+            DataSource slaveDataSource = SpringUtils.getBean("slaveDataSource");
+            dataSourceMap.put(DataSourceType.SLAVE.name(), slaveDataSource);
+        } catch (Exception e) {
+            // if not indicate slave,null point exception will occur,ignore it
+        }
         return new DynamicDataSource(masterDataSource, dataSourceMap);
     }
 

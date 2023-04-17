@@ -4,9 +4,9 @@ import com.ryujung.zhiqi.common.utils.StringUtils;
 import org.apache.ibatis.io.VFS;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.SpringBootVFS;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -20,21 +20,21 @@ import org.springframework.util.ClassUtils;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author RyuJung
  * @since 2023/4/16-18:08
  */
 @Configuration
+// FIXME 暂时设置包扫描generator模块
+@MapperScan("com.zhiqi.generator.mapper")
 public class MybatisConfig {
 
     @Autowired
     Environment env;
 
-    public static final String DEFAULT_RESOURCE_PATH_PATTERN = "**/*.class";
+    public static final String DEFAULT_RESOURCE_PATTERN = "**/*.class";
 
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
@@ -42,8 +42,8 @@ public class MybatisConfig {
         String mapperLocations = env.getProperty("mybatis.mapperLocations");
         String configLocation = env.getProperty("mybatis.configLocation");
 
-        VFS.addImplClass(SpringBootVFS.class);
         typeAliasesPackage = setTypeAliasesPackage(typeAliasesPackage);
+        VFS.addImplClass(SpringBootVFS.class);
 
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
@@ -51,6 +51,10 @@ public class MybatisConfig {
         sessionFactory.setMapperLocations(resolveMapperLocations(StringUtils.split(mapperLocations, ",")));
         sessionFactory.setConfigLocation(resolveConfigLocation(configLocation));
         return sessionFactory.getObject();
+    }
+
+    private Resource resolveConfigLocation(String configLocation) {
+        return new DefaultResourceLoader().getResource(configLocation);
     }
 
     private String setTypeAliasesPackage(String typeAliasesPackage) {
@@ -61,7 +65,7 @@ public class MybatisConfig {
             for (String aliasesPackage : typeAliasesPackage.split(",")) {
                 Set<String> resultSet = new HashSet<>();
                 aliasesPackage = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX +
-                        ClassUtils.convertClassNameToResourcePath(aliasesPackage.trim()) + "/" + DEFAULT_RESOURCE_PATH_PATTERN;
+                        ClassUtils.convertClassNameToResourcePath(aliasesPackage.trim()) + "/" + DEFAULT_RESOURCE_PATTERN;
                 Resource[] resources = resourceResolver.getResources(aliasesPackage);
                 if (resources != null) {
                     for (Resource resource : resources) {
@@ -100,9 +104,9 @@ public class MybatisConfig {
         if (mapperLocations != null) {
             for (String mapperLocation : mapperLocations) {
                 try {
-                    Resource resource = resourceResolver.getResource(mapperLocation);
-                    resources.add(resource);
-                } catch (Exception e) {
+                    Resource[] mappers = resourceResolver.getResources(mapperLocation);
+                    resources.addAll(Arrays.asList(mappers));
+                } catch (IOException e) {
                     // ignore
                 }
             }
@@ -110,7 +114,4 @@ public class MybatisConfig {
         return resources.toArray(new Resource[resources.size()]);
     }
 
-    private Resource resolveConfigLocation(String configLocation) {
-        return new DefaultResourceLoader().getResource(configLocation);
-    }
 }

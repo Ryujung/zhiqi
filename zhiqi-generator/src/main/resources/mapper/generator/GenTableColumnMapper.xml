@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiqi.generator.mapper.GenTableColumnMapper">
 
-    <resultMap id="BaseResultMap" type="GenTableColumn">
+    <resultMap id="GenTableColumnResultMap" type="GenTableColumn">
             <id property="columnId" column="column_id" jdbcType="BIGINT"/>
             <result property="tableId" column="table_id" jdbcType="VARCHAR"/>
             <result property="columnName" column="column_name" jdbcType="VARCHAR"/>
@@ -40,180 +40,122 @@
         update_time
     </sql>
 
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from gen_table_column
-        where  column_id = #{columnId,jdbcType=BIGINT} 
-    </select>
-
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete from gen_table_column
-        where  column_id = #{columnId,jdbcType=BIGINT} 
-    </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="GenTableColumn" useGeneratedKeys="true">
-        insert into gen_table_column
-        ( column_id,table_id,column_name
-        ,column_comment,column_type,java_type
-        ,java_field,is_pk,is_increment
-        ,is_required,is_insert,is_edit
-        ,is_list,is_query,query_type
-        ,html_type,dict_type,sort
-        ,create_by,create_time,update_by
-        ,update_time)
-        values (#{columnId,jdbcType=BIGINT},#{tableId,jdbcType=VARCHAR},#{columnName,jdbcType=VARCHAR}
-        ,#{columnComment,jdbcType=VARCHAR},#{columnType,jdbcType=VARCHAR},#{javaType,jdbcType=VARCHAR}
-        ,#{javaField,jdbcType=VARCHAR},#{isPk,jdbcType=CHAR},#{isIncrement,jdbcType=CHAR}
-        ,#{isRequired,jdbcType=CHAR},#{isInsert,jdbcType=CHAR},#{isEdit,jdbcType=CHAR}
-        ,#{isList,jdbcType=CHAR},#{isQuery,jdbcType=CHAR},#{queryType,jdbcType=VARCHAR}
-        ,#{htmlType,jdbcType=VARCHAR},#{dictType,jdbcType=VARCHAR},#{sort,jdbcType=INTEGER}
-        ,#{createBy,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{updateBy,jdbcType=VARCHAR}
-        ,#{updateTime,jdbcType=TIMESTAMP}))
-    </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="GenTableColumn" useGeneratedKeys="true">
+    <insert id="insertGenTableColumn" keyColumn="id" keyProperty="id" parameterType="GenTableColumn" useGeneratedKeys="true">
         insert into gen_table_column
         <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="columnId != null">columnId,</if>
-                <if test="tableId != null">tableId,</if>
-                <if test="columnName != null">columnName,</if>
-                <if test="columnComment != null">columnComment,</if>
-                <if test="columnType != null">columnType,</if>
-                <if test="javaType != null">javaType,</if>
-                <if test="javaField != null">javaField,</if>
-                <if test="isPk != null">isPk,</if>
-                <if test="isIncrement != null">isIncrement,</if>
-                <if test="isRequired != null">isRequired,</if>
-                <if test="isInsert != null">isInsert,</if>
-                <if test="isEdit != null">isEdit,</if>
-                <if test="isList != null">isList,</if>
-                <if test="isQuery != null">isQuery,</if>
-                <if test="queryType != null">queryType,</if>
-                <if test="htmlType != null">htmlType,</if>
-                <if test="dictType != null">dictType,</if>
-                <if test="sort != null">sort,</if>
-                <if test="createBy != null">createBy,</if>
-                <if test="createTime != null">createTime,</if>
-                <if test="updateBy != null">updateBy,</if>
-                <if test="updateTime != null">updateTime,</if>
+            <if test="columnId != null">columnId,</if>
+            <if test="tableId != null">tableId,</if>
+            <if test="columnName != null">columnName,</if>
+            <if test="columnComment != null">columnComment,</if>
+            <if test="columnType != null">columnType,</if>
+            <if test="javaType != null">javaType,</if>
+            <if test="javaField != null">javaField,</if>
+            <if test="isPk != null">isPk,</if>
+            <if test="isIncrement != null">isIncrement,</if>
+            <if test="isRequired != null">isRequired,</if>
+            <if test="isInsert != null">isInsert,</if>
+            <if test="isEdit != null">isEdit,</if>
+            <if test="isList != null">isList,</if>
+            <if test="isQuery != null">isQuery,</if>
+            <if test="queryType != null">queryType,</if>
+            <if test="htmlType != null">htmlType,</if>
+            <if test="dictType != null">dictType,</if>
+            <if test="sort != null">sort,</if>
+            <if test="createBy != null">createBy,</if>
+            <if test="createTime != null">createTime,</if>
+            <if test="updateBy != null">updateBy,</if>
+            <if test="updateTime != null">updateTime,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-                <if test="columnId != null">column_id = #{columnId,jdbcType=BIGINT},</if>
-                <if test="tableId != null">table_id = #{tableId,jdbcType=VARCHAR},</if>
-                <if test="columnName != null">column_name = #{columnName,jdbcType=VARCHAR},</if>
-                <if test="columnComment != null">column_comment = #{columnComment,jdbcType=VARCHAR},</if>
-                <if test="columnType != null">column_type = #{columnType,jdbcType=VARCHAR},</if>
-                <if test="javaType != null">java_type = #{javaType,jdbcType=VARCHAR},</if>
-                <if test="javaField != null">java_field = #{javaField,jdbcType=VARCHAR},</if>
-                <if test="isPk != null">is_pk = #{isPk,jdbcType=CHAR},</if>
-                <if test="isIncrement != null">is_increment = #{isIncrement,jdbcType=CHAR},</if>
-                <if test="isRequired != null">is_required = #{isRequired,jdbcType=CHAR},</if>
-                <if test="isInsert != null">is_insert = #{isInsert,jdbcType=CHAR},</if>
-                <if test="isEdit != null">is_edit = #{isEdit,jdbcType=CHAR},</if>
-                <if test="isList != null">is_list = #{isList,jdbcType=CHAR},</if>
-                <if test="isQuery != null">is_query = #{isQuery,jdbcType=CHAR},</if>
-                <if test="queryType != null">query_type = #{queryType,jdbcType=VARCHAR},</if>
-                <if test="htmlType != null">html_type = #{htmlType,jdbcType=VARCHAR},</if>
-                <if test="dictType != null">dict_type = #{dictType,jdbcType=VARCHAR},</if>
-                <if test="sort != null">sort = #{sort,jdbcType=INTEGER},</if>
-                <if test="createBy != null">create_by = #{createBy,jdbcType=VARCHAR},</if>
-                <if test="createTime != null">create_time = #{createTime,jdbcType=TIMESTAMP},</if>
-                <if test="updateBy != null">update_by = #{updateBy,jdbcType=VARCHAR},</if>
-                <if test="updateTime != null">update_time = #{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="columnId != null">column_id = #{columnId,jdbcType=BIGINT},</if>
+            <if test="tableId != null">table_id = #{tableId,jdbcType=VARCHAR},</if>
+            <if test="columnName != null">column_name = #{columnName,jdbcType=VARCHAR},</if>
+            <if test="columnComment != null">column_comment = #{columnComment,jdbcType=VARCHAR},</if>
+            <if test="columnType != null">column_type = #{columnType,jdbcType=VARCHAR},</if>
+            <if test="javaType != null">java_type = #{javaType,jdbcType=VARCHAR},</if>
+            <if test="javaField != null">java_field = #{javaField,jdbcType=VARCHAR},</if>
+            <if test="isPk != null">is_pk = #{isPk,jdbcType=CHAR},</if>
+            <if test="isIncrement != null">is_increment = #{isIncrement,jdbcType=CHAR},</if>
+            <if test="isRequired != null">is_required = #{isRequired,jdbcType=CHAR},</if>
+            <if test="isInsert != null">is_insert = #{isInsert,jdbcType=CHAR},</if>
+            <if test="isEdit != null">is_edit = #{isEdit,jdbcType=CHAR},</if>
+            <if test="isList != null">is_list = #{isList,jdbcType=CHAR},</if>
+            <if test="isQuery != null">is_query = #{isQuery,jdbcType=CHAR},</if>
+            <if test="queryType != null">query_type = #{queryType,jdbcType=VARCHAR},</if>
+            <if test="htmlType != null">html_type = #{htmlType,jdbcType=VARCHAR},</if>
+            <if test="dictType != null">dict_type = #{dictType,jdbcType=VARCHAR},</if>
+            <if test="sort != null">sort = #{sort,jdbcType=INTEGER},</if>
+            <if test="createBy != null">create_by = #{createBy,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">create_time = #{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateBy != null">update_by = #{updateBy,jdbcType=VARCHAR},</if>
+            <if test="updateTime != null">update_time = #{updateTime,jdbcType=TIMESTAMP},</if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="GenTableColumn">
+
+    <delete id="deleteGenTableColumns" parameterType="collection">
+        delete from gen_table_column where column_id IN
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item.columnId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByColumnId" parameterType="Long">
+        delete from gen_table_column
+        where table_id IN
+        <foreach collection="array" item="tableId" open="(" close=")" separator=",">
+            #{tableId}
+        </foreach>
+    </delete>
+
+    <update id="updateGenTableColumn">
         update gen_table_column
         <set>
-                <if test="tableId != null">
-                    table_id = #{tableId,jdbcType=VARCHAR},
-                </if>
-                <if test="columnName != null">
-                    column_name = #{columnName,jdbcType=VARCHAR},
-                </if>
-                <if test="columnComment != null">
-                    column_comment = #{columnComment,jdbcType=VARCHAR},
-                </if>
-                <if test="columnType != null">
-                    column_type = #{columnType,jdbcType=VARCHAR},
-                </if>
-                <if test="javaType != null">
-                    java_type = #{javaType,jdbcType=VARCHAR},
-                </if>
-                <if test="javaField != null">
-                    java_field = #{javaField,jdbcType=VARCHAR},
-                </if>
-                <if test="isPk != null">
-                    is_pk = #{isPk,jdbcType=CHAR},
-                </if>
-                <if test="isIncrement != null">
-                    is_increment = #{isIncrement,jdbcType=CHAR},
-                </if>
-                <if test="isRequired != null">
-                    is_required = #{isRequired,jdbcType=CHAR},
-                </if>
-                <if test="isInsert != null">
-                    is_insert = #{isInsert,jdbcType=CHAR},
-                </if>
-                <if test="isEdit != null">
-                    is_edit = #{isEdit,jdbcType=CHAR},
-                </if>
-                <if test="isList != null">
-                    is_list = #{isList,jdbcType=CHAR},
-                </if>
-                <if test="isQuery != null">
-                    is_query = #{isQuery,jdbcType=CHAR},
-                </if>
-                <if test="queryType != null">
-                    query_type = #{queryType,jdbcType=VARCHAR},
-                </if>
-                <if test="htmlType != null">
-                    html_type = #{htmlType,jdbcType=VARCHAR},
-                </if>
-                <if test="dictType != null">
-                    dict_type = #{dictType,jdbcType=VARCHAR},
-                </if>
-                <if test="sort != null">
-                    sort = #{sort,jdbcType=INTEGER},
-                </if>
-                <if test="createBy != null">
-                    create_by = #{createBy,jdbcType=VARCHAR},
-                </if>
-                <if test="createTime != null">
-                    create_time = #{createTime,jdbcType=TIMESTAMP},
-                </if>
-                <if test="updateBy != null">
-                    update_by = #{updateBy,jdbcType=VARCHAR},
-                </if>
-                <if test="updateTime != null">
-                    update_time = #{updateTime,jdbcType=TIMESTAMP},
-                </if>
+            <if test="tableId != null">table_id=#{tableId,jdbcType=NUMERIC},</if>
+            <if test="columnName != null">column_name=#{columnName,jdbcType=VARCHAR},</if>
+            <if test="columnComment != null">column_comment=#{columnComment,jdbcType=VARCHAR},</if>
+            <if test="columnType != null">column_type=#{columnType,jdbcType=VARCHAR},</if>
+            <if test="javaType != null">java_type=#{javaType,jdbcType=VARCHAR},</if>
+            <if test="javaField != null">java_field=#{javaField,jdbcType=VARCHAR},</if>
+            <if test="isPk != null">is_pk=#{isPk,jdbcType=VARCHAR},</if>
+            <if test="isIncrement != null">is_increment=#{isIncrement,jdbcType=VARCHAR},</if>
+            <if test="isRequired != null">is_required=#{isRequired,jdbcType=VARCHAR},</if>
+            <if test="isInsert != null">is_insert=#{isInsert,jdbcType=VARCHAR},</if>
+            <if test="isEdit != null">is_edit=#{isEdit,jdbcType=VARCHAR},</if>
+            <if test="isList != null">is_list=#{isList,jdbcType=VARCHAR},</if>
+            <if test="isQuery != null">is_query=#{isQuery,jdbcType=VARCHAR},</if>
+            <if test="queryType != null">query_type=#{queryType,jdbcType=VARCHAR},</if>
+            <if test="htmlType != null">html_type=#{htmlType,jdbcType=VARCHAR},</if>
+            <if test="dictType != null">dict_type=#{dictType,jdbcType=VARCHAR},</if>
+            <if test="sort != null">sort=#{sort,jdbcType=NUMERIC},</if>
+            <if test="searchValue != null">search_value=#{searchValue,jdbcType=VARCHAR},</if>
+            <if test="createBy != null">create_by=#{createBy,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">create_time=#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateBy != null">update_by=#{updateBy,jdbcType=VARCHAR},</if>
+            <if test="updateTime != null">update_time=#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="remark != null">remark=#{remark,jdbcType=VARCHAR},</if>
+            <if test="params != null">params=#{params},</if>
         </set>
-        where   column_id = #{columnId,jdbcType=BIGINT} 
+        where columnId = #{columnId,jdbcType=NUMERIC}
     </update>
-    <update id="updateByPrimaryKey" parameterType="GenTableColumn">
-        update gen_table_column
-        set 
-            table_id =  #{tableId,jdbcType=VARCHAR},
-            column_name =  #{columnName,jdbcType=VARCHAR},
-            column_comment =  #{columnComment,jdbcType=VARCHAR},
-            column_type =  #{columnType,jdbcType=VARCHAR},
-            java_type =  #{javaType,jdbcType=VARCHAR},
-            java_field =  #{javaField,jdbcType=VARCHAR},
-            is_pk =  #{isPk,jdbcType=CHAR},
-            is_increment =  #{isIncrement,jdbcType=CHAR},
-            is_required =  #{isRequired,jdbcType=CHAR},
-            is_insert =  #{isInsert,jdbcType=CHAR},
-            is_edit =  #{isEdit,jdbcType=CHAR},
-            is_list =  #{isList,jdbcType=CHAR},
-            is_query =  #{isQuery,jdbcType=CHAR},
-            query_type =  #{queryType,jdbcType=VARCHAR},
-            html_type =  #{htmlType,jdbcType=VARCHAR},
-            dict_type =  #{dictType,jdbcType=VARCHAR},
-            sort =  #{sort,jdbcType=INTEGER},
-            create_by =  #{createBy,jdbcType=VARCHAR},
-            create_time =  #{createTime,jdbcType=TIMESTAMP},
-            update_by =  #{updateBy,jdbcType=VARCHAR},
-            update_time =  #{updateTime,jdbcType=TIMESTAMP}
-        where   column_id = #{columnId,jdbcType=BIGINT} 
-    </update>
+
+    <select id="selectGenTableColumnListByTableId" parameterType="Long" resultMap="GenTableColumnResultMap">
+        select <include refid="Base_Column_List"/>
+        from gen_table_column
+        where table_id = #{tableId}
+        order by sort
+    </select>
+
+    <select id="selectDbTableColumnsByTableName" parameterType="String" resultType="GenTableColumn">
+        select column_name,
+               if(is_nullable='no' and column_key!='PRI','1',null) is_required,
+               if(column_key='PRI','1','0') is_pk,
+               ordinal_position as sort,
+               column_comment,
+               if(extra='auto_increment' ,'1','0') is_increment, column_type
+        from information_schema.columns
+        where table_schema = (select database())
+            and table_name = #{tableName}
+        order by ordinal_position
+    </select>
+
 </mapper>
