@@ -1,3 +1,4 @@
+# 项目相关配置
 zhiqi:
   name: ZhiQi
   version: 0.0.1
@@ -5,6 +6,23 @@ zhiqi:
   demoEnabled: true
   profile: D:/MyGithub/zhiqi/uploadPath
   addressEnabled: false
+
+
+# 开发环境配置
+server:
+  # 服务器的HTTP端口，默认为8080
+  port: 9495
+  servlet:
+    # 应用的访问路径
+    context-path: /
+  tomcat:
+    # tomcat的URI编码
+    uri-encoding: UTF-8
+    # tomcat最大线程数，默认为200
+    max-threads: 800
+    # Tomcat启动初始化的线程数，默认值25
+    min-spare-threads: 30
+
 
 # MyBatis配置
 mybatis:
@@ -46,21 +64,6 @@ spring:
         # #连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1ms
 
-
-# 开发环境配置
-server:
-  # 服务器的HTTP端口，默认为8080
-  port: 9495
-  servlet:
-    # 应用的访问路径
-    context-path: /
-  tomcat:
-    # tomcat的URI编码
-    uri-encoding: UTF-8
-    # tomcat最大线程数，默认为200
-    max-threads: 800
-    # Tomcat启动初始化的线程数，默认值25
-    min-spare-threads: 30
 
 # 日志配置
 logging:

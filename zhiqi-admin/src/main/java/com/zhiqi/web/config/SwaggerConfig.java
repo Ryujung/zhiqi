@@ -1,4 +1,4 @@
-package com.zhi.web.config;
+package com.zhiqi.web.config;
 
 import org.springframework.context.annotation.Configuration;
 

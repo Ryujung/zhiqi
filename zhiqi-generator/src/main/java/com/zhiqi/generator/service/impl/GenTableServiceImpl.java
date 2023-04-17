@@ -1,10 +1,11 @@
 package com.zhiqi.generator.service.impl;
 
 import com.zhiqi.generator.mapper.GenTableMapper;
-import com.zhiqi.generator.model.GenTable;
+import com.zhiqi.generator.domain.GenTable;
 import com.zhiqi.generator.service.GenTableService;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.zip.ZipOutputStream;
  * @author RyuJung
  * @since 2023/4/16-17:26
  */
+@Service
 public class GenTableServiceImpl implements GenTableService {
 
     @Autowired

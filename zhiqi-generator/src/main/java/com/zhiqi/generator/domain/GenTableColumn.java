@@ -1,4 +1,4 @@
-package com.zhiqi.generator.model;
+package com.zhiqi.generator.domain;
 
 import com.ryujung.zhiqi.common.core.domain.BaseEntity;
 import com.ryujung.zhiqi.common.utils.StringUtils;

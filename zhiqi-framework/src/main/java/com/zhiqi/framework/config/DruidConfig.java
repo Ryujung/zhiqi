@@ -10,7 +10,6 @@ import com.zhiqi.framework.datasource.DynamicDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +28,7 @@ import java.util.HashMap;
  */
 @Configuration
 public class DruidConfig {
+
     @Bean
     @ConfigurationProperties("spring.datasource.druid.master")
     public DataSource masterDataSource(DruidProperties druidProperties) {
@@ -48,7 +48,7 @@ public class DruidConfig {
     @Primary
     public DataSource dataSource(@Qualifier("masterDataSource") DataSource masterDataSource,
                                  @Qualifier("slaveDataSource") DataSource slaveDataSource) {
-        HashMap<Object, Object> dataSourceMap = new HashMap<>();
+        HashMap<Object, Object> dataSourceMap = new HashMap<>(16);
         dataSourceMap.put(DataSourceType.MASTER.name(), masterDataSource);
         dataSourceMap.put(DataSourceType.SLAVE.name(), slaveDataSource);
         return new DynamicDataSource(masterDataSource, dataSourceMap);

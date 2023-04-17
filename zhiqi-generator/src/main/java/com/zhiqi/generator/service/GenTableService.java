@@ -1,8 +1,7 @@
 package com.zhiqi.generator.service;
 
-import com.zhiqi.generator.model.GenTable;
+import com.zhiqi.generator.domain.GenTable;
 
-import java.io.OutputStream;
 import java.util.List;
 import java.util.zip.ZipOutputStream;
 

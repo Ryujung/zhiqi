@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.ryujung.zhiqi.common.contant.GenConstants;
 import com.ryujung.zhiqi.common.utils.DateUtils;
 import com.ryujung.zhiqi.common.utils.StringUtils;
-import com.zhiqi.generator.model.GenTable;
-import com.zhiqi.generator.model.GenTableColumn;
+import com.zhiqi.generator.domain.GenTable;
+import com.zhiqi.generator.domain.GenTableColumn;
 import org.apache.velocity.VelocityContext;
 
 import java.util.ArrayList;

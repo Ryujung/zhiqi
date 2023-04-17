@@ -61,7 +61,7 @@ public class MybatisConfig {
             for (String aliasesPackage : typeAliasesPackage.split(",")) {
                 Set<String> resultSet = new HashSet<>();
                 aliasesPackage = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX +
-                        ClassUtils.convertClassNameToResourcePath(aliasesPackage.trim());
+                        ClassUtils.convertClassNameToResourcePath(aliasesPackage.trim()) + "/" + DEFAULT_RESOURCE_PATH_PATTERN;
                 Resource[] resources = resourceResolver.getResources(aliasesPackage);
                 if (resources != null) {
                     for (Resource resource : resources) {

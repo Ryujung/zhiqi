@@ -1,4 +1,4 @@
-package com.zhiqi.generator.model;
+package com.zhiqi.generator.domain;
 
 
 import com.ryujung.zhiqi.common.contant.GenConstants;

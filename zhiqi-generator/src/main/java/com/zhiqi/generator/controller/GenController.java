@@ -2,7 +2,7 @@ package com.zhiqi.generator.controller;
 
 import com.ryujung.zhiqi.common.core.controller.BaseController;
 import com.ryujung.zhiqi.common.core.domain.page.TableDataInfo;
-import com.zhiqi.generator.model.GenTable;
+import com.zhiqi.generator.domain.GenTable;
 import com.zhiqi.generator.service.GenTableService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
