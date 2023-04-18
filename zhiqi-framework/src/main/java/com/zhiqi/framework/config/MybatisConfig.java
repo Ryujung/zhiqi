@@ -27,8 +27,7 @@ import java.util.*;
  * @since 2023/4/16-18:08
  */
 @Configuration
-// FIXME 暂时设置包扫描generator模块
-@MapperScan("com.zhiqi.generator.mapper")
+@MapperScan("com.zhiqi.**.mapper")
 public class MybatisConfig {
 
     @Autowired

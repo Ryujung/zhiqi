@@ -1,5 +1,4 @@
 package com.zhiqi.generator.mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.zhiqi.generator.domain.GenTable;
 
@@ -24,7 +23,7 @@ public interface GenTableMapper {
      * @param ids 需要删除的数据ID
      * @return 结果
      */
-    int deleteByIds(Long[] ids);
+    int deleteByIds(Long... ids);
 
     /**
      * 修改业务
@@ -63,7 +62,7 @@ public interface GenTableMapper {
      * @param names 表名称数组
      * @return 数据库表集合
      */
-    List<GenTable> selectDbTableListByName(String[] names);
+    List<GenTable> selectDbTableListByNames(String... names);
 
     /**
      * 查询表ID业务信息
