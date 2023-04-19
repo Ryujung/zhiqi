@@ -20,4 +20,8 @@ public class Constants {
      */
     public static final String HTTP = "http://";
 
+    public static final String REQUEST_HEADER_TOKEN_PREFIX = "Bearer ";
+    public static final String LOGIN_USER_ClAIMS_KEY = "login_user_key";
+    public static final String LOGIN_USER_REDIS_KEY_PREFIX = "login_tokens:";
+    public static final String RESOURCE_PREFIX = "/profile";
 }

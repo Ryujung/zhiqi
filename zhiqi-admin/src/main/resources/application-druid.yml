@@ -1,3 +1,9 @@
+# 是否开启swagger的ui界面，访问地址 /swagger-ui/index.html
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true
+
 # 数据源配置
 spring:
   datasource:
