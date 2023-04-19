@@ -1,7 +1,7 @@
 package com.zhiqi.generator.domain;
 
-import com.ryujung.zhiqi.common.core.domain.BaseEntity;
-import com.ryujung.zhiqi.common.utils.StringUtils;
+import com.zhiqi.common.core.domain.BaseEntity;
+import com.zhiqi.common.utils.StringUtils;
 
 import javax.validation.constraints.NotBlank;
 

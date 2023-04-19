@@ -1,9 +1,9 @@
 package com.zhiqi.generator.domain;
 
 
-import com.ryujung.zhiqi.common.contant.GenConstants;
-import com.ryujung.zhiqi.common.core.domain.BaseEntity;
-import com.ryujung.zhiqi.common.utils.StringUtils;
+import com.zhiqi.common.contant.GenConstants;
+import com.zhiqi.common.core.domain.BaseEntity;
+import com.zhiqi.common.utils.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
 import javax.validation.Valid;

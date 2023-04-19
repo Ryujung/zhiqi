@@ -1,8 +1,8 @@
 package com.zhiqi.generator.util;
 
 
-import com.ryujung.zhiqi.common.contant.GenConstants;
-import com.ryujung.zhiqi.common.utils.StringUtils;
+import com.zhiqi.common.contant.GenConstants;
+import com.zhiqi.common.utils.StringUtils;
 import com.zhiqi.generator.config.GenConfig;
 import com.zhiqi.generator.domain.GenTable;
 import com.zhiqi.generator.domain.GenTableColumn;

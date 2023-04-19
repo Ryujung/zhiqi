@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiqi.system.mapper.SysNoticeMapper">
+
+    <resultMap id="BaseResultMap" type="com.zhiqi.system.domain.SysNotice">
+            <id property="noticeId" column="notice_id" jdbcType="INTEGER"/>
+            <result property="noticeTitle" column="notice_title" jdbcType="VARCHAR"/>
+            <result property="noticeType" column="notice_type" jdbcType="CHAR"/>
+            <result property="status" column="status" jdbcType="CHAR"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        notice_id,notice_title,notice_type,
+        status,create_by,create_time,
+        update_by,update_time,remark,
+        notice_content
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_notice
+        where  notice_id = #{noticeId,jdbcType=INTEGER} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from sys_notice
+        where  notice_id = #{noticeId,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.zhiqi.system.domain.SysNotice" useGeneratedKeys="true">
+        insert into sys_notice
+        ( notice_id,notice_title,notice_type
+        ,status,create_by,create_time
+        ,update_by,update_time,remark
+        ,notice_content)
+        values (#{noticeId,jdbcType=INTEGER},#{noticeTitle,jdbcType=VARCHAR},#{noticeType,jdbcType=CHAR}
+        ,#{status,jdbcType=CHAR},#{createBy,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP}
+        ,#{updateBy,jdbcType=VARCHAR},#{updateTime,jdbcType=TIMESTAMP},#{remark,jdbcType=VARCHAR}
+        ,#{noticeContent,jdbcType=BLOB}))
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zhiqi.system.domain.SysNotice" useGeneratedKeys="true">
+        insert into sys_notice
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="noticeId != null">noticeId,</if>
+                <if test="noticeTitle != null">noticeTitle,</if>
+                <if test="noticeType != null">noticeType,</if>
+                <if test="status != null">status,</if>
+                <if test="createBy != null">createBy,</if>
+                <if test="createTime != null">createTime,</if>
+                <if test="updateBy != null">updateBy,</if>
+                <if test="updateTime != null">updateTime,</if>
+                <if test="remark != null">remark,</if>
+                <if test="noticeContent != null">noticeContent,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="noticeId != null">notice_id = #{noticeId,jdbcType=INTEGER},</if>
+                <if test="noticeTitle != null">notice_title = #{noticeTitle,jdbcType=VARCHAR},</if>
+                <if test="noticeType != null">notice_type = #{noticeType,jdbcType=CHAR},</if>
+                <if test="status != null">status = #{status,jdbcType=CHAR},</if>
+                <if test="createBy != null">create_by = #{createBy,jdbcType=VARCHAR},</if>
+                <if test="createTime != null">create_time = #{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="updateBy != null">update_by = #{updateBy,jdbcType=VARCHAR},</if>
+                <if test="updateTime != null">update_time = #{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="remark != null">remark = #{remark,jdbcType=VARCHAR},</if>
+                <if test="noticeContent != null">notice_content = #{noticeContent,jdbcType=BLOB},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhiqi.system.domain.SysNotice">
+        update sys_notice
+        <set>
+                <if test="noticeTitle != null">
+                    notice_title = #{noticeTitle,jdbcType=VARCHAR},
+                </if>
+                <if test="noticeType != null">
+                    notice_type = #{noticeType,jdbcType=CHAR},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=CHAR},
+                </if>
+                <if test="createBy != null">
+                    create_by = #{createBy,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateBy != null">
+                    update_by = #{updateBy,jdbcType=VARCHAR},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark,jdbcType=VARCHAR},
+                </if>
+                <if test="noticeContent != null">
+                    notice_content = #{noticeContent,jdbcType=BLOB},
+                </if>
+        </set>
+        where   notice_id = #{noticeId,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zhiqi.system.domain.SysNotice">
+        update sys_notice
+        set 
+            notice_title =  #{noticeTitle,jdbcType=VARCHAR},
+            notice_type =  #{noticeType,jdbcType=CHAR},
+            status =  #{status,jdbcType=CHAR},
+            create_by =  #{createBy,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            update_by =  #{updateBy,jdbcType=VARCHAR},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            remark =  #{remark,jdbcType=VARCHAR},
+            notice_content =  #{noticeContent,jdbcType=BLOB}
+        where   notice_id = #{noticeId,jdbcType=INTEGER} 
+    </update>
+</mapper>

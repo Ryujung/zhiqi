@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiqi.system.mapper.SysRoleDeptMapper">
+
+    <resultMap id="BaseResultMap" type="com.zhiqi.system.domain.SysRoleDept">
+            <id property="roleId" column="role_id" jdbcType="BIGINT"/>
+            <id property="deptId" column="dept_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        role_id,dept_id
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_role_dept
+        where  role_id = #{roleId,jdbcType=BIGINT}  dept_id = #{deptId,jdbcType=BIGINT} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from sys_role_dept
+        where  role_id = #{roleId,jdbcType=BIGINT}  dept_id = #{deptId,jdbcType=BIGINT} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.zhiqi.system.domain.SysRoleDept" useGeneratedKeys="true">
+        insert into sys_role_dept
+        ( role_id,dept_id)
+        values (#{roleId,jdbcType=BIGINT},#{deptId,jdbcType=BIGINT}))
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zhiqi.system.domain.SysRoleDept" useGeneratedKeys="true">
+        insert into sys_role_dept
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="roleId != null">roleId,</if>
+                <if test="deptId != null">deptId,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="roleId != null">role_id = #{roleId,jdbcType=BIGINT},</if>
+                <if test="deptId != null">dept_id = #{deptId,jdbcType=BIGINT},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhiqi.system.domain.SysRoleDept">
+        update sys_role_dept
+        <set>
+        </set>
+        where   role_id = #{roleId,jdbcType=BIGINT}  dept_id = #{deptId,jdbcType=BIGINT} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zhiqi.system.domain.SysRoleDept">
+        update sys_role_dept
+        set 
+        where   role_id = #{roleId,jdbcType=BIGINT}  dept_id = #{deptId,jdbcType=BIGINT} 
+    </update>
+</mapper>

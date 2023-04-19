@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiqi.system.mapper.SysRoleMapper">
+
+    <resultMap id="BaseResultMap" type="com.zhiqi.system.domain.SysRole">
+            <id property="roleId" column="role_id" jdbcType="BIGINT"/>
+            <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+            <result property="roleKey" column="role_key" jdbcType="VARCHAR"/>
+            <result property="roleSort" column="role_sort" jdbcType="INTEGER"/>
+            <result property="dataScope" column="data_scope" jdbcType="CHAR"/>
+            <result property="menuCheckStrictly" column="menu_check_strictly" jdbcType="TINYINT"/>
+            <result property="deptCheckStrictly" column="dept_check_strictly" jdbcType="TINYINT"/>
+            <result property="status" column="status" jdbcType="CHAR"/>
+            <result property="delFlag" column="del_flag" jdbcType="CHAR"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        role_id,role_name,role_key,
+        role_sort,data_scope,menu_check_strictly,
+        dept_check_strictly,status,del_flag,
+        create_by,create_time,update_by,
+        update_time,remark
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_role
+        where  role_id = #{roleId,jdbcType=BIGINT} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from sys_role
+        where  role_id = #{roleId,jdbcType=BIGINT} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.zhiqi.system.domain.SysRole" useGeneratedKeys="true">
+        insert into sys_role
+        ( role_id,role_name,role_key
+        ,role_sort,data_scope,menu_check_strictly
+        ,dept_check_strictly,status,del_flag
+        ,create_by,create_time,update_by
+        ,update_time,remark)
+        values (#{roleId,jdbcType=BIGINT},#{roleName,jdbcType=VARCHAR},#{roleKey,jdbcType=VARCHAR}
+        ,#{roleSort,jdbcType=INTEGER},#{dataScope,jdbcType=CHAR},#{menuCheckStrictly,jdbcType=TINYINT}
+        ,#{deptCheckStrictly,jdbcType=TINYINT},#{status,jdbcType=CHAR},#{delFlag,jdbcType=CHAR}
+        ,#{createBy,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{updateBy,jdbcType=VARCHAR}
+        ,#{updateTime,jdbcType=TIMESTAMP},#{remark,jdbcType=VARCHAR}))
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zhiqi.system.domain.SysRole" useGeneratedKeys="true">
+        insert into sys_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="roleId != null">roleId,</if>
+                <if test="roleName != null">roleName,</if>
+                <if test="roleKey != null">roleKey,</if>
+                <if test="roleSort != null">roleSort,</if>
+                <if test="dataScope != null">dataScope,</if>
+                <if test="menuCheckStrictly != null">menuCheckStrictly,</if>
+                <if test="deptCheckStrictly != null">deptCheckStrictly,</if>
+                <if test="status != null">status,</if>
+                <if test="delFlag != null">delFlag,</if>
+                <if test="createBy != null">createBy,</if>
+                <if test="createTime != null">createTime,</if>
+                <if test="updateBy != null">updateBy,</if>
+                <if test="updateTime != null">updateTime,</if>
+                <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="roleId != null">role_id = #{roleId,jdbcType=BIGINT},</if>
+                <if test="roleName != null">role_name = #{roleName,jdbcType=VARCHAR},</if>
+                <if test="roleKey != null">role_key = #{roleKey,jdbcType=VARCHAR},</if>
+                <if test="roleSort != null">role_sort = #{roleSort,jdbcType=INTEGER},</if>
+                <if test="dataScope != null">data_scope = #{dataScope,jdbcType=CHAR},</if>
+                <if test="menuCheckStrictly != null">menu_check_strictly = #{menuCheckStrictly,jdbcType=TINYINT},</if>
+                <if test="deptCheckStrictly != null">dept_check_strictly = #{deptCheckStrictly,jdbcType=TINYINT},</if>
+                <if test="status != null">status = #{status,jdbcType=CHAR},</if>
+                <if test="delFlag != null">del_flag = #{delFlag,jdbcType=CHAR},</if>
+                <if test="createBy != null">create_by = #{createBy,jdbcType=VARCHAR},</if>
+                <if test="createTime != null">create_time = #{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="updateBy != null">update_by = #{updateBy,jdbcType=VARCHAR},</if>
+                <if test="updateTime != null">update_time = #{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="remark != null">remark = #{remark,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhiqi.system.domain.SysRole">
+        update sys_role
+        <set>
+                <if test="roleName != null">
+                    role_name = #{roleName,jdbcType=VARCHAR},
+                </if>
+                <if test="roleKey != null">
+                    role_key = #{roleKey,jdbcType=VARCHAR},
+                </if>
+                <if test="roleSort != null">
+                    role_sort = #{roleSort,jdbcType=INTEGER},
+                </if>
+                <if test="dataScope != null">
+                    data_scope = #{dataScope,jdbcType=CHAR},
+                </if>
+                <if test="menuCheckStrictly != null">
+                    menu_check_strictly = #{menuCheckStrictly,jdbcType=TINYINT},
+                </if>
+                <if test="deptCheckStrictly != null">
+                    dept_check_strictly = #{deptCheckStrictly,jdbcType=TINYINT},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=CHAR},
+                </if>
+                <if test="delFlag != null">
+                    del_flag = #{delFlag,jdbcType=CHAR},
+                </if>
+                <if test="createBy != null">
+                    create_by = #{createBy,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateBy != null">
+                    update_by = #{updateBy,jdbcType=VARCHAR},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   role_id = #{roleId,jdbcType=BIGINT} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zhiqi.system.domain.SysRole">
+        update sys_role
+        set 
+            role_name =  #{roleName,jdbcType=VARCHAR},
+            role_key =  #{roleKey,jdbcType=VARCHAR},
+            role_sort =  #{roleSort,jdbcType=INTEGER},
+            data_scope =  #{dataScope,jdbcType=CHAR},
+            menu_check_strictly =  #{menuCheckStrictly,jdbcType=TINYINT},
+            dept_check_strictly =  #{deptCheckStrictly,jdbcType=TINYINT},
+            status =  #{status,jdbcType=CHAR},
+            del_flag =  #{delFlag,jdbcType=CHAR},
+            create_by =  #{createBy,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            update_by =  #{updateBy,jdbcType=VARCHAR},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            remark =  #{remark,jdbcType=VARCHAR}
+        where   role_id = #{roleId,jdbcType=BIGINT} 
+    </update>
+</mapper>

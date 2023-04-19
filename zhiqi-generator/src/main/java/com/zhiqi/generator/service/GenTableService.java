@@ -20,13 +20,6 @@ public interface GenTableService {
     byte[] downloadCode(String tableName);
 
     /**
-     * 生成代码
-     *
-     * @param tableName 表名称
-     */
-    void generatorCode(String tableName, ZipOutputStream zipOutputStream);
-
-    /**
      * 查询据库列表
      *
      * @param genTable 业务信息

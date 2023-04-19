@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiqi.system.mapper.SysUserPostMapper">
+
+    <resultMap id="BaseResultMap" type="com.zhiqi.system.domain.SysUserPost">
+            <id property="userId" column="user_id" jdbcType="BIGINT"/>
+            <id property="postId" column="post_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_id,post_id
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_user_post
+        where  user_id = #{userId,jdbcType=BIGINT}  post_id = #{postId,jdbcType=BIGINT} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from sys_user_post
+        where  user_id = #{userId,jdbcType=BIGINT}  post_id = #{postId,jdbcType=BIGINT} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.zhiqi.system.domain.SysUserPost" useGeneratedKeys="true">
+        insert into sys_user_post
+        ( user_id,post_id)
+        values (#{userId,jdbcType=BIGINT},#{postId,jdbcType=BIGINT}))
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zhiqi.system.domain.SysUserPost" useGeneratedKeys="true">
+        insert into sys_user_post
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="userId != null">userId,</if>
+                <if test="postId != null">postId,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="userId != null">user_id = #{userId,jdbcType=BIGINT},</if>
+                <if test="postId != null">post_id = #{postId,jdbcType=BIGINT},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhiqi.system.domain.SysUserPost">
+        update sys_user_post
+        <set>
+        </set>
+        where   user_id = #{userId,jdbcType=BIGINT}  post_id = #{postId,jdbcType=BIGINT} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zhiqi.system.domain.SysUserPost">
+        update sys_user_post
+        set 
+        where   user_id = #{userId,jdbcType=BIGINT}  post_id = #{postId,jdbcType=BIGINT} 
+    </update>
+</mapper>

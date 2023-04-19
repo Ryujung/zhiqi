@@ -1,9 +1,9 @@
 package com.zhiqi.generator.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.ryujung.zhiqi.common.contant.GenConstants;
-import com.ryujung.zhiqi.common.utils.DateUtils;
-import com.ryujung.zhiqi.common.utils.StringUtils;
+import com.zhiqi.common.contant.GenConstants;
+import com.zhiqi.common.utils.DateUtils;
+import com.zhiqi.common.utils.StringUtils;
 import com.zhiqi.generator.domain.GenTable;
 import com.zhiqi.generator.domain.GenTableColumn;
 import org.apache.velocity.VelocityContext;
@@ -127,7 +127,7 @@ public class VelocityUtils
      */
     public static List<String> getTemplateList(String tplCategory)
     {
-        List<String> templates = new ArrayList<String>();
+        List<String> templates = new ArrayList<>();
         templates.add("vm/java/domain.java.vm");
         templates.add("vm/java/mapper.java.vm");
         templates.add("vm/java/service.java.vm");

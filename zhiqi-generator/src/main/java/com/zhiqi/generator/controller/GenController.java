@@ -1,7 +1,8 @@
 package com.zhiqi.generator.controller;
 
-import com.ryujung.zhiqi.common.core.controller.BaseController;
-import com.ryujung.zhiqi.common.core.domain.page.TableDataInfo;
+import com.zhiqi.common.core.controller.BaseController;
+import com.zhiqi.common.core.domain.page.TableDataInfo;
+import com.zhiqi.common.utils.ServletUtils;
 import com.zhiqi.generator.domain.GenTable;
 import com.zhiqi.generator.service.GenTableService;
 import org.apache.commons.io.IOUtils;
@@ -23,28 +24,30 @@ public class GenController extends BaseController {
     @Autowired
     private GenTableService genTableService;
 
-    @GetMapping("/gb/list")
+    /**
+     * 响应请求分页数据
+     */
+    @GetMapping("/db/list")
     public TableDataInfo tableDataList(GenTable genTable) {
         startPage();
         List<GenTable> tableList = genTableService.selectDbTableList(genTable);
-        return getTableData(tableList);
+        return getDataTable(tableList);
     }
 
-    private TableDataInfo getTableData(List<GenTable> tableList) {
-        // TODO controller getTableData
-        return null;
-    }
-
+    /**
+     * 生成代码（下载方式）
+     */
     @PostMapping("/download/{tableName}")
     public void download(HttpServletResponse response, @PathVariable("tableName") String tableName) throws IOException {
         byte[] data = genTableService.downloadCode(tableName);
-        genCode(response, data);
+        genCode(data);
     }
 
     /**
      * generate zip file
      */
-    private void genCode(HttpServletResponse response, byte[] data) throws IOException {
+    private void genCode( byte[] data) throws IOException {
+        HttpServletResponse response = ServletUtils.getResponse();
         response.reset();
         response.addHeader("Access-Control-Allow-Origin", "*");
         response.addHeader("Access-Control-Expose-Headers", "Content-Disposition");

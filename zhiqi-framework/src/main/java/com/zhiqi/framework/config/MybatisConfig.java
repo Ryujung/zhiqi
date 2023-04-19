@@ -1,6 +1,6 @@
 package com.zhiqi.framework.config;
 
-import com.ryujung.zhiqi.common.utils.StringUtils;
+import com.zhiqi.common.utils.StringUtils;
 import org.apache.ibatis.io.VFS;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;

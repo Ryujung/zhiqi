@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiqi.system.mapper.SysPostMapper">
+
+    <resultMap id="BaseResultMap" type="com.zhiqi.system.domain.SysPost">
+            <id property="postId" column="post_id" jdbcType="BIGINT"/>
+            <result property="postCode" column="post_code" jdbcType="VARCHAR"/>
+            <result property="postName" column="post_name" jdbcType="VARCHAR"/>
+            <result property="postSort" column="post_sort" jdbcType="INTEGER"/>
+            <result property="status" column="status" jdbcType="CHAR"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        post_id,post_code,post_name,
+        post_sort,status,create_by,
+        create_time,update_by,update_time,
+        remark
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_post
+        where  post_id = #{postId,jdbcType=BIGINT} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from sys_post
+        where  post_id = #{postId,jdbcType=BIGINT} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.zhiqi.system.domain.SysPost" useGeneratedKeys="true">
+        insert into sys_post
+        ( post_id,post_code,post_name
+        ,post_sort,status,create_by
+        ,create_time,update_by,update_time
+        ,remark)
+        values (#{postId,jdbcType=BIGINT},#{postCode,jdbcType=VARCHAR},#{postName,jdbcType=VARCHAR}
+        ,#{postSort,jdbcType=INTEGER},#{status,jdbcType=CHAR},#{createBy,jdbcType=VARCHAR}
+        ,#{createTime,jdbcType=TIMESTAMP},#{updateBy,jdbcType=VARCHAR},#{updateTime,jdbcType=TIMESTAMP}
+        ,#{remark,jdbcType=VARCHAR}))
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zhiqi.system.domain.SysPost" useGeneratedKeys="true">
+        insert into sys_post
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="postId != null">postId,</if>
+                <if test="postCode != null">postCode,</if>
+                <if test="postName != null">postName,</if>
+                <if test="postSort != null">postSort,</if>
+                <if test="status != null">status,</if>
+                <if test="createBy != null">createBy,</if>
+                <if test="createTime != null">createTime,</if>
+                <if test="updateBy != null">updateBy,</if>
+                <if test="updateTime != null">updateTime,</if>
+                <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="postId != null">post_id = #{postId,jdbcType=BIGINT},</if>
+                <if test="postCode != null">post_code = #{postCode,jdbcType=VARCHAR},</if>
+                <if test="postName != null">post_name = #{postName,jdbcType=VARCHAR},</if>
+                <if test="postSort != null">post_sort = #{postSort,jdbcType=INTEGER},</if>
+                <if test="status != null">status = #{status,jdbcType=CHAR},</if>
+                <if test="createBy != null">create_by = #{createBy,jdbcType=VARCHAR},</if>
+                <if test="createTime != null">create_time = #{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="updateBy != null">update_by = #{updateBy,jdbcType=VARCHAR},</if>
+                <if test="updateTime != null">update_time = #{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="remark != null">remark = #{remark,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhiqi.system.domain.SysPost">
+        update sys_post
+        <set>
+                <if test="postCode != null">
+                    post_code = #{postCode,jdbcType=VARCHAR},
+                </if>
+                <if test="postName != null">
+                    post_name = #{postName,jdbcType=VARCHAR},
+                </if>
+                <if test="postSort != null">
+                    post_sort = #{postSort,jdbcType=INTEGER},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=CHAR},
+                </if>
+                <if test="createBy != null">
+                    create_by = #{createBy,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateBy != null">
+                    update_by = #{updateBy,jdbcType=VARCHAR},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   post_id = #{postId,jdbcType=BIGINT} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zhiqi.system.domain.SysPost">
+        update sys_post
+        set 
+            post_code =  #{postCode,jdbcType=VARCHAR},
+            post_name =  #{postName,jdbcType=VARCHAR},
+            post_sort =  #{postSort,jdbcType=INTEGER},
+            status =  #{status,jdbcType=CHAR},
+            create_by =  #{createBy,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            update_by =  #{updateBy,jdbcType=VARCHAR},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            remark =  #{remark,jdbcType=VARCHAR}
+        where   post_id = #{postId,jdbcType=BIGINT} 
+    </update>
+</mapper>

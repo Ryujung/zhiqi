@@ -11,8 +11,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class ZhiQiApplication {
 
-    // FIXME not start, because of the datasource problem
-
     /**
      *
      */

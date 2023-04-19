@@ -1,4 +1,5 @@
 package com.zhiqi.generator.mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.zhiqi.generator.domain.GenTableColumn;
 
