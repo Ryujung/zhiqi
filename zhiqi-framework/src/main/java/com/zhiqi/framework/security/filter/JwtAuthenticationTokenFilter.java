@@ -1,4 +1,4 @@
-package com.zhiqi.framework.security;
+package com.zhiqi.framework.security.filter;
 
 import com.zhiqi.common.core.domain.model.LoginUser;
 import com.zhiqi.common.utils.SecurityUtils;
@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * 校验jwt token的过滤器
+ *
  * @author RyuJung
  * @since 2023/4/19-11:34
  */
@@ -35,10 +37,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
         if (StringUtils.isNotNull(loginUser) && StringUtils.isNotNull(SecurityUtils.getAuthentication())) {
             tokenService.verifyToken(loginUser);
-            UsernamePasswordAuthenticationToken unamePassAuthToken =
-                    new UsernamePasswordAuthenticationToken(loginUser,null,loginUser.getAuthorities());
-            unamePassAuthToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(unamePassAuthToken);
+            UsernamePasswordAuthenticationToken usernamePassAuthToken =
+                    new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
+            usernamePassAuthToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            SecurityContextHolder.getContext().setAuthentication(usernamePassAuthToken);
         }
 
         filterChain.doFilter(request, response);

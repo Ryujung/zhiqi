@@ -26,14 +26,17 @@ public class TokenService {
     private String headerTokenName;
 
     @Value("${jwt.secret}")
-    private String jwtSecret;
+    private String secret;
 
     @Value("${jwt.expiration}")
-    private int jwtExpirationMinute;
+    private int expirationInMinute;
 
     @Autowired
     private RedisService redisService;
 
+    /**
+     * 从请求中获取登录用户的信息
+     */
     public LoginUser getLoginUser(HttpServletRequest request) {
         String token = request.getHeader(headerTokenName);
 
@@ -45,18 +48,11 @@ public class TokenService {
         return null;
     }
 
-    private LoginUser parseJwtToken(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(jwtSecret)
-                .parseClaimsJws(token)
-                .getBody();
-        String uuid = (String) claims.get(Constants.LOGIN_USER_ClAIMS_KEY);
-        String loginUserRedisKey = Constants.LOGIN_USER_REDIS_KEY_PREFIX + uuid;
-        LoginUser loginUser = redisService.getCacheObject(loginUserRedisKey, LoginUser.class);
-
-        return loginUser;
-    }
-
+    /**
+     * 验证token是否需要刷新
+     *
+     * @param loginUser 登录用户
+     */
     public void verifyToken(LoginUser loginUser) {
         Long expireTime = loginUser.getExpireTime();
         if (expireTime - System.currentTimeMillis() <= MILLIS_MINUTE_TEN) {
@@ -64,12 +60,24 @@ public class TokenService {
         }
     }
 
+    private LoginUser parseJwtToken(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody();
+        String uuid = (String) claims.get(Constants.LOGIN_USER_CLAIMS_TOKEN_NAME);
+        String loginUserRedisKey = Constants.LOGIN_USER_REDIS_KEY_PREFIX + uuid;
+        LoginUser loginUser = redisService.getCacheObject(loginUserRedisKey, LoginUser.class);
+
+        return loginUser;
+    }
+
     private void refreshToken(LoginUser loginUser) {
         long loginTime = System.currentTimeMillis();
         loginUser.setLoginTime(loginTime);
-        loginUser.setExpireTime(loginTime + jwtExpirationMinute * MILLIS_TO_MINUTE);
+        loginUser.setExpireTime(loginTime + expirationInMinute * MILLIS_TO_MINUTE);
         String loginUserRedisKey = getLoginUserRedisKey(loginUser);
-        redisService.setCacheObject(loginUserRedisKey, loginUser, jwtExpirationMinute, TimeUnit.MINUTES);
+        redisService.setCacheObject(loginUserRedisKey, loginUser, expirationInMinute, TimeUnit.MINUTES);
     }
 
     private String getLoginUserRedisKey(LoginUser loginUser) {

@@ -1,6 +1,6 @@
 package com.zhiqi.framework.config;
 
-import com.zhiqi.framework.security.JwtAuthenticationTokenFilter;
+import com.zhiqi.framework.security.filter.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -29,11 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //    @Autowired
     AuthenticationEntryPoint unauthenrizedHandler; // TODO
 
-    //    @Autowired
+    @Autowired
     LogoutSuccessHandler logoutSuccessHandler; // TODO
 
     @Autowired
-    JwtAuthenticationTokenFilter authenticationTokenFilter; // TODO
+    JwtAuthenticationTokenFilter authenticationTokenFilter;
 
     @Autowired
     private CorsFilter corsFilter;

@@ -47,9 +47,9 @@ public class SwaggerConfig {
                 // 扫描所有 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()
-                /* FIXME 设置安全模式，swagger可以设置访问token  */
-//                .securityContexts(getSecurityContextList())
-//                .securitySchemes(getSecuritySchemaList())
+                /*  设置安全模式，swagger可以设置访问token  */
+                .securityContexts(getSecurityContextList())
+                .securitySchemes(getSecuritySchemaList())
                 .apiInfo(apiInfo())
                 // 用来创建该API的基本信息，展示在文档的页面中（自定义展示的信息）
                 .pathMapping(pathMapping);
