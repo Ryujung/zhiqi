@@ -52,6 +52,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/**/*.css",
             "/**/*.js",
             "/profile/**",
+
+            //FIXME 临时开放
+            "/tool/gen/**"
     };
 
     /**

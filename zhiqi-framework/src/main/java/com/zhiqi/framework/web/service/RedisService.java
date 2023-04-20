@@ -53,5 +53,13 @@ public class RedisService {
         redisTemplate.opsForValue().set(key, value, expireTime, timeUnit);
     }
 
+    /**
+     * 删除单个对象
+     *
+     * @param redisKey
+     */
+    public boolean deleteObject(String redisKey) {
+        return redisTemplate.delete(redisKey);
+    }
 
 }

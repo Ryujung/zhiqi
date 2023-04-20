@@ -84,4 +84,13 @@ public class TokenService {
         return Constants.LOGIN_USER_REDIS_KEY_PREFIX + loginUser.getToken();
     }
 
+    /**
+     * 服务器端 删除用户身份信息
+     */
+    public void deleteLoginUser(LoginUser loginUser) {
+        if (StringUtils.isNotNull(loginUser)) {
+            String redisKey = getLoginUserRedisKey(loginUser);
+            redisService.deleteObject(redisKey);
+        }
+    }
 }

@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class AsyncManager {
 
-    private final int DEFAULT_DELAY_TIME_MILLIS = 10;
+    private static final int DEFAULT_DELAY_TIME_MILLIS = 10;
 
     private ScheduledThreadPoolExecutor scheduledExecutor = SpringUtils.getBean(Constants.SCHEDULED_THREAD_POOL_BEAN_NAME);
 

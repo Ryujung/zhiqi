@@ -48,4 +48,33 @@ public class Constants {
      * 自定义的延迟任务线程池的名称，可以通过{@link SpringUtils#getBean(String)} 方法获取
      */
     public static final String SCHEDULED_THREAD_POOL_BEAN_NAME = "scheduledThreadPoolExecutor";
+
+    /**
+     * 通用成功标识
+     */
+    public static final String SUCCESS = "0";
+
+    /**
+     * 通用失败标识
+     */
+    public static final String FAIL = "1";
+    /**
+     * 登录成功
+     */
+    public static final String LOGIN_SUCCESS = "Success";
+
+    /**
+     * 注销
+     */
+    public static final String LOGOUT = "Logout";
+
+    /**
+     * 注册
+     */
+    public static final String REGISTER = "Register";
+
+    /**
+     * 登录失败
+     */
+    public static final String LOGIN_FAIL = "Error";
 }

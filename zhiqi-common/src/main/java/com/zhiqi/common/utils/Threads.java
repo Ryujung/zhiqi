@@ -19,6 +19,8 @@ public class Threads {
     private static final int DEFAULT_SHUTDOWN_AWAIT_TIME_MINUTE = 2;
 
     /**
+     * 打印线程异常信息
+     *
      * 这个方法中的异常处理主要是处理三种异常：
      * CancellationException、ExecutionException和InterruptedException
      * <br>
