@@ -35,7 +35,12 @@ public interface GenTableService {
      */
     List<GenTable> selectDbTableListByNames(String[] tableNameArr);
 
-    int importGenTable(List<GenTable> tableList);
+    /**
+     * 导入表结构
+     *
+     * @param tableList 导入表列表
+     */
+    void importGenTable(List<GenTable> tableList);
 
     /**
      * 使用Mybatis XML中的foreach标签组装insert语句，形如：
@@ -47,29 +52,29 @@ public interface GenTableService {
     int batchInsert(List<GenTable> tableList);
 
     /**
-     * 使用BatchExecutor批量执行器进行批量数据插入
-     * <br>
+     * 使用BatchExecutor批量执行器进行批量数据插入，当前设置的batch size 为5000
+     * <br><br>
+     * 参考：
      * [华为云数据库中间件DDM中对SQL使用的最佳实践](https://support.huaweicloud.com/bestpractice-ddm/ddm_01_0014.html)
-     *
+     * [MySQL官方文档](https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-performance-extensions.html#cj-conn-prop_rewriteBatchedStatements)
+     * <br>
      * MySQL的JDBC连接的url中要加rewriteBatchedStatements参数，
      * 并保证5.1.13以上版本的驱动，才能实现批量插入。
      * MySQL JDBC驱动在默认情况下会无视executeBatch()语句，
      * 把预计批量执行的一组sql语句拆散，一条一条地发给MySQL数据库，
      * 批量插入实际上是单条插入，直接造成较低的性能。
      * 只有把rewriteBatchedStatements参数置为true,
-     * 驱动才会批量执行SQL。另外这个选项对INSERT/UPDATE/DELETE操作都有效。
-     *
+     * 驱动才会批量执行SQL。另外这个选项对INSERT/UPDATE/DELETE 操作都有效。
+     * <br>
      * 注意：
      * 开启rewriteBatchedStatements后的批量INSERT/UPDATE/DELETE操作中，
      * 要注意设置合理的batch size，单次操作的数据量过大可能造成性能下降。
-     *
+     * <br>
      * 如无特殊需求，建议batch size不超过1000。
-     *
-     * 当前设置的batch size 为5000
-     *
+     * <br>
      * @param tableList 数据库表对象集合
      * @return 插入数据记录数
      */
-    public int batchInsertByBatchExecutor(List<GenTable> tableList);
+    int batchInsertByBatchExecutor(List<GenTable> tableList);
 
 }

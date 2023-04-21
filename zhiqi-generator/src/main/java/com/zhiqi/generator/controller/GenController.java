@@ -5,12 +5,14 @@ import com.zhiqi.common.core.domain.CommonResult;
 import com.zhiqi.common.core.domain.page.TableDataInfo;
 import com.zhiqi.common.core.text.Converter;
 import com.zhiqi.common.utils.ServletUtils;
+import com.zhiqi.common.utils.StringUtils;
 import com.zhiqi.generator.domain.GenTable;
 import com.zhiqi.generator.service.GenTableService;
 import org.apache.commons.io.IOUtils;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,7 +47,7 @@ public class GenController extends BaseController {
      * 生成代码（下载方式）
      */
     @PostMapping("/download/{tableName}")
-    public void download(HttpServletResponse response, @PathVariable("tableName") String tableName) throws IOException {
+    public void download(@PathVariable("tableName") String tableName) throws IOException {
         byte[] data = genTableService.downloadCode(tableName);
         genCode(data);
     }

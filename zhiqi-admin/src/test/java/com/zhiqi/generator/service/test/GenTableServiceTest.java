@@ -3,6 +3,7 @@ package com.zhiqi.generator.service.test;
 import com.zhiqi.BaseTest;
 import com.zhiqi.generator.domain.GenTable;
 import com.zhiqi.generator.service.GenTableService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * @author RyuJung
@@ -24,14 +26,15 @@ public class GenTableServiceTest extends BaseTest {
     GenTableService genTableService;
 
     private List<GenTable> tableList;
+    private static final int TEST_DATA_COUNT = 10_000;
 
-    public GenTableServiceTest(){
+    public GenTableServiceTest() {
         initData();
     }
 
     void initData() {
         tableList = new ArrayList<>();
-        for (int i = 1; i <= 10000; i++) {
+        for (int i = 1; i <= TEST_DATA_COUNT; i++) {
             GenTable genTable = new GenTable();
             genTable.setTableName("testTableName_" + i);
             genTable.setTableComment("testableComment1");
@@ -53,10 +56,9 @@ public class GenTableServiceTest extends BaseTest {
 
     @Test
     void testBatchInsert() {
-        long startTime = System.currentTimeMillis();
-        int insertNum = genTableService.batchInsert(tableList);
-        long endTime = System.currentTimeMillis();
-        log.info("foreach标签方式批量数据插入测试耗时：" + (endTime - startTime) + " 毫秒，成功插入数据：" + insertNum + " 条");
+        long executeTimeMillis = batchInsertAndLogTimeMillis(genTableService::batchInsert, tableList);
+        log.info("foreach拼接方式批量插入{}条数据，总耗时：{} 毫秒", TEST_DATA_COUNT, executeTimeMillis);
+        //foreach拼接方式批量插入10000条数据，总耗时：1605 毫秒
     }
 
     /**
@@ -66,11 +68,26 @@ public class GenTableServiceTest extends BaseTest {
      */
     @Test
     void testBatchInsertByBatchExecutor() {
-        long startTime = System.currentTimeMillis();
-        int insertNum = genTableService.batchInsertByBatchExecutor(tableList);
-        long endTime = System.currentTimeMillis();
-        log.info("Batch执行器方式批量数据插入测试耗时：" + (endTime - startTime) + " 毫秒，成功插入数据：" + insertNum + " 条");
+        long executeTimeMillis = batchInsertAndLogTimeMillis(genTableService::batchInsertByBatchExecutor, tableList);
+        log.info("Batch执行器批量插入{}条数据，总耗时：{} 毫秒", TEST_DATA_COUNT, executeTimeMillis);
+        //Batch执行器批量插入10000条数据，总耗时：772 毫秒
     }
 
+    /**
+     * 执行批量插入并返回记录方法的执行时间，单位：毫秒
+     *
+     * @param function 执行批量插入的方法，该方法应该接收List参数，返回插入数量（int）类型
+     * @param dataList 要插入的数据列表
+     * @param <T>      数据类型，例如需要向gen_table表中批量插入GenTable类型的数据
+     * @return 批量插入方法总执行时间
+     */
+    private <T> long batchInsertAndLogTimeMillis(Function<List<T>, Integer> function, List<T> dataList) {
+        long startTime = System.currentTimeMillis();
+        Integer resultNum = function.apply(dataList);
+        // 判断是否成功完成批量插入
+        Assertions.assertEquals(TEST_DATA_COUNT, resultNum);
+        long endTime = System.currentTimeMillis();
+        return (endTime - startTime);
+    }
 
 }
