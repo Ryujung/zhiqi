@@ -63,6 +63,25 @@
         update_time,remark
     </sql>
 
+
+    <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="tableId">
+        insert into gen_table(table_name,table_comment,
+        sub_table_name,sub_table_fk_name,class_name,
+        tpl_category,package_name,module_name,
+        business_name,function_name,function_author,
+        gen_type,gen_path,options,
+        create_by,create_time)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.tableName,jdbcType=VARCHAR},#{item.tableComment,jdbcType=VARCHAR},
+            #{item.subTableName,jdbcType=VARCHAR},#{item.subTableFkName,jdbcType=VARCHAR},#{item.className,jdbcType=VARCHAR},
+            #{item.tplCategory,jdbcType=VARCHAR},#{item.packageName,jdbcType=VARCHAR},#{item.moduleName,jdbcType=VARCHAR},
+            #{item.businessName,jdbcType=VARCHAR},#{item.functionName,jdbcType=VARCHAR},#{item.functionAuthor,jdbcType=VARCHAR},
+            #{item.genType,jdbcType=VARCHAR},#{item.genPath,jdbcType=VARCHAR},#{item.options,jdbcType=VARCHAR},
+            #{item.createBy,jdbcType=VARCHAR},sysdate())
+        </foreach>
+    </insert>
+
     <insert id="insertGenTable" parameterType="GenTable" useGeneratedKeys="true" keyProperty="tableId">
         insert into gen_table
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -222,5 +241,6 @@
                 </trim>
             )
     </select>
+
 
 </mapper>

@@ -1,4 +1,5 @@
 package com.zhiqi.generator.mapper;
+import java.util.Collection;
 
 import com.zhiqi.generator.domain.GenTable;
 
@@ -8,6 +9,8 @@ import java.util.List;
  * @Entity com.zhiqi.generator.mybatisx.domain.GenTable
  */
 public interface GenTableMapper {
+
+    int insertBatch(Collection<GenTable> tableList);
 
     /**
      * 新增业务

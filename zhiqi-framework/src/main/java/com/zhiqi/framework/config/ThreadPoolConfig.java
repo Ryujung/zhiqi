@@ -62,7 +62,7 @@ public class ThreadPoolConfig {
             @Override
             protected void afterExecute(Runnable r, Throwable t) {
                 super.afterExecute(r, t);
-                Threads.printException(r, t); // TODO
+                Threads.printException(r, t);
             }
         };
 

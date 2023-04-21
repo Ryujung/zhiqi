@@ -54,7 +54,7 @@ public class PageDomain {
     private String orderByColumn;
 
     private String isAsc = "asc";
-    private boolean reasonable = true;
+    private Boolean reasonable = true;
 
     public String getOrderBy() {
         if (StringUtils.isNotEmpty(orderByColumn)) {
@@ -104,11 +104,11 @@ public class PageDomain {
         return isAsc;
     }
 
-    public boolean getReasonable() {
+    public Boolean getReasonable() {
         return reasonable;
     }
 
-    public void setReasonable(boolean reasonable) {
+    public void setReasonable(Boolean reasonable) {
         this.reasonable = reasonable;
     }
 }

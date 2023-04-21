@@ -137,9 +137,10 @@ public class GenTableMapperTest {
         genTableList = genTableMapper.selectDbTableListByNames(names);
         Assertions.assertTrue(genTableList.isEmpty());
 
-        names = new String[]{"sys_job","sys_user"};
+        names = new String[]{"sys_job", "sys_user"};
         genTableList = genTableMapper.selectDbTableListByNames(names);
         Assertions.assertFalse(genTableList.isEmpty());
+        Assertions.assertEquals(2, genTableList.size());
     }
 
 }

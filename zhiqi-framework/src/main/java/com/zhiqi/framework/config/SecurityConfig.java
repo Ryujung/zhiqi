@@ -1,6 +1,8 @@
 package com.zhiqi.framework.config;
 
 import com.zhiqi.framework.security.filter.JwtAuthenticationTokenFilter;
+import com.zhiqi.framework.security.handler.AuthenticationEntryPointImpl;
+import com.zhiqi.framework.security.handler.LogoutSuccessHandlerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -11,8 +13,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.web.filter.CorsFilter;
 
 /**
@@ -26,11 +26,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${swagger.pathMapping}")
     private String pathMapping;
 
-    //    @Autowired
-    AuthenticationEntryPoint unauthenrizedHandler; // TODO
+    @Autowired
+    AuthenticationEntryPointImpl unauthorizedHandler;
 
     @Autowired
-    LogoutSuccessHandler logoutSuccessHandler; // TODO
+    LogoutSuccessHandlerImpl logoutSuccessHandler;
 
     @Autowired
     JwtAuthenticationTokenFilter authenticationTokenFilter;
@@ -40,8 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     @Override
-    public AuthenticationManager authenticationManager() throws Exception {
-        return super.authenticationManager();
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
     private static final String[] STATIC_RESOURCES = {
@@ -51,10 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/**/*.html",
             "/**/*.css",
             "/**/*.js",
-            "/profile/**",
-
-            //FIXME 临时开放
-            "/tool/gen/**"
+            "/profile/**"
     };
 
     /**
@@ -66,7 +63,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * swagger resources path, anonymous
      */
     private static final String[] SWAGGER_RESOURCES = {
-            "/swagger-ui.html", "/swagger-resources/**", "/swagger-ui/**", "/*/api-docs", "/webjars/**"};
+            "/swagger-ui.html", "/swagger-resources/**", "/swagger-ui/**", "/*/api-docs", "/webjars/**",
+
+            //FIXME 临时开放生成代码
+            "/tool/gen/**"};
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -85,10 +85,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
 
         // config exception handler
-//                .exceptionHandling().authenticationEntryPoint(unauthenrizedHandler).and() // FIXME
+        httpSecurity.exceptionHandling().authenticationEntryPoint(unauthorizedHandler);
 
         // config logout handler
-//        httpSecurity.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler); // FIXME
+        httpSecurity.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
 
         // add authentication filter and cors filter
 //        httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class); // FIXME

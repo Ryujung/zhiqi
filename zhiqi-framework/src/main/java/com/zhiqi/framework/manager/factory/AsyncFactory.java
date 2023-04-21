@@ -5,14 +5,12 @@ import com.zhiqi.common.utils.ip.AddressUtils;
 import com.zhiqi.common.utils.ip.IpUtils;
 import com.zhiqi.common.utils.ServletUtils;
 import com.zhiqi.common.utils.StringUtils;
-import com.zhiqi.common.utils.spring.SpringUtils;
 import com.zhiqi.system.domain.SysLogininfor;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.TimerTask;
-import java.util.TreeSet;
 
 /**
  * @author RyuJung
@@ -57,7 +55,6 @@ public class AsyncFactory {
                 }
                 // 插入数据 FIXME
 //                SpringUtils.getBean(ISysLogininforService.class).insertLogininfor(logininfor);
-
             }
         };
         return null;
