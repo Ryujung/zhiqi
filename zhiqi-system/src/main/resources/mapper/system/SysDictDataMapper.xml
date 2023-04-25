@@ -1,154 +1,111 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiqi.system.mapper.SysDictDataMapper">
-
-    <resultMap id="BaseResultMap" type="com.zhiqi.system.domain.SysDictData">
-            <id property="dictCode" column="dict_code" jdbcType="BIGINT"/>
-            <result property="dictSort" column="dict_sort" jdbcType="INTEGER"/>
-            <result property="dictLabel" column="dict_label" jdbcType="VARCHAR"/>
-            <result property="dictValue" column="dict_value" jdbcType="VARCHAR"/>
-            <result property="dictType" column="dict_type" jdbcType="VARCHAR"/>
-            <result property="cssClass" column="css_class" jdbcType="VARCHAR"/>
-            <result property="listClass" column="list_class" jdbcType="VARCHAR"/>
-            <result property="isDefault" column="is_default" jdbcType="CHAR"/>
-            <result property="status" column="status" jdbcType="CHAR"/>
-            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
-            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    
+    <resultMap type="SysDictData" id="SysDictDataResult">
+        <result property="dictCode"    column="dict_code"    />
+        <result property="dictSort"    column="dict_sort"    />
+        <result property="dictLabel"    column="dict_label"    />
+        <result property="dictValue"    column="dict_value"    />
+        <result property="dictType"    column="dict_type"    />
+        <result property="cssClass"    column="css_class"    />
+        <result property="listClass"    column="list_class"    />
+        <result property="isDefault"    column="is_default"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
     </resultMap>
 
-    <sql id="Base_Column_List">
-        dict_code,dict_sort,dict_label,
-        dict_value,dict_type,css_class,
-        list_class,is_default,status,
-        create_by,create_time,update_by,
-        update_time,remark
+    <sql id="selectSysDictDataVo">
+        select dict_code, dict_sort, dict_label, dict_value, dict_type, css_class, list_class, is_default, status, create_by, create_time, update_by, update_time, remark from sys_dict_data
     </sql>
 
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from sys_dict_data
-        where  dict_code = #{dictCode,jdbcType=BIGINT} 
+    <select id="selectSysDictDataList" parameterType="SysDictData" resultMap="SysDictDataResult">
+        <include refid="selectSysDictDataVo"/>
+        <where>  
+            <if test="dictSort != null "> and dict_sort = #{dictSort}</if>
+            <if test="dictLabel != null  and dictLabel != ''"> and dict_label = #{dictLabel}</if>
+            <if test="dictValue != null  and dictValue != ''"> and dict_value = #{dictValue}</if>
+            <if test="dictType != null  and dictType != ''"> and dict_type = #{dictType}</if>
+            <if test="cssClass != null  and cssClass != ''"> and css_class = #{cssClass}</if>
+            <if test="listClass != null  and listClass != ''"> and list_class = #{listClass}</if>
+            <if test="isDefault != null  and isDefault != ''"> and is_default = #{isDefault}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
     </select>
-
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete from sys_dict_data
-        where  dict_code = #{dictCode,jdbcType=BIGINT} 
-    </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.zhiqi.system.domain.SysDictData" useGeneratedKeys="true">
-        insert into sys_dict_data
-        ( dict_code,dict_sort,dict_label
-        ,dict_value,dict_type,css_class
-        ,list_class,is_default,status
-        ,create_by,create_time,update_by
-        ,update_time,remark)
-        values (#{dictCode,jdbcType=BIGINT},#{dictSort,jdbcType=INTEGER},#{dictLabel,jdbcType=VARCHAR}
-        ,#{dictValue,jdbcType=VARCHAR},#{dictType,jdbcType=VARCHAR},#{cssClass,jdbcType=VARCHAR}
-        ,#{listClass,jdbcType=VARCHAR},#{isDefault,jdbcType=CHAR},#{status,jdbcType=CHAR}
-        ,#{createBy,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{updateBy,jdbcType=VARCHAR}
-        ,#{updateTime,jdbcType=TIMESTAMP},#{remark,jdbcType=VARCHAR}))
-    </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zhiqi.system.domain.SysDictData" useGeneratedKeys="true">
+    
+    <select id="selectSysDictDataByDictCode" parameterType="Long" resultMap="SysDictDataResult">
+        <include refid="selectSysDictDataVo"/>
+        where dict_code = #{dictCode}
+    </select>
+        
+    <insert id="insertSysDictData" parameterType="SysDictData" useGeneratedKeys="true" keyProperty="dictCode">
         insert into sys_dict_data
         <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="dictCode != null">dictCode,</if>
-                <if test="dictSort != null">dictSort,</if>
-                <if test="dictLabel != null">dictLabel,</if>
-                <if test="dictValue != null">dictValue,</if>
-                <if test="dictType != null">dictType,</if>
-                <if test="cssClass != null">cssClass,</if>
-                <if test="listClass != null">listClass,</if>
-                <if test="isDefault != null">isDefault,</if>
-                <if test="status != null">status,</if>
-                <if test="createBy != null">createBy,</if>
-                <if test="createTime != null">createTime,</if>
-                <if test="updateBy != null">updateBy,</if>
-                <if test="updateTime != null">updateTime,</if>
-                <if test="remark != null">remark,</if>
-        </trim>
+            <if test="dictSort != null">dict_sort,</if>
+            <if test="dictLabel != null">dict_label,</if>
+            <if test="dictValue != null">dict_value,</if>
+            <if test="dictType != null">dict_type,</if>
+            <if test="cssClass != null">css_class,</if>
+            <if test="listClass != null">list_class,</if>
+            <if test="isDefault != null">is_default,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-                <if test="dictCode != null">dict_code = #{dictCode,jdbcType=BIGINT},</if>
-                <if test="dictSort != null">dict_sort = #{dictSort,jdbcType=INTEGER},</if>
-                <if test="dictLabel != null">dict_label = #{dictLabel,jdbcType=VARCHAR},</if>
-                <if test="dictValue != null">dict_value = #{dictValue,jdbcType=VARCHAR},</if>
-                <if test="dictType != null">dict_type = #{dictType,jdbcType=VARCHAR},</if>
-                <if test="cssClass != null">css_class = #{cssClass,jdbcType=VARCHAR},</if>
-                <if test="listClass != null">list_class = #{listClass,jdbcType=VARCHAR},</if>
-                <if test="isDefault != null">is_default = #{isDefault,jdbcType=CHAR},</if>
-                <if test="status != null">status = #{status,jdbcType=CHAR},</if>
-                <if test="createBy != null">create_by = #{createBy,jdbcType=VARCHAR},</if>
-                <if test="createTime != null">create_time = #{createTime,jdbcType=TIMESTAMP},</if>
-                <if test="updateBy != null">update_by = #{updateBy,jdbcType=VARCHAR},</if>
-                <if test="updateTime != null">update_time = #{updateTime,jdbcType=TIMESTAMP},</if>
-                <if test="remark != null">remark = #{remark,jdbcType=VARCHAR},</if>
-        </trim>
+            <if test="dictSort != null">#{dictSort},</if>
+            <if test="dictLabel != null">#{dictLabel},</if>
+            <if test="dictValue != null">#{dictValue},</if>
+            <if test="dictType != null">#{dictType},</if>
+            <if test="cssClass != null">#{cssClass},</if>
+            <if test="listClass != null">#{listClass},</if>
+            <if test="isDefault != null">#{isDefault},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.zhiqi.system.domain.SysDictData">
+
+    <update id="updateSysDictData" parameterType="SysDictData">
         update sys_dict_data
-        <set>
-                <if test="dictSort != null">
-                    dict_sort = #{dictSort,jdbcType=INTEGER},
-                </if>
-                <if test="dictLabel != null">
-                    dict_label = #{dictLabel,jdbcType=VARCHAR},
-                </if>
-                <if test="dictValue != null">
-                    dict_value = #{dictValue,jdbcType=VARCHAR},
-                </if>
-                <if test="dictType != null">
-                    dict_type = #{dictType,jdbcType=VARCHAR},
-                </if>
-                <if test="cssClass != null">
-                    css_class = #{cssClass,jdbcType=VARCHAR},
-                </if>
-                <if test="listClass != null">
-                    list_class = #{listClass,jdbcType=VARCHAR},
-                </if>
-                <if test="isDefault != null">
-                    is_default = #{isDefault,jdbcType=CHAR},
-                </if>
-                <if test="status != null">
-                    status = #{status,jdbcType=CHAR},
-                </if>
-                <if test="createBy != null">
-                    create_by = #{createBy,jdbcType=VARCHAR},
-                </if>
-                <if test="createTime != null">
-                    create_time = #{createTime,jdbcType=TIMESTAMP},
-                </if>
-                <if test="updateBy != null">
-                    update_by = #{updateBy,jdbcType=VARCHAR},
-                </if>
-                <if test="updateTime != null">
-                    update_time = #{updateTime,jdbcType=TIMESTAMP},
-                </if>
-                <if test="remark != null">
-                    remark = #{remark,jdbcType=VARCHAR},
-                </if>
-        </set>
-        where   dict_code = #{dictCode,jdbcType=BIGINT} 
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="dictSort != null">dict_sort = #{dictSort},</if>
+            <if test="dictLabel != null">dict_label = #{dictLabel},</if>
+            <if test="dictValue != null">dict_value = #{dictValue},</if>
+            <if test="dictType != null">dict_type = #{dictType},</if>
+            <if test="cssClass != null">css_class = #{cssClass},</if>
+            <if test="listClass != null">list_class = #{listClass},</if>
+            <if test="isDefault != null">is_default = #{isDefault},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where dict_code = #{dictCode}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.zhiqi.system.domain.SysDictData">
-        update sys_dict_data
-        set 
-            dict_sort =  #{dictSort,jdbcType=INTEGER},
-            dict_label =  #{dictLabel,jdbcType=VARCHAR},
-            dict_value =  #{dictValue,jdbcType=VARCHAR},
-            dict_type =  #{dictType,jdbcType=VARCHAR},
-            css_class =  #{cssClass,jdbcType=VARCHAR},
-            list_class =  #{listClass,jdbcType=VARCHAR},
-            is_default =  #{isDefault,jdbcType=CHAR},
-            status =  #{status,jdbcType=CHAR},
-            create_by =  #{createBy,jdbcType=VARCHAR},
-            create_time =  #{createTime,jdbcType=TIMESTAMP},
-            update_by =  #{updateBy,jdbcType=VARCHAR},
-            update_time =  #{updateTime,jdbcType=TIMESTAMP},
-            remark =  #{remark,jdbcType=VARCHAR}
-        where   dict_code = #{dictCode,jdbcType=BIGINT} 
-    </update>
+
+    <delete id="deleteSysDictDataByDictCode" parameterType="Long">
+        delete from sys_dict_data where dict_code = #{dictCode}
+    </delete>
+
+    <delete id="deleteSysDictDataByDictCodes" parameterType="String">
+        delete from sys_dict_data where dict_code in 
+        <foreach item="dictCode" collection="array" open="(" separator="," close=")">
+            #{dictCode}
+        </foreach>
+    </delete>
 </mapper>

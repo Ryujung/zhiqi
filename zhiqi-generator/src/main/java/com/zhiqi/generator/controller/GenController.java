@@ -2,24 +2,17 @@ package com.zhiqi.generator.controller;
 
 import com.zhiqi.common.core.controller.BaseController;
 import com.zhiqi.common.core.domain.CommonResult;
-import com.zhiqi.common.core.domain.page.TableDataInfo;
+import com.zhiqi.common.core.page.TableDataInfo;
 import com.zhiqi.common.core.text.Converter;
 import com.zhiqi.common.utils.ServletUtils;
-import com.zhiqi.common.utils.StringUtils;
 import com.zhiqi.generator.domain.GenTable;
 import com.zhiqi.generator.service.GenTableService;
 import org.apache.commons.io.IOUtils;
-import org.apache.ibatis.session.ExecutorType;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,6 +51,13 @@ public class GenController extends BaseController {
         List<GenTable> tableList = genTableService.selectDbTableListByNames(tableNameArr);
         genTableService.importGenTable(tableList);
         return CommonResult.success();
+    }
+
+    @GetMapping("/batchGenCode")
+    public void batchGenCode(String tables) throws IOException {
+        String[] tableNames = Converter.toStrArray(",", tables);
+        byte[] data = genTableService.downloadCode(tableNames);
+        genCode(data);
     }
 
     /**

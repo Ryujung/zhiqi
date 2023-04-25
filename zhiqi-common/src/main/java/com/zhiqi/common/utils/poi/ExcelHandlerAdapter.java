@@ -4,7 +4,7 @@ package com.zhiqi.common.utils.poi;
  * @author RyuJung
  * @since 2023/4/15-10:59
  */
-public interface ExcelHandler {
+public interface ExcelHandlerAdapter {
     /**
      * 格式化
      *

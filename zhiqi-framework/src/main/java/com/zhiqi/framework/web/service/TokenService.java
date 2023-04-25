@@ -2,14 +2,21 @@ package com.zhiqi.framework.web.service;
 
 import com.zhiqi.common.contant.Constants;
 import com.zhiqi.common.core.domain.model.LoginUser;
+import com.zhiqi.common.utils.ServletUtils;
 import com.zhiqi.common.utils.StringUtils;
+import com.zhiqi.common.utils.ip.AddressUtils;
+import com.zhiqi.common.utils.ip.IpUtils;
+import com.zhiqi.common.utils.uuid.IdUtils;
+import eu.bitwalker.useragentutils.UserAgent;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -32,7 +39,7 @@ public class TokenService {
     private int expirationInMinute;
 
     @Autowired
-    private RedisService redisService;
+    private RedisCache redisService;
 
     /**
      * 从请求中获取登录用户的信息
@@ -93,4 +100,42 @@ public class TokenService {
             redisService.deleteObject(redisKey);
         }
     }
+
+    /**
+     * 创建令牌
+     *
+     * @param loginUser 用户信息
+     * @return 令牌
+     */
+    public String createToken(LoginUser loginUser) {
+        String uuid = IdUtils.fastUUID();
+        loginUser.setToken(uuid);
+        setUserAgent(loginUser);
+        refreshToken(loginUser);
+
+        HashMap<String, Object> claims = new HashMap<>();
+        claims.put(Constants.LOGIN_USER_KEY, uuid);
+        return createToken(claims);
+    }
+
+    private String createToken(HashMap<String, Object> claims) {
+        String token = Jwts.builder().setClaims(claims)
+                .signWith(SignatureAlgorithm.HS512, secret).compact();
+        return token;
+    }
+
+    /**
+     * 设置用户代理信息
+     *
+     * @param loginUser 登录信息
+     */
+    private void setUserAgent(LoginUser loginUser) {
+        UserAgent userAgent = UserAgent.parseUserAgentString(ServletUtils.getRequest().getHeader("User-Agent"));
+        String ip = IpUtils.getIpAddr(ServletUtils.getRequest());
+        loginUser.setIpaddr(ip);
+        loginUser.setLoginLocation(AddressUtils.getRealAddressByIP(ip));
+        loginUser.setBrowser(userAgent.getBrowser().getName());
+        loginUser.setOs(userAgent.getOperatingSystem().getName());
+    }
+
 }

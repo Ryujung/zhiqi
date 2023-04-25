@@ -37,9 +37,9 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
     {
         LoginUser loginUser = tokenService.getLoginUser(request);
         if (StringUtils.isNotNull(loginUser)) {
-            String username = loginUser.getUsername();
-            tokenService.deleteLoginUser(loginUser);
-            AsyncManager.me().execute(AsyncFactory.recordLoginInfo(username, Constants.LOGOUT, "退出成功"));
+//            String username = loginUser.getUsername();
+//            tokenService.deleteLoginUser(loginUser);
+//            AsyncManager.me().execute(AsyncFactory.recordLoginInfo(username, Constants.LOGOUT, "退出成功"));
         }
         ServletUtils.renderString(response, JSON.toJSONString(CommonResult.success("退出成功")));
     }

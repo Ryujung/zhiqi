@@ -1,202 +1,98 @@
 package com.zhiqi.system.domain;
 
-import java.io.Serializable;
-import java.util.Date;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import com.zhiqi.common.annotation.Excel;
+import com.zhiqi.common.core.domain.BaseEntity;
 
 /**
- * 岗位信息表
- * @TableName sys_post
+ * 岗位信息对象 sys_post
+ * 
+ * @author ryujung
+ * @date 2023-04-25
  */
-public class SysPost implements Serializable {
-    /**
-     * 岗位ID
-     */
-    private Long postId;
-
-    /**
-     * 岗位编码
-     */
-    private String postCode;
-
-    /**
-     * 岗位名称
-     */
-    private String postName;
-
-    /**
-     * 显示顺序
-     */
-    private Integer postSort;
-
-    /**
-     * 状态（0正常 1停用）
-     */
-    private String status;
-
-    /**
-     * 创建者
-     */
-    private String createBy;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 更新者
-     */
-    private String updateBy;
-
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
-
-    /**
-     * 备注
-     */
-    private String remark;
-
+public class SysPost extends BaseEntity
+{
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 岗位ID
-     */
-    public Long getPostId() {
-        return postId;
-    }
+    /** 岗位ID */
+    private Long postId;
 
-    /**
-     * 岗位ID
-     */
-    public void setPostId(Long postId) {
+    /** 岗位编码 */
+    @Excel(name = "岗位编码")
+    private String postCode;
+
+    /** 岗位名称 */
+    @Excel(name = "岗位名称")
+    private String postName;
+
+    /** 显示顺序 */
+    @Excel(name = "显示顺序")
+    private Integer postSort;
+
+    /** 状态（0正常 1停用） */
+    @Excel(name = "状态", readConverterExp = "0=正常,1=停用")
+    private String status;
+
+    public void setPostId(Long postId) 
+    {
         this.postId = postId;
     }
 
-    /**
-     * 岗位编码
-     */
-    public String getPostCode() {
-        return postCode;
+    public Long getPostId() 
+    {
+        return postId;
     }
-
-    /**
-     * 岗位编码
-     */
-    public void setPostCode(String postCode) {
+    public void setPostCode(String postCode) 
+    {
         this.postCode = postCode;
     }
 
-    /**
-     * 岗位名称
-     */
-    public String getPostName() {
-        return postName;
+    public String getPostCode() 
+    {
+        return postCode;
     }
-
-    /**
-     * 岗位名称
-     */
-    public void setPostName(String postName) {
+    public void setPostName(String postName) 
+    {
         this.postName = postName;
     }
 
-    /**
-     * 显示顺序
-     */
-    public Integer getPostSort() {
-        return postSort;
+    public String getPostName() 
+    {
+        return postName;
     }
-
-    /**
-     * 显示顺序
-     */
-    public void setPostSort(Integer postSort) {
+    public void setPostSort(Integer postSort) 
+    {
         this.postSort = postSort;
     }
 
-    /**
-     * 状态（0正常 1停用）
-     */
-    public String getStatus() {
-        return status;
+    public Integer getPostSort() 
+    {
+        return postSort;
     }
-
-    /**
-     * 状态（0正常 1停用）
-     */
-    public void setStatus(String status) {
+    public void setStatus(String status) 
+    {
         this.status = status;
     }
 
-    /**
-     * 创建者
-     */
-    public String getCreateBy() {
-        return createBy;
+    public String getStatus() 
+    {
+        return status;
     }
 
-    /**
-     * 创建者
-     */
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    /**
-     * 创建时间
-     */
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    /**
-     * 创建时间
-     */
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    /**
-     * 更新者
-     */
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    /**
-     * 更新者
-     */
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    /**
-     * 更新时间
-     */
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    /**
-     * 更新时间
-     */
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    /**
-     * 备注
-     */
-    public String getRemark() {
-        return remark;
-    }
-
-    /**
-     * 备注
-     */
-    public void setRemark(String remark) {
-        this.remark = remark;
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+            .append("postId", getPostId())
+            .append("postCode", getPostCode())
+            .append("postName", getPostName())
+            .append("postSort", getPostSort())
+            .append("status", getStatus())
+            .append("createBy", getCreateBy())
+            .append("createTime", getCreateTime())
+            .append("updateBy", getUpdateBy())
+            .append("updateTime", getUpdateTime())
+            .append("remark", getRemark())
+            .toString();
     }
 }

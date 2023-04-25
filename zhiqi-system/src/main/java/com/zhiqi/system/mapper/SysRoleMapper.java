@@ -1,26 +1,69 @@
 package com.zhiqi.system.mapper;
 
-import com.zhiqi.common.core.domain.entity.SysRole;
+import java.util.List;
+import com.zhiqi.system.domain.SysRole;
 
 /**
- * @Entity com.zhiqi.system.domain.SysRole
+ * 角色信息Mapper接口
+ * 
+ * @author ryujung
+ * @date 2023-04-25
  */
-public interface SysRoleMapper {
+public interface SysRoleMapper 
+{
+    /**
+     * 查询角色信息
+     * 
+     * @param roleId 角色信息主键
+     * @return 角色信息
+     */
+    public SysRole selectSysRoleByRoleId(Long roleId);
 
-    int deleteByPrimaryKey(Long id);
+    /**
+     * 查询角色信息列表
+     * 
+     * @param sysRole 角色信息
+     * @return 角色信息集合
+     */
+    public List<SysRole> selectSysRoleList(SysRole sysRole);
 
-    int insert(SysRole record);
+    /**
+     * 新增角色信息
+     * 
+     * @param sysRole 角色信息
+     * @return 结果
+     */
+    public int insertSysRole(SysRole sysRole);
 
-    int insertSelective(SysRole record);
+    /**
+     * 修改角色信息
+     * 
+     * @param sysRole 角色信息
+     * @return 结果
+     */
+    public int updateSysRole(SysRole sysRole);
 
-    SysRole selectByPrimaryKey(Long id);
+    /**
+     * 删除角色信息
+     * 
+     * @param roleId 角色信息主键
+     * @return 结果
+     */
+    public int deleteSysRoleByRoleId(Long roleId);
 
-    int updateByPrimaryKeySelective(SysRole record);
+    /**
+     * 批量删除角色信息
+     * 
+     * @param roleIds 需要删除的数据主键集合
+     * @return 结果
+     */
+    public int deleteSysRoleByRoleIds(Long[] roleIds);
 
-    int updateByPrimaryKey(SysRole record);
-
+    /**
+     * 根据用户ID查询角色
+     *
+     * @param userId 用户ID
+     * @return 角色列表
+     */
+    List<SysRole> selectRolePermissionByUserId(Long userId);
 }
-
-
-
-

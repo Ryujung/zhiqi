@@ -1,4 +1,4 @@
-package com.zhiqi.common.core.domain.page;
+package com.zhiqi.common.core.page;
 
 import com.zhiqi.common.utils.ServletUtils;
 import com.zhiqi.common.utils.StringUtils;

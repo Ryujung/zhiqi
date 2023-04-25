@@ -1,26 +1,61 @@
 package com.zhiqi.system.mapper;
 
+import java.util.List;
 import com.zhiqi.system.domain.SysRoleMenu;
 
 /**
- * @Entity com.zhiqi.system.domain.SysRoleMenu
+ * 角色和菜单关联Mapper接口
+ * 
+ * @author ryujung
+ * @date 2023-04-25
  */
-public interface SysRoleMenuMapper {
+public interface SysRoleMenuMapper 
+{
+    /**
+     * 查询角色和菜单关联
+     * 
+     * @param roleId 角色和菜单关联主键
+     * @return 角色和菜单关联
+     */
+    public SysRoleMenu selectSysRoleMenuByRoleId(Long roleId);
 
-    int deleteByPrimaryKey(Long id);
+    /**
+     * 查询角色和菜单关联列表
+     * 
+     * @param sysRoleMenu 角色和菜单关联
+     * @return 角色和菜单关联集合
+     */
+    public List<SysRoleMenu> selectSysRoleMenuList(SysRoleMenu sysRoleMenu);
 
-    int insert(SysRoleMenu record);
+    /**
+     * 新增角色和菜单关联
+     * 
+     * @param sysRoleMenu 角色和菜单关联
+     * @return 结果
+     */
+    public int insertSysRoleMenu(SysRoleMenu sysRoleMenu);
 
-    int insertSelective(SysRoleMenu record);
+    /**
+     * 修改角色和菜单关联
+     * 
+     * @param sysRoleMenu 角色和菜单关联
+     * @return 结果
+     */
+    public int updateSysRoleMenu(SysRoleMenu sysRoleMenu);
 
-    SysRoleMenu selectByPrimaryKey(Long id);
+    /**
+     * 删除角色和菜单关联
+     * 
+     * @param roleId 角色和菜单关联主键
+     * @return 结果
+     */
+    public int deleteSysRoleMenuByRoleId(Long roleId);
 
-    int updateByPrimaryKeySelective(SysRoleMenu record);
-
-    int updateByPrimaryKey(SysRoleMenu record);
-
+    /**
+     * 批量删除角色和菜单关联
+     * 
+     * @param roleIds 需要删除的数据主键集合
+     * @return 结果
+     */
+    public int deleteSysRoleMenuByRoleIds(Long[] roleIds);
 }
-
-
-
-

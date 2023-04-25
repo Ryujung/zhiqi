@@ -72,9 +72,17 @@ public interface GenTableService {
      * <br>
      * 如无特殊需求，建议batch size不超过1000。
      * <br>
+     *
      * @param tableList 数据库表对象集合
      * @return 插入数据记录数
      */
     int batchInsertByBatchExecutor(List<GenTable> tableList);
 
+    /**
+     * 批量方式生成代码
+     *
+     * @param tableNames 表名称数组
+     * @return 数据的字节数组
+     */
+    byte[] downloadCode(String[] tableNames);
 }

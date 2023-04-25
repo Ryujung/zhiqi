@@ -1,7 +1,10 @@
 package com.zhiqi.common.utils;
 
+import com.zhiqi.common.core.domain.entity.SysDictData;
 import com.zhiqi.common.core.text.StrFormatter;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -62,6 +65,28 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      */
     public static boolean isNotEmpty(Map<?, ?> map) {
         return !isEmpty(map);
+    }
+
+    /**
+     * * 判断一个Collection是否为空， 包含List，Set，Queue
+     *
+     * @param coll 要判断的Collection
+     * @return true：为空 false：非空
+     */
+    public static boolean isEmpty(Collection<?> coll)
+    {
+        return isNull(coll) || coll.isEmpty();
+    }
+
+    /**
+     * * 判断一个Collection是否非空，包含List，Set，Queue
+     *
+     * @param coll 要判断的Collection
+     * @return true：非空 false：空
+     */
+    public static boolean isNotEmpty(Collection<?> coll)
+    {
+        return !isEmpty(coll);
     }
 
     /**
@@ -160,4 +185,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return result.toString();
     }
 
+    @SuppressWarnings("unchecked")
+    public static <T> T cast(Object obj)
+    {
+        return (T) obj;
+    }
 }

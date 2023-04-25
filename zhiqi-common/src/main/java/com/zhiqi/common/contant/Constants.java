@@ -77,4 +77,24 @@ public class Constants {
      * 登录失败
      */
     public static final String LOGIN_FAIL = "Error";
+
+    /**
+     * 返回前端的令牌字段名
+     */
+    public static final String TOKEN = "token";
+
+    /**
+     * 系统配置参数的管理
+     */
+    public static final String SYS_CONFIG_KEY_PREFIX = "sys_config:";
+
+    /**
+     * 验证码 redis key
+     */
+    public static final String CAPTCHA_CODE_KEY = "captcha_codes:";
+
+    /**
+     * 令牌前缀
+     */
+    public static final String LOGIN_USER_KEY = "login_user_key";
 }

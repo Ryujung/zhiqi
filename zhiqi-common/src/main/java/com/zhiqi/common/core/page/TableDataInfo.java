@@ -1,4 +1,4 @@
-package com.zhiqi.common.core.domain.page;
+package com.zhiqi.common.core.page;
 
 import java.io.Serializable;
 import java.util.List;

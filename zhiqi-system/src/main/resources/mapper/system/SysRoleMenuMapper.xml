@@ -1,54 +1,57 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiqi.system.mapper.SysRoleMenuMapper">
-
-    <resultMap id="BaseResultMap" type="com.zhiqi.system.domain.SysRoleMenu">
-            <id property="roleId" column="role_id" jdbcType="BIGINT"/>
-            <id property="menuId" column="menu_id" jdbcType="BIGINT"/>
+    
+    <resultMap type="SysRoleMenu" id="SysRoleMenuResult">
+        <result property="roleId"    column="role_id"    />
+        <result property="menuId"    column="menu_id"    />
     </resultMap>
 
-    <sql id="Base_Column_List">
-        role_id,menu_id
+    <sql id="selectSysRoleMenuVo">
+        select role_id, menu_id from sys_role_menu
     </sql>
 
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from sys_role_menu
-        where  role_id = #{roleId,jdbcType=BIGINT}  menu_id = #{menuId,jdbcType=BIGINT} 
+    <select id="selectSysRoleMenuList" parameterType="SysRoleMenu" resultMap="SysRoleMenuResult">
+        <include refid="selectSysRoleMenuVo"/>
+        <where>  
+        </where>
     </select>
-
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete from sys_role_menu
-        where  role_id = #{roleId,jdbcType=BIGINT}  menu_id = #{menuId,jdbcType=BIGINT} 
-    </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.zhiqi.system.domain.SysRoleMenu" useGeneratedKeys="true">
-        insert into sys_role_menu
-        ( role_id,menu_id)
-        values (#{roleId,jdbcType=BIGINT},#{menuId,jdbcType=BIGINT}))
-    </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zhiqi.system.domain.SysRoleMenu" useGeneratedKeys="true">
+    
+    <select id="selectSysRoleMenuByRoleId" parameterType="Long" resultMap="SysRoleMenuResult">
+        <include refid="selectSysRoleMenuVo"/>
+        where role_id = #{roleId}
+    </select>
+        
+    <insert id="insertSysRoleMenu" parameterType="SysRoleMenu">
         insert into sys_role_menu
         <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="roleId != null">roleId,</if>
-                <if test="menuId != null">menuId,</if>
-        </trim>
+            <if test="roleId != null">role_id,</if>
+            <if test="menuId != null">menu_id,</if>
+         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-                <if test="roleId != null">role_id = #{roleId,jdbcType=BIGINT},</if>
-                <if test="menuId != null">menu_id = #{menuId,jdbcType=BIGINT},</if>
-        </trim>
+            <if test="roleId != null">#{roleId},</if>
+            <if test="menuId != null">#{menuId},</if>
+         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.zhiqi.system.domain.SysRoleMenu">
+
+    <update id="updateSysRoleMenu" parameterType="SysRoleMenu">
         update sys_role_menu
-        <set>
-        </set>
-        where   role_id = #{roleId,jdbcType=BIGINT}  menu_id = #{menuId,jdbcType=BIGINT} 
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="menuId != null">menu_id = #{menuId},</if>
+        </trim>
+        where role_id = #{roleId}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.zhiqi.system.domain.SysRoleMenu">
-        update sys_role_menu
-        set 
-        where   role_id = #{roleId,jdbcType=BIGINT}  menu_id = #{menuId,jdbcType=BIGINT} 
-    </update>
+
+    <delete id="deleteSysRoleMenuByRoleId" parameterType="Long">
+        delete from sys_role_menu where role_id = #{roleId}
+    </delete>
+
+    <delete id="deleteSysRoleMenuByRoleIds" parameterType="String">
+        delete from sys_role_menu where role_id in 
+        <foreach item="roleId" collection="array" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+    </delete>
 </mapper>

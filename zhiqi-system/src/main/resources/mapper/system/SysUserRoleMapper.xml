@@ -1,54 +1,57 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiqi.system.mapper.SysUserRoleMapper">
-
-    <resultMap id="BaseResultMap" type="com.zhiqi.system.domain.SysUserRole">
-            <id property="userId" column="user_id" jdbcType="BIGINT"/>
-            <id property="roleId" column="role_id" jdbcType="BIGINT"/>
+    
+    <resultMap type="SysUserRole" id="SysUserRoleResult">
+        <result property="userId"    column="user_id"    />
+        <result property="roleId"    column="role_id"    />
     </resultMap>
 
-    <sql id="Base_Column_List">
-        user_id,role_id
+    <sql id="selectSysUserRoleVo">
+        select user_id, role_id from sys_user_role
     </sql>
 
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from sys_user_role
-        where  user_id = #{userId,jdbcType=BIGINT}  role_id = #{roleId,jdbcType=BIGINT} 
+    <select id="selectSysUserRoleList" parameterType="SysUserRole" resultMap="SysUserRoleResult">
+        <include refid="selectSysUserRoleVo"/>
+        <where>  
+        </where>
     </select>
-
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete from sys_user_role
-        where  user_id = #{userId,jdbcType=BIGINT}  role_id = #{roleId,jdbcType=BIGINT} 
-    </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.zhiqi.system.domain.SysUserRole" useGeneratedKeys="true">
-        insert into sys_user_role
-        ( user_id,role_id)
-        values (#{userId,jdbcType=BIGINT},#{roleId,jdbcType=BIGINT}))
-    </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zhiqi.system.domain.SysUserRole" useGeneratedKeys="true">
+    
+    <select id="selectSysUserRoleByUserId" parameterType="Long" resultMap="SysUserRoleResult">
+        <include refid="selectSysUserRoleVo"/>
+        where user_id = #{userId}
+    </select>
+        
+    <insert id="insertSysUserRole" parameterType="SysUserRole">
         insert into sys_user_role
         <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="userId != null">userId,</if>
-                <if test="roleId != null">roleId,</if>
-        </trim>
+            <if test="userId != null">user_id,</if>
+            <if test="roleId != null">role_id,</if>
+         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-                <if test="userId != null">user_id = #{userId,jdbcType=BIGINT},</if>
-                <if test="roleId != null">role_id = #{roleId,jdbcType=BIGINT},</if>
-        </trim>
+            <if test="userId != null">#{userId},</if>
+            <if test="roleId != null">#{roleId},</if>
+         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.zhiqi.system.domain.SysUserRole">
+
+    <update id="updateSysUserRole" parameterType="SysUserRole">
         update sys_user_role
-        <set>
-        </set>
-        where   user_id = #{userId,jdbcType=BIGINT}  role_id = #{roleId,jdbcType=BIGINT} 
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="roleId != null">role_id = #{roleId},</if>
+        </trim>
+        where user_id = #{userId}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.zhiqi.system.domain.SysUserRole">
-        update sys_user_role
-        set 
-        where   user_id = #{userId,jdbcType=BIGINT}  role_id = #{roleId,jdbcType=BIGINT} 
-    </update>
+
+    <delete id="deleteSysUserRoleByUserId" parameterType="Long">
+        delete from sys_user_role where user_id = #{userId}
+    </delete>
+
+    <delete id="deleteSysUserRoleByUserIds" parameterType="String">
+        delete from sys_user_role where user_id in 
+        <foreach item="userId" collection="array" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </delete>
 </mapper>

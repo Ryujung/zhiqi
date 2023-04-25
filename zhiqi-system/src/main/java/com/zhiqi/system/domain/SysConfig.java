@@ -1,202 +1,98 @@
 package com.zhiqi.system.domain;
 
-import java.io.Serializable;
-import java.util.Date;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import com.zhiqi.common.annotation.Excel;
+import com.zhiqi.common.core.domain.BaseEntity;
 
 /**
- * 参数配置表
- * @TableName sys_config
+ * 参数配置对象 sys_config
+ * 
+ * @author ryujung
+ * @date 2023-04-25
  */
-public class SysConfig implements Serializable {
-    /**
-     * 参数主键
-     */
-    private Integer configId;
-
-    /**
-     * 参数名称
-     */
-    private String configName;
-
-    /**
-     * 参数键名
-     */
-    private String configKey;
-
-    /**
-     * 参数键值
-     */
-    private String configValue;
-
-    /**
-     * 系统内置（Y是 N否）
-     */
-    private String configType;
-
-    /**
-     * 创建者
-     */
-    private String createBy;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 更新者
-     */
-    private String updateBy;
-
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
-
-    /**
-     * 备注
-     */
-    private String remark;
-
+public class SysConfig extends BaseEntity
+{
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 参数主键
-     */
-    public Integer getConfigId() {
-        return configId;
-    }
+    /** 参数主键 */
+    private Integer configId;
 
-    /**
-     * 参数主键
-     */
-    public void setConfigId(Integer configId) {
+    /** 参数名称 */
+    @Excel(name = "参数名称")
+    private String configName;
+
+    /** 参数键名 */
+    @Excel(name = "参数键名")
+    private String configKey;
+
+    /** 参数键值 */
+    @Excel(name = "参数键值")
+    private String configValue;
+
+    /** 系统内置（Y是 N否） */
+    @Excel(name = "系统内置", readConverterExp = "Y=是,N=否")
+    private String configType;
+
+    public void setConfigId(Integer configId) 
+    {
         this.configId = configId;
     }
 
-    /**
-     * 参数名称
-     */
-    public String getConfigName() {
-        return configName;
+    public Integer getConfigId() 
+    {
+        return configId;
     }
-
-    /**
-     * 参数名称
-     */
-    public void setConfigName(String configName) {
+    public void setConfigName(String configName) 
+    {
         this.configName = configName;
     }
 
-    /**
-     * 参数键名
-     */
-    public String getConfigKey() {
-        return configKey;
+    public String getConfigName() 
+    {
+        return configName;
     }
-
-    /**
-     * 参数键名
-     */
-    public void setConfigKey(String configKey) {
+    public void setConfigKey(String configKey) 
+    {
         this.configKey = configKey;
     }
 
-    /**
-     * 参数键值
-     */
-    public String getConfigValue() {
-        return configValue;
+    public String getConfigKey() 
+    {
+        return configKey;
     }
-
-    /**
-     * 参数键值
-     */
-    public void setConfigValue(String configValue) {
+    public void setConfigValue(String configValue) 
+    {
         this.configValue = configValue;
     }
 
-    /**
-     * 系统内置（Y是 N否）
-     */
-    public String getConfigType() {
-        return configType;
+    public String getConfigValue() 
+    {
+        return configValue;
     }
-
-    /**
-     * 系统内置（Y是 N否）
-     */
-    public void setConfigType(String configType) {
+    public void setConfigType(String configType) 
+    {
         this.configType = configType;
     }
 
-    /**
-     * 创建者
-     */
-    public String getCreateBy() {
-        return createBy;
+    public String getConfigType() 
+    {
+        return configType;
     }
 
-    /**
-     * 创建者
-     */
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    /**
-     * 创建时间
-     */
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    /**
-     * 创建时间
-     */
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    /**
-     * 更新者
-     */
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    /**
-     * 更新者
-     */
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    /**
-     * 更新时间
-     */
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    /**
-     * 更新时间
-     */
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    /**
-     * 备注
-     */
-    public String getRemark() {
-        return remark;
-    }
-
-    /**
-     * 备注
-     */
-    public void setRemark(String remark) {
-        this.remark = remark;
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+            .append("configId", getConfigId())
+            .append("configName", getConfigName())
+            .append("configKey", getConfigKey())
+            .append("configValue", getConfigValue())
+            .append("configType", getConfigType())
+            .append("createBy", getCreateBy())
+            .append("createTime", getCreateTime())
+            .append("updateBy", getUpdateBy())
+            .append("updateTime", getUpdateTime())
+            .append("remark", getRemark())
+            .toString();
     }
 }

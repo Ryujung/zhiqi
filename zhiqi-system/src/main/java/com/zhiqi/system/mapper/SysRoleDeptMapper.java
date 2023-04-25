@@ -1,26 +1,61 @@
 package com.zhiqi.system.mapper;
 
+import java.util.List;
 import com.zhiqi.system.domain.SysRoleDept;
 
 /**
- * @Entity com.zhiqi.system.domain.SysRoleDept
+ * 角色和部门关联Mapper接口
+ * 
+ * @author ryujung
+ * @date 2023-04-25
  */
-public interface SysRoleDeptMapper {
+public interface SysRoleDeptMapper 
+{
+    /**
+     * 查询角色和部门关联
+     * 
+     * @param roleId 角色和部门关联主键
+     * @return 角色和部门关联
+     */
+    public SysRoleDept selectSysRoleDeptByRoleId(Long roleId);
 
-    int deleteByPrimaryKey(Long id);
+    /**
+     * 查询角色和部门关联列表
+     * 
+     * @param sysRoleDept 角色和部门关联
+     * @return 角色和部门关联集合
+     */
+    public List<SysRoleDept> selectSysRoleDeptList(SysRoleDept sysRoleDept);
 
-    int insert(SysRoleDept record);
+    /**
+     * 新增角色和部门关联
+     * 
+     * @param sysRoleDept 角色和部门关联
+     * @return 结果
+     */
+    public int insertSysRoleDept(SysRoleDept sysRoleDept);
 
-    int insertSelective(SysRoleDept record);
+    /**
+     * 修改角色和部门关联
+     * 
+     * @param sysRoleDept 角色和部门关联
+     * @return 结果
+     */
+    public int updateSysRoleDept(SysRoleDept sysRoleDept);
 
-    SysRoleDept selectByPrimaryKey(Long id);
+    /**
+     * 删除角色和部门关联
+     * 
+     * @param roleId 角色和部门关联主键
+     * @return 结果
+     */
+    public int deleteSysRoleDeptByRoleId(Long roleId);
 
-    int updateByPrimaryKeySelective(SysRoleDept record);
-
-    int updateByPrimaryKey(SysRoleDept record);
-
+    /**
+     * 批量删除角色和部门关联
+     * 
+     * @param roleIds 需要删除的数据主键集合
+     * @return 结果
+     */
+    public int deleteSysRoleDeptByRoleIds(Long[] roleIds);
 }
-
-
-
-

@@ -1,6 +1,6 @@
 package com.zhiqi.common.annotation;
 
-import com.zhiqi.common.utils.poi.ExcelHandler;
+import com.zhiqi.common.utils.poi.ExcelHandlerAdapter;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -77,14 +77,14 @@ public @interface Excel {
 
     Align align() default Align.AUTO;
 
-    Class<?> handle() default ExcelHandler.class;
+    Class<?> handler() default ExcelHandlerAdapter.class;
 
     String[] args() default {};
 
     Type type() default Type.ALL;
 
     enum ColumnType {
-        NUMERIC(0), STRING(1), IAMGE(2);
+        NUMERIC(0), STRING(1), IMAGE(2);
         private final int value;
 
         ColumnType(int value) {

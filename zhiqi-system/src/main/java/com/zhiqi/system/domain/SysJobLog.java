@@ -1,164 +1,122 @@
 package com.zhiqi.system.domain;
 
-import java.io.Serializable;
-import java.util.Date;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import com.zhiqi.common.annotation.Excel;
+import com.zhiqi.common.core.domain.BaseEntity;
 
 /**
- * 定时任务调度日志表
- * @TableName sys_job_log
+ * 定时任务调度日志对象 sys_job_log
+ * 
+ * @author ryujung
+ * @date 2023-04-25
  */
-public class SysJobLog implements Serializable {
-    /**
-     * 任务日志ID
-     */
-    private Long jobLogId;
-
-    /**
-     * 任务名称
-     */
-    private String jobName;
-
-    /**
-     * 任务组名
-     */
-    private String jobGroup;
-
-    /**
-     * 调用目标字符串
-     */
-    private String invokeTarget;
-
-    /**
-     * 日志信息
-     */
-    private String jobMessage;
-
-    /**
-     * 执行状态（0正常 1失败）
-     */
-    private String status;
-
-    /**
-     * 异常信息
-     */
-    private String exceptionInfo;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
+public class SysJobLog extends BaseEntity
+{
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 任务日志ID
-     */
-    public Long getJobLogId() {
-        return jobLogId;
-    }
+    /** 任务日志ID */
+    private Long jobLogId;
 
-    /**
-     * 任务日志ID
-     */
-    public void setJobLogId(Long jobLogId) {
+    /** 任务名称 */
+    @Excel(name = "任务名称")
+    private String jobName;
+
+    /** 任务组名 */
+    @Excel(name = "任务组名")
+    private String jobGroup;
+
+    /** 调用目标字符串 */
+    @Excel(name = "调用目标字符串")
+    private String invokeTarget;
+
+    /** 日志信息 */
+    @Excel(name = "日志信息")
+    private String jobMessage;
+
+    /** 执行状态（0正常 1失败） */
+    @Excel(name = "执行状态", readConverterExp = "0=正常,1=失败")
+    private String status;
+
+    /** 异常信息 */
+    @Excel(name = "异常信息")
+    private String exceptionInfo;
+
+    public void setJobLogId(Long jobLogId) 
+    {
         this.jobLogId = jobLogId;
     }
 
-    /**
-     * 任务名称
-     */
-    public String getJobName() {
-        return jobName;
+    public Long getJobLogId() 
+    {
+        return jobLogId;
     }
-
-    /**
-     * 任务名称
-     */
-    public void setJobName(String jobName) {
+    public void setJobName(String jobName) 
+    {
         this.jobName = jobName;
     }
 
-    /**
-     * 任务组名
-     */
-    public String getJobGroup() {
-        return jobGroup;
+    public String getJobName() 
+    {
+        return jobName;
     }
-
-    /**
-     * 任务组名
-     */
-    public void setJobGroup(String jobGroup) {
+    public void setJobGroup(String jobGroup) 
+    {
         this.jobGroup = jobGroup;
     }
 
-    /**
-     * 调用目标字符串
-     */
-    public String getInvokeTarget() {
-        return invokeTarget;
+    public String getJobGroup() 
+    {
+        return jobGroup;
     }
-
-    /**
-     * 调用目标字符串
-     */
-    public void setInvokeTarget(String invokeTarget) {
+    public void setInvokeTarget(String invokeTarget) 
+    {
         this.invokeTarget = invokeTarget;
     }
 
-    /**
-     * 日志信息
-     */
-    public String getJobMessage() {
-        return jobMessage;
+    public String getInvokeTarget() 
+    {
+        return invokeTarget;
     }
-
-    /**
-     * 日志信息
-     */
-    public void setJobMessage(String jobMessage) {
+    public void setJobMessage(String jobMessage) 
+    {
         this.jobMessage = jobMessage;
     }
 
-    /**
-     * 执行状态（0正常 1失败）
-     */
-    public String getStatus() {
-        return status;
+    public String getJobMessage() 
+    {
+        return jobMessage;
     }
-
-    /**
-     * 执行状态（0正常 1失败）
-     */
-    public void setStatus(String status) {
+    public void setStatus(String status) 
+    {
         this.status = status;
     }
 
-    /**
-     * 异常信息
-     */
-    public String getExceptionInfo() {
-        return exceptionInfo;
+    public String getStatus() 
+    {
+        return status;
     }
-
-    /**
-     * 异常信息
-     */
-    public void setExceptionInfo(String exceptionInfo) {
+    public void setExceptionInfo(String exceptionInfo) 
+    {
         this.exceptionInfo = exceptionInfo;
     }
 
-    /**
-     * 创建时间
-     */
-    public Date getCreateTime() {
-        return createTime;
+    public String getExceptionInfo() 
+    {
+        return exceptionInfo;
     }
 
-    /**
-     * 创建时间
-     */
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+            .append("jobLogId", getJobLogId())
+            .append("jobName", getJobName())
+            .append("jobGroup", getJobGroup())
+            .append("invokeTarget", getInvokeTarget())
+            .append("jobMessage", getJobMessage())
+            .append("status", getStatus())
+            .append("exceptionInfo", getExceptionInfo())
+            .append("createTime", getCreateTime())
+            .toString();
     }
 }

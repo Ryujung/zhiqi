@@ -72,6 +72,13 @@ public class GenTableServiceImpl implements GenTableService {
      */
     private void generatorCode(String tableName, ZipOutputStream zipOutputStream) {
         GenTable table = genTableMapper.selectGenTableByName(tableName);
+
+        // set sub table's pk column if exists a pk ,or set the first column as pk
+        String subTableName = table.getSubTableName();
+        if (StringUtils.isNotEmpty(subTableName)) {
+            table.setSubTable(genTableMapper.selectGenTableByName(subTableName));
+        }
+
         // set table's pk column if exists pk ,or set the first column as pk
         for (GenTableColumn column : table.getColumns()) {
             if (column.isPk()) {
@@ -81,12 +88,6 @@ public class GenTableServiceImpl implements GenTableService {
         }
         if (StringUtils.isNull(table.getPkColumn())) {
             table.setPkColumn(table.getColumns().get(0));
-        }
-
-        // set sub table's pk column if exists a pk ,or set the first column as pk
-        String subTableName = table.getSubTableName();
-        if (StringUtils.isNotEmpty(subTableName)) {
-            table.setSubTable(genTableMapper.selectGenTableByName(subTableName));
         }
         if (GenConstants.TPL_SUB.equals(table.getTplCategory())) {
             for (GenTableColumn column : table.getSubTable().getColumns()) {
@@ -180,6 +181,18 @@ public class GenTableServiceImpl implements GenTableService {
             sqlSession.close();
         }
 
+    }
+
+    @Override
+    public byte[] downloadCode(String[] tableNames) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ZipOutputStream zip = new ZipOutputStream(outputStream);
+        for (String tableName : tableNames) {
+            generatorCode(tableName, zip);
+        }
+        IOUtils.closeQuietly(zip);
+
+        return outputStream.toByteArray();
     }
 
 }

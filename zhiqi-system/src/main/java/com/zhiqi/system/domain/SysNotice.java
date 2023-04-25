@@ -1,202 +1,98 @@
 package com.zhiqi.system.domain;
 
-import java.io.Serializable;
-import java.util.Date;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import com.zhiqi.common.annotation.Excel;
+import com.zhiqi.common.core.domain.BaseEntity;
 
 /**
- * 通知公告表
- * @TableName sys_notice
+ * 通知公告对象 sys_notice
+ * 
+ * @author ryujung
+ * @date 2023-04-25
  */
-public class SysNotice implements Serializable {
-    /**
-     * 公告ID
-     */
-    private Integer noticeId;
-
-    /**
-     * 公告标题
-     */
-    private String noticeTitle;
-
-    /**
-     * 公告类型（1通知 2公告）
-     */
-    private String noticeType;
-
-    /**
-     * 公告状态（0正常 1关闭）
-     */
-    private String status;
-
-    /**
-     * 创建者
-     */
-    private String createBy;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 更新者
-     */
-    private String updateBy;
-
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
-
-    /**
-     * 备注
-     */
-    private String remark;
-
-    /**
-     * 公告内容
-     */
-    private byte[] noticeContent;
-
+public class SysNotice extends BaseEntity
+{
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 公告ID
-     */
-    public Integer getNoticeId() {
-        return noticeId;
-    }
+    /** 公告ID */
+    private Integer noticeId;
 
-    /**
-     * 公告ID
-     */
-    public void setNoticeId(Integer noticeId) {
+    /** 公告标题 */
+    @Excel(name = "公告标题")
+    private String noticeTitle;
+
+    /** 公告类型（1通知 2公告） */
+    @Excel(name = "公告类型", readConverterExp = "1=通知,2=公告")
+    private String noticeType;
+
+    /** 公告内容 */
+    @Excel(name = "公告内容")
+    private String noticeContent;
+
+    /** 公告状态（0正常 1关闭） */
+    @Excel(name = "公告状态", readConverterExp = "0=正常,1=关闭")
+    private String status;
+
+    public void setNoticeId(Integer noticeId) 
+    {
         this.noticeId = noticeId;
     }
 
-    /**
-     * 公告标题
-     */
-    public String getNoticeTitle() {
-        return noticeTitle;
+    public Integer getNoticeId() 
+    {
+        return noticeId;
     }
-
-    /**
-     * 公告标题
-     */
-    public void setNoticeTitle(String noticeTitle) {
+    public void setNoticeTitle(String noticeTitle) 
+    {
         this.noticeTitle = noticeTitle;
     }
 
-    /**
-     * 公告类型（1通知 2公告）
-     */
-    public String getNoticeType() {
-        return noticeType;
+    public String getNoticeTitle() 
+    {
+        return noticeTitle;
     }
-
-    /**
-     * 公告类型（1通知 2公告）
-     */
-    public void setNoticeType(String noticeType) {
+    public void setNoticeType(String noticeType) 
+    {
         this.noticeType = noticeType;
     }
 
-    /**
-     * 公告状态（0正常 1关闭）
-     */
-    public String getStatus() {
-        return status;
+    public String getNoticeType() 
+    {
+        return noticeType;
+    }
+    public void setNoticeContent(String noticeContent) 
+    {
+        this.noticeContent = noticeContent;
     }
 
-    /**
-     * 公告状态（0正常 1关闭）
-     */
-    public void setStatus(String status) {
+    public String getNoticeContent() 
+    {
+        return noticeContent;
+    }
+    public void setStatus(String status) 
+    {
         this.status = status;
     }
 
-    /**
-     * 创建者
-     */
-    public String getCreateBy() {
-        return createBy;
+    public String getStatus() 
+    {
+        return status;
     }
 
-    /**
-     * 创建者
-     */
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    /**
-     * 创建时间
-     */
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    /**
-     * 创建时间
-     */
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    /**
-     * 更新者
-     */
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    /**
-     * 更新者
-     */
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    /**
-     * 更新时间
-     */
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    /**
-     * 更新时间
-     */
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    /**
-     * 备注
-     */
-    public String getRemark() {
-        return remark;
-    }
-
-    /**
-     * 备注
-     */
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    /**
-     * 公告内容
-     */
-    public byte[] getNoticeContent() {
-        return noticeContent;
-    }
-
-    /**
-     * 公告内容
-     */
-    public void setNoticeContent(byte[] noticeContent) {
-        this.noticeContent = noticeContent;
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+            .append("noticeId", getNoticeId())
+            .append("noticeTitle", getNoticeTitle())
+            .append("noticeType", getNoticeType())
+            .append("noticeContent", getNoticeContent())
+            .append("status", getStatus())
+            .append("createBy", getCreateBy())
+            .append("createTime", getCreateTime())
+            .append("updateBy", getUpdateBy())
+            .append("updateTime", getUpdateTime())
+            .append("remark", getRemark())
+            .toString();
     }
 }

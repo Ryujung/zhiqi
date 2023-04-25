@@ -1,11 +1,13 @@
 package com.zhiqi.framework.manager.factory;
 
 import com.zhiqi.common.contant.Constants;
-import com.zhiqi.common.utils.ip.AddressUtils;
-import com.zhiqi.common.utils.ip.IpUtils;
 import com.zhiqi.common.utils.ServletUtils;
 import com.zhiqi.common.utils.StringUtils;
+import com.zhiqi.common.utils.ip.AddressUtils;
+import com.zhiqi.common.utils.ip.IpUtils;
+import com.zhiqi.common.utils.spring.SpringUtils;
 import com.zhiqi.system.domain.SysLogininfor;
+import com.zhiqi.system.service.SysLogininforService;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,10 +56,10 @@ public class AsyncFactory {
                     logininfor.setStatus(Constants.FAIL);
                 }
                 // 插入数据 FIXME
-//                SpringUtils.getBean(ISysLogininforService.class).insertLogininfor(logininfor);
+                SpringUtils.getBean(SysLogininforService.class).insertLogininfor(logininfor);
             }
         };
-        return null;
+        return timerTask;
     }
 
     public static String getBlock(Object msg) {

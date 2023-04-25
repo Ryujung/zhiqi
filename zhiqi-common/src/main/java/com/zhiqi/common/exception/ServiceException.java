@@ -1,9 +1,5 @@
 package com.zhiqi.common.exception;
 
-import com.zhiqi.common.core.domain.CommonResult;
-
-import java.io.Serializable;
-
 /**
  * @author RyuJung
  * @since 2023/4/20-17:03
@@ -46,6 +42,7 @@ public class ServiceException extends RuntimeException {
         return detailMessage;
     }
 
+    @Override
     public String getMessage() {
         return message;
     }

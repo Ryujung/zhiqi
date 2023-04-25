@@ -213,7 +213,7 @@
             left join gen_table_column as c on t.table_id = c.table_id
         where
             t.table_name = #{tableName}
-        order by c.sort limit 1
+        order by c.sort
     </select>
 
     <select id="selectGenTableById" parameterType="java.lang.Long" resultMap="BaseResultMap">

@@ -1,26 +1,61 @@
 package com.zhiqi.system.mapper;
 
+import java.util.List;
 import com.zhiqi.system.domain.SysPost;
 
 /**
- * @Entity com.zhiqi.system.domain.SysPost
+ * 岗位信息Mapper接口
+ * 
+ * @author ryujung
+ * @date 2023-04-25
  */
-public interface SysPostMapper {
+public interface SysPostMapper 
+{
+    /**
+     * 查询岗位信息
+     * 
+     * @param postId 岗位信息主键
+     * @return 岗位信息
+     */
+    public SysPost selectSysPostByPostId(Long postId);
 
-    int deleteByPrimaryKey(Long id);
+    /**
+     * 查询岗位信息列表
+     * 
+     * @param sysPost 岗位信息
+     * @return 岗位信息集合
+     */
+    public List<SysPost> selectSysPostList(SysPost sysPost);
 
-    int insert(SysPost record);
+    /**
+     * 新增岗位信息
+     * 
+     * @param sysPost 岗位信息
+     * @return 结果
+     */
+    public int insertSysPost(SysPost sysPost);
 
-    int insertSelective(SysPost record);
+    /**
+     * 修改岗位信息
+     * 
+     * @param sysPost 岗位信息
+     * @return 结果
+     */
+    public int updateSysPost(SysPost sysPost);
 
-    SysPost selectByPrimaryKey(Long id);
+    /**
+     * 删除岗位信息
+     * 
+     * @param postId 岗位信息主键
+     * @return 结果
+     */
+    public int deleteSysPostByPostId(Long postId);
 
-    int updateByPrimaryKeySelective(SysPost record);
-
-    int updateByPrimaryKey(SysPost record);
-
+    /**
+     * 批量删除岗位信息
+     * 
+     * @param postIds 需要删除的数据主键集合
+     * @return 结果
+     */
+    public int deleteSysPostByPostIds(Long[] postIds);
 }
-
-
-
-

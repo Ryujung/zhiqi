@@ -5,8 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.zhiqi.common.contant.HttpStatus;
 import com.zhiqi.common.core.domain.CommonResult;
 import com.zhiqi.common.core.domain.model.LoginUser;
-import com.zhiqi.common.core.domain.page.PageDomain;
-import com.zhiqi.common.core.domain.page.TableDataInfo;
+import com.zhiqi.common.core.page.PageDomain;
+import com.zhiqi.common.core.page.TableDataInfo;
 import com.zhiqi.common.utils.DateUtils;
 import com.zhiqi.common.utils.SecurityUtils;
 import com.zhiqi.common.utils.StringUtils;
@@ -107,7 +107,7 @@ public class BaseController {
      * @param rows 影响行数
      * @return 操作结果
      */
-    protected CommonResult toResult(int rows) {
+    protected CommonResult toAjax(int rows) {
         return rows > 0 ? success() : error();
     }
 
@@ -117,7 +117,7 @@ public class BaseController {
      * @param result 影响行数
      * @return 操作结果
      */
-    protected CommonResult toResult(boolean result) {
+    protected CommonResult toAjax(boolean result) {
         return result ? success() : error();
     }
 
