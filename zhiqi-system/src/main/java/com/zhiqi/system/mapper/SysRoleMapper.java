@@ -1,7 +1,8 @@
 package com.zhiqi.system.mapper;
 
+import com.zhiqi.common.core.domain.entity.SysRole;
+
 import java.util.List;
-import com.zhiqi.system.domain.SysRole;
 
 /**
  * 角色信息Mapper接口

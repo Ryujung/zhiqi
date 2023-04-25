@@ -1,7 +1,8 @@
 package com.zhiqi.system.service;
 
+import com.zhiqi.common.core.domain.entity.SysDictType;
+
 import java.util.List;
-import com.zhiqi.system.domain.SysDictType;
 
 /**
  * 字典类型Service接口

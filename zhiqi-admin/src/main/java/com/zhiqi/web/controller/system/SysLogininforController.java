@@ -1,4 +1,4 @@
-package com.zhiqi.system.controller;
+package com.zhiqi.web.controller.system;
 
 import java.util.List;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,7 +36,7 @@ public class SysLogininforController extends BaseController
     /**
      * 查询系统访问记录列表
      */
-    @PreAuthorize("@ss.hasPermi('system:logininfor:list')")
+    @PreAuthorize("@ss.hasPerm('system:logininfor:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysLogininfor sysLogininfor)
     {
@@ -48,7 +48,7 @@ public class SysLogininforController extends BaseController
     /**
      * 导出系统访问记录列表
      */
-    @PreAuthorize("@ss.hasPermi('system:logininfor:export')")
+    @PreAuthorize("@ss.hasPerm('system:logininfor:export')")
     @Log(title = "系统访问记录", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
     public CommonResult export(SysLogininfor sysLogininfor)
@@ -61,7 +61,7 @@ public class SysLogininforController extends BaseController
     /**
      * 获取系统访问记录详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:logininfor:query')")
+    @PreAuthorize("@ss.hasPerm('system:logininfor:query')")
     @GetMapping(value = "/{infoId}")
     public CommonResult getInfo(@PathVariable("infoId") Long infoId)
     {
@@ -71,7 +71,7 @@ public class SysLogininforController extends BaseController
     /**
      * 新增系统访问记录
      */
-    @PreAuthorize("@ss.hasPermi('system:logininfor:add')")
+    @PreAuthorize("@ss.hasPerm('system:logininfor:add')")
     @Log(title = "系统访问记录", businessType = BusinessType.INSERT)
     @PostMapping
     public CommonResult add(@RequestBody SysLogininfor sysLogininfor)
@@ -82,7 +82,7 @@ public class SysLogininforController extends BaseController
     /**
      * 修改系统访问记录
      */
-    @PreAuthorize("@ss.hasPermi('system:logininfor:edit')")
+    @PreAuthorize("@ss.hasPerm('system:logininfor:edit')")
     @Log(title = "系统访问记录", businessType = BusinessType.UPDATE)
     @PutMapping
     public CommonResult edit(@RequestBody SysLogininfor sysLogininfor)
@@ -93,7 +93,7 @@ public class SysLogininforController extends BaseController
     /**
      * 删除系统访问记录
      */
-    @PreAuthorize("@ss.hasPermi('system:logininfor:remove')")
+    @PreAuthorize("@ss.hasPerm('system:logininfor:remove')")
     @Log(title = "系统访问记录", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{infoIds}")
     public CommonResult remove(@PathVariable Long[] infoIds)

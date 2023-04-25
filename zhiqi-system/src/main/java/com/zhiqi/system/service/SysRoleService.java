@@ -1,8 +1,9 @@
 package com.zhiqi.system.service;
 
+import com.zhiqi.common.core.domain.entity.SysRole;
+
 import java.util.Collection;
 import java.util.List;
-import com.zhiqi.system.domain.SysRole;
 
 /**
  * 角色信息Service接口

@@ -1,7 +1,8 @@
 package com.zhiqi.system.service;
 
+import com.zhiqi.common.core.domain.entity.SysMenu;
+
 import java.util.List;
-import com.zhiqi.system.domain.SysMenu;
 
 /**
  * 菜单权限Service接口

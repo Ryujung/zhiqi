@@ -1,7 +1,8 @@
 package com.zhiqi.system.mapper;
 
+import com.zhiqi.common.core.domain.entity.SysDictData;
+
 import java.util.List;
-import com.zhiqi.system.domain.SysDictData;
 
 /**
  * 字典数据Mapper接口

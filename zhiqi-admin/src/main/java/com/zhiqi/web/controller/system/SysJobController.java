@@ -1,4 +1,4 @@
-package com.zhiqi.system.controller;
+package com.zhiqi.web.controller.system;
 
 import java.util.List;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,7 +27,7 @@ import com.zhiqi.common.core.page.TableDataInfo;
  * @date 2023-04-25
  */
 @RestController
-@RequestMapping("/system/job")
+@RequestMapping("/monitor/job")
 public class SysJobController extends BaseController
 {
     @Autowired
@@ -36,7 +36,7 @@ public class SysJobController extends BaseController
     /**
      * 查询定时任务调度列表
      */
-    @PreAuthorize("@ss.hasPermi('system:job:list')")
+    @PreAuthorize("@ss.hasPerm('system:job:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysJob sysJob)
     {
@@ -48,7 +48,7 @@ public class SysJobController extends BaseController
     /**
      * 导出定时任务调度列表
      */
-    @PreAuthorize("@ss.hasPermi('system:job:export')")
+    @PreAuthorize("@ss.hasPerm('system:job:export')")
     @Log(title = "定时任务调度", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
     public CommonResult export(SysJob sysJob)
@@ -61,7 +61,7 @@ public class SysJobController extends BaseController
     /**
      * 获取定时任务调度详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:job:query')")
+    @PreAuthorize("@ss.hasPerm('system:job:query')")
     @GetMapping(value = "/{jobId}")
     public CommonResult getInfo(@PathVariable("jobId") Long jobId)
     {
@@ -71,7 +71,7 @@ public class SysJobController extends BaseController
     /**
      * 新增定时任务调度
      */
-    @PreAuthorize("@ss.hasPermi('system:job:add')")
+    @PreAuthorize("@ss.hasPerm('system:job:add')")
     @Log(title = "定时任务调度", businessType = BusinessType.INSERT)
     @PostMapping
     public CommonResult add(@RequestBody SysJob sysJob)
@@ -82,7 +82,7 @@ public class SysJobController extends BaseController
     /**
      * 修改定时任务调度
      */
-    @PreAuthorize("@ss.hasPermi('system:job:edit')")
+    @PreAuthorize("@ss.hasPerm('system:job:edit')")
     @Log(title = "定时任务调度", businessType = BusinessType.UPDATE)
     @PutMapping
     public CommonResult edit(@RequestBody SysJob sysJob)
@@ -93,7 +93,7 @@ public class SysJobController extends BaseController
     /**
      * 删除定时任务调度
      */
-    @PreAuthorize("@ss.hasPermi('system:job:remove')")
+    @PreAuthorize("@ss.hasPerm('system:job:remove')")
     @Log(title = "定时任务调度", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{jobIds}")
     public CommonResult remove(@PathVariable Long[] jobIds)

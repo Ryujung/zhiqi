@@ -1,6 +1,8 @@
-package com.zhiqi.system.controller;
+package com.zhiqi.web.controller.system;
 
 import java.util.List;
+
+import com.zhiqi.common.core.domain.entity.SysDept;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +17,6 @@ import com.zhiqi.common.annotation.Log;
 import com.zhiqi.common.core.controller.BaseController;
 import com.zhiqi.common.core.domain.CommonResult;
 import com.zhiqi.common.enums.BusinessType;
-import com.zhiqi.system.domain.SysDept;
 import com.zhiqi.system.service.SysDeptService;
 import com.zhiqi.common.utils.poi.ExcelUtil;
 import com.zhiqi.common.core.page.TableDataInfo;
@@ -36,7 +37,7 @@ public class SysDeptController extends BaseController
     /**
      * 查询部门列表
      */
-    @PreAuthorize("@ss.hasPermi('system:dept:list')")
+    @PreAuthorize("@ss.hasPerm('system:dept:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysDept sysDept)
     {
@@ -48,7 +49,7 @@ public class SysDeptController extends BaseController
     /**
      * 导出部门列表
      */
-    @PreAuthorize("@ss.hasPermi('system:dept:export')")
+    @PreAuthorize("@ss.hasPerm('system:dept:export')")
     @Log(title = "部门", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
     public CommonResult export(SysDept sysDept)
@@ -61,7 +62,7 @@ public class SysDeptController extends BaseController
     /**
      * 获取部门详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:dept:query')")
+    @PreAuthorize("@ss.hasPerm('system:dept:query')")
     @GetMapping(value = "/{deptId}")
     public CommonResult getInfo(@PathVariable("deptId") Long deptId)
     {
@@ -71,7 +72,7 @@ public class SysDeptController extends BaseController
     /**
      * 新增部门
      */
-    @PreAuthorize("@ss.hasPermi('system:dept:add')")
+    @PreAuthorize("@ss.hasPerm('system:dept:add')")
     @Log(title = "部门", businessType = BusinessType.INSERT)
     @PostMapping
     public CommonResult add(@RequestBody SysDept sysDept)
@@ -82,7 +83,7 @@ public class SysDeptController extends BaseController
     /**
      * 修改部门
      */
-    @PreAuthorize("@ss.hasPermi('system:dept:edit')")
+    @PreAuthorize("@ss.hasPerm('system:dept:edit')")
     @Log(title = "部门", businessType = BusinessType.UPDATE)
     @PutMapping
     public CommonResult edit(@RequestBody SysDept sysDept)
@@ -93,7 +94,7 @@ public class SysDeptController extends BaseController
     /**
      * 删除部门
      */
-    @PreAuthorize("@ss.hasPermi('system:dept:remove')")
+    @PreAuthorize("@ss.hasPerm('system:dept:remove')")
     @Log(title = "部门", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{deptIds}")
     public CommonResult remove(@PathVariable Long[] deptIds)

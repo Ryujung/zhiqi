@@ -18,7 +18,7 @@ import com.zhiqi.system.service.SysUserService;
 @Service
 public class SysUserServiceImpl implements SysUserService {
     @Autowired
-    private SysUserMapper sysUserMapper;
+    private SysUserMapper userMapper;
 
     /**
      * 查询用户信息
@@ -28,7 +28,7 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     public SysUser selectSysUserByUserId(Long userId) {
-        return sysUserMapper.selectSysUserByUserId(userId);
+        return userMapper.selectSysUserByUserId(userId);
     }
 
     /**
@@ -39,7 +39,7 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     public List<SysUser> selectSysUserList(SysUser sysUser) {
-        return sysUserMapper.selectSysUserList(sysUser);
+        return userMapper.selectSysUserList(sysUser);
     }
 
     /**
@@ -51,7 +51,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public int insertSysUser(SysUser sysUser) {
         sysUser.setCreateTime(DateUtils.getNowDate());
-        return sysUserMapper.insertSysUser(sysUser);
+        return userMapper.insertSysUser(sysUser);
     }
 
     /**
@@ -63,7 +63,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public int updateSysUser(SysUser sysUser) {
         sysUser.setUpdateTime(DateUtils.getNowDate());
-        return sysUserMapper.updateSysUser(sysUser);
+        return userMapper.updateSysUser(sysUser);
     }
 
     /**
@@ -74,7 +74,7 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     public int deleteSysUserByUserIds(Long[] userIds) {
-        return sysUserMapper.deleteSysUserByUserIds(userIds);
+        return userMapper.deleteSysUserByUserIds(userIds);
     }
 
     /**
@@ -85,11 +85,29 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     public int deleteSysUserByUserId(Long userId) {
-        return sysUserMapper.deleteSysUserByUserId(userId);
+        return userMapper.deleteSysUserByUserId(userId);
     }
 
     @Override
     public int updateUserProfile(SysUser user) {
-        return sysUserMapper.updateSysUser(user);
+        return userMapper.updateSysUser(user);
+    }
+
+    @Override
+    public boolean checkUserNameUnique(String userName) {
+        int count = userMapper.checkUserNameUnique(userName);
+        return count == 0;
+    }
+
+    @Override
+    public boolean checkPhoneUnique(String phoneNumber) {
+        int count = userMapper.checkPhoneUnique(phoneNumber);
+        return count == 0;
+    }
+
+    @Override
+    public boolean checkEmailUnique(String email) {
+        int count = userMapper.checkEmailUnique(email);
+        return count==0;
     }
 }

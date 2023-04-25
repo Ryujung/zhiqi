@@ -1,6 +1,8 @@
-package com.zhiqi.system.controller;
+package com.zhiqi.web.controller.system;
 
 import java.util.List;
+
+import com.zhiqi.common.core.domain.entity.SysDictType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +17,6 @@ import com.zhiqi.common.annotation.Log;
 import com.zhiqi.common.core.controller.BaseController;
 import com.zhiqi.common.core.domain.CommonResult;
 import com.zhiqi.common.enums.BusinessType;
-import com.zhiqi.system.domain.SysDictType;
 import com.zhiqi.system.service.SysDictTypeService;
 import com.zhiqi.common.utils.poi.ExcelUtil;
 import com.zhiqi.common.core.page.TableDataInfo;
@@ -36,7 +37,7 @@ public class SysDictTypeController extends BaseController
     /**
      * 查询字典类型列表
      */
-    @PreAuthorize("@ss.hasPermi('system:type:list')")
+    @PreAuthorize("@ss.hasPerm('system:type:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysDictType sysDictType)
     {
@@ -48,7 +49,7 @@ public class SysDictTypeController extends BaseController
     /**
      * 导出字典类型列表
      */
-    @PreAuthorize("@ss.hasPermi('system:type:export')")
+    @PreAuthorize("@ss.hasPerm('system:type:export')")
     @Log(title = "字典类型", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
     public CommonResult export(SysDictType sysDictType)
@@ -61,7 +62,7 @@ public class SysDictTypeController extends BaseController
     /**
      * 获取字典类型详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:type:query')")
+    @PreAuthorize("@ss.hasPerm('system:type:query')")
     @GetMapping(value = "/{dictId}")
     public CommonResult getInfo(@PathVariable("dictId") Long dictId)
     {
@@ -71,7 +72,7 @@ public class SysDictTypeController extends BaseController
     /**
      * 新增字典类型
      */
-    @PreAuthorize("@ss.hasPermi('system:type:add')")
+    @PreAuthorize("@ss.hasPerm('system:type:add')")
     @Log(title = "字典类型", businessType = BusinessType.INSERT)
     @PostMapping
     public CommonResult add(@RequestBody SysDictType sysDictType)
@@ -82,7 +83,7 @@ public class SysDictTypeController extends BaseController
     /**
      * 修改字典类型
      */
-    @PreAuthorize("@ss.hasPermi('system:type:edit')")
+    @PreAuthorize("@ss.hasPerm('system:type:edit')")
     @Log(title = "字典类型", businessType = BusinessType.UPDATE)
     @PutMapping
     public CommonResult edit(@RequestBody SysDictType sysDictType)
@@ -93,7 +94,7 @@ public class SysDictTypeController extends BaseController
     /**
      * 删除字典类型
      */
-    @PreAuthorize("@ss.hasPermi('system:type:remove')")
+    @PreAuthorize("@ss.hasPerm('system:type:remove')")
     @Log(title = "字典类型", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{dictIds}")
     public CommonResult remove(@PathVariable Long[] dictIds)

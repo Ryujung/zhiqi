@@ -3,6 +3,7 @@ package com.zhiqi.framework.web.service;
 import com.zhiqi.common.contant.Constants;
 import com.zhiqi.common.core.domain.entity.SysUser;
 import com.zhiqi.common.core.domain.model.LoginUser;
+import com.zhiqi.common.core.redis.RedisCache;
 import com.zhiqi.common.exception.ServiceException;
 import com.zhiqi.common.exception.UserPasswordNotMatchException;
 import com.zhiqi.common.utils.DateUtils;
@@ -86,7 +87,7 @@ public class SysLoginService {
 
     private void validateCaptcha(String username, String code, String uuid) {
         String verifyKey = Constants.CAPTCHA_CODE_KEY + uuid;
-        String captcha = redisCache.getCacheObject(verifyKey, String.class);
+        String captcha = redisCache.getCacheObject(verifyKey);
         redisCache.deleteObject(verifyKey);
         if (captcha == null) {
             AsyncManager.me().execute(AsyncFactory.recordLoginInfo(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.expire")));

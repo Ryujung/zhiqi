@@ -1,6 +1,8 @@
-package com.zhiqi.system.controller;
+package com.zhiqi.web.controller.system;
 
 import java.util.List;
+
+import com.zhiqi.common.core.domain.entity.SysRole;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +17,6 @@ import com.zhiqi.common.annotation.Log;
 import com.zhiqi.common.core.controller.BaseController;
 import com.zhiqi.common.core.domain.CommonResult;
 import com.zhiqi.common.enums.BusinessType;
-import com.zhiqi.system.domain.SysRole;
 import com.zhiqi.system.service.SysRoleService;
 import com.zhiqi.common.utils.poi.ExcelUtil;
 import com.zhiqi.common.core.page.TableDataInfo;
@@ -36,7 +37,7 @@ public class SysRoleController extends BaseController
     /**
      * 查询角色信息列表
      */
-    @PreAuthorize("@ss.hasPermi('system:role:list')")
+    @PreAuthorize("@ss.hasPerm('system:role:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysRole sysRole)
     {
@@ -48,7 +49,7 @@ public class SysRoleController extends BaseController
     /**
      * 导出角色信息列表
      */
-    @PreAuthorize("@ss.hasPermi('system:role:export')")
+    @PreAuthorize("@ss.hasPerm('system:role:export')")
     @Log(title = "角色信息", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
     public CommonResult export(SysRole sysRole)
@@ -61,7 +62,7 @@ public class SysRoleController extends BaseController
     /**
      * 获取角色信息详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:role:query')")
+    @PreAuthorize("@ss.hasPerm('system:role:query')")
     @GetMapping(value = "/{roleId}")
     public CommonResult getInfo(@PathVariable("roleId") Long roleId)
     {
@@ -71,7 +72,7 @@ public class SysRoleController extends BaseController
     /**
      * 新增角色信息
      */
-    @PreAuthorize("@ss.hasPermi('system:role:add')")
+    @PreAuthorize("@ss.hasPerm('system:role:add')")
     @Log(title = "角色信息", businessType = BusinessType.INSERT)
     @PostMapping
     public CommonResult add(@RequestBody SysRole sysRole)
@@ -82,7 +83,7 @@ public class SysRoleController extends BaseController
     /**
      * 修改角色信息
      */
-    @PreAuthorize("@ss.hasPermi('system:role:edit')")
+    @PreAuthorize("@ss.hasPerm('system:role:edit')")
     @Log(title = "角色信息", businessType = BusinessType.UPDATE)
     @PutMapping
     public CommonResult edit(@RequestBody SysRole sysRole)
@@ -93,7 +94,7 @@ public class SysRoleController extends BaseController
     /**
      * 删除角色信息
      */
-    @PreAuthorize("@ss.hasPermi('system:role:remove')")
+    @PreAuthorize("@ss.hasPerm('system:role:remove')")
     @Log(title = "角色信息", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{roleIds}")
     public CommonResult remove(@PathVariable Long[] roleIds)

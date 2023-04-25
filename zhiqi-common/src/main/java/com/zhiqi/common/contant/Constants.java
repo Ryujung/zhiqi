@@ -97,4 +97,9 @@ public class Constants {
      * 令牌前缀
      */
     public static final String LOGIN_USER_KEY = "login_user_key";
+
+    /**
+     * 字典管理 cache key
+     */
+    public static final String SYS_DICT_KEY = "sys_dict";
 }

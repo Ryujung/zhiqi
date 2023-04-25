@@ -1,7 +1,8 @@
 package com.zhiqi.system.service;
 
+import com.zhiqi.common.core.domain.entity.SysDictData;
+
 import java.util.List;
-import com.zhiqi.system.domain.SysDictData;
 
 /**
  * 字典数据Service接口

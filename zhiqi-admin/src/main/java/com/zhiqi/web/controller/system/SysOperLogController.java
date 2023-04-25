@@ -1,4 +1,4 @@
-package com.zhiqi.system.controller;
+package com.zhiqi.web.controller.system;
 
 import java.util.List;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,7 +36,7 @@ public class SysOperLogController extends BaseController
     /**
      * 查询操作日志记录列表
      */
-    @PreAuthorize("@ss.hasPermi('system:log:list')")
+    @PreAuthorize("@ss.hasPerm('system:log:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysOperLog sysOperLog)
     {
@@ -48,7 +48,7 @@ public class SysOperLogController extends BaseController
     /**
      * 导出操作日志记录列表
      */
-    @PreAuthorize("@ss.hasPermi('system:log:export')")
+    @PreAuthorize("@ss.hasPerm('system:log:export')")
     @Log(title = "操作日志记录", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
     public CommonResult export(SysOperLog sysOperLog)
@@ -61,7 +61,7 @@ public class SysOperLogController extends BaseController
     /**
      * 获取操作日志记录详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:log:query')")
+    @PreAuthorize("@ss.hasPerm('system:log:query')")
     @GetMapping(value = "/{operId}")
     public CommonResult getInfo(@PathVariable("operId") Long operId)
     {
@@ -71,7 +71,7 @@ public class SysOperLogController extends BaseController
     /**
      * 新增操作日志记录
      */
-    @PreAuthorize("@ss.hasPermi('system:log:add')")
+    @PreAuthorize("@ss.hasPerm('system:log:add')")
     @Log(title = "操作日志记录", businessType = BusinessType.INSERT)
     @PostMapping
     public CommonResult add(@RequestBody SysOperLog sysOperLog)
@@ -82,7 +82,7 @@ public class SysOperLogController extends BaseController
     /**
      * 修改操作日志记录
      */
-    @PreAuthorize("@ss.hasPermi('system:log:edit')")
+    @PreAuthorize("@ss.hasPerm('system:log:edit')")
     @Log(title = "操作日志记录", businessType = BusinessType.UPDATE)
     @PutMapping
     public CommonResult edit(@RequestBody SysOperLog sysOperLog)
@@ -93,7 +93,7 @@ public class SysOperLogController extends BaseController
     /**
      * 删除操作日志记录
      */
-    @PreAuthorize("@ss.hasPermi('system:log:remove')")
+    @PreAuthorize("@ss.hasPerm('system:log:remove')")
     @Log(title = "操作日志记录", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{operIds}")
     public CommonResult remove(@PathVariable Long[] operIds)

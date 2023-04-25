@@ -121,6 +121,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </trim>
         where user_id = #{userId}
     </update>
+    <select id="checkEmailUnique" parameterType="String" resultType="int">
+        select count(*) from sys_user
+        where email = #{email}
+    </select>
+
+    <select id="checkPhoneUnique" parameterType="String" resultType="int">
+        select count(*) from sys_user
+        where phonenumber = #{phoneNumber}
+    </select>
+
+    <select id="checkUserNameUnique" parameterType="String" resultType="int">
+        select count(*) from sys_user
+        where user_name = #{userName}
+    </select>
 
     <delete id="deleteSysUserByUserId" parameterType="Long">
         delete from sys_user where user_id = #{userId}

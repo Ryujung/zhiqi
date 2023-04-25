@@ -13,6 +13,8 @@ import com.zhiqi.system.mapper.SysConfigMapper;
 import com.zhiqi.system.domain.SysConfig;
 import com.zhiqi.system.service.SysConfigService;
 
+import javax.annotation.Resource;
+
 /**
  * 参数配置Service业务层处理
  *
@@ -21,10 +23,10 @@ import com.zhiqi.system.service.SysConfigService;
  */
 @Service
 public class SysConfigServiceImpl implements SysConfigService {
-    @Autowired
-    private SysConfigMapper sysConfigMapper;
+    @Resource
+    private SysConfigMapper configMapper;
 
-    @Autowired
+    @Resource
     private RedisCache redisCache;
 
     /**
@@ -35,7 +37,7 @@ public class SysConfigServiceImpl implements SysConfigService {
      */
     @Override
     public SysConfig selectSysConfigByConfigId(Integer configId) {
-        return sysConfigMapper.selectSysConfigByConfigId(configId);
+        return configMapper.selectSysConfigByConfigId(configId);
     }
 
     /**
@@ -46,7 +48,7 @@ public class SysConfigServiceImpl implements SysConfigService {
      */
     @Override
     public List<SysConfig> selectSysConfigList(SysConfig sysConfig) {
-        return sysConfigMapper.selectSysConfigList(sysConfig);
+        return configMapper.selectSysConfigList(sysConfig);
     }
 
     /**
@@ -58,7 +60,7 @@ public class SysConfigServiceImpl implements SysConfigService {
     @Override
     public int insertSysConfig(SysConfig sysConfig) {
         sysConfig.setCreateTime(DateUtils.getNowDate());
-        return sysConfigMapper.insertSysConfig(sysConfig);
+        return configMapper.insertSysConfig(sysConfig);
     }
 
     /**
@@ -70,7 +72,7 @@ public class SysConfigServiceImpl implements SysConfigService {
     @Override
     public int updateSysConfig(SysConfig sysConfig) {
         sysConfig.setUpdateTime(DateUtils.getNowDate());
-        return sysConfigMapper.updateSysConfig(sysConfig);
+        return configMapper.updateSysConfig(sysConfig);
     }
 
     /**
@@ -81,7 +83,7 @@ public class SysConfigServiceImpl implements SysConfigService {
      */
     @Override
     public int deleteSysConfigByConfigIds(Integer[] configIds) {
-        return sysConfigMapper.deleteSysConfigByConfigIds(configIds);
+        return configMapper.deleteSysConfigByConfigIds(configIds);
     }
 
     /**
@@ -92,7 +94,7 @@ public class SysConfigServiceImpl implements SysConfigService {
      */
     @Override
     public int deleteSysConfigByConfigId(Integer configId) {
-        return sysConfigMapper.deleteSysConfigByConfigId(configId);
+        return configMapper.deleteSysConfigByConfigId(configId);
     }
 
     @Override
@@ -118,7 +120,7 @@ public class SysConfigServiceImpl implements SysConfigService {
         }
         SysConfig config = new SysConfig();
         config.setConfigKey(configKey);
-        SysConfig sysConfig = sysConfigMapper.selectSysConfig(config);
+        SysConfig sysConfig = configMapper.selectSysConfig(config);
         if (StringUtils.isNotNull(sysConfig)) {
             redisCache.setCacheObject(getCacheKey(configKey), sysConfig.getConfigValue());
             return sysConfig.getConfigValue();

@@ -3,6 +3,7 @@ package com.zhiqi.common.utils;
 import java.util.Collection;
 import java.util.List;
 
+import com.zhiqi.common.contant.Constants;
 import com.zhiqi.common.core.domain.entity.SysDictData;
 import com.zhiqi.common.core.redis.RedisCache;
 import com.zhiqi.common.utils.spring.SpringUtils;

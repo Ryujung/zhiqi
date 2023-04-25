@@ -1,4 +1,4 @@
-package com.zhiqi.system.controller;
+package com.zhiqi.web.controller.system;
 
 import java.util.List;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,7 +36,7 @@ public class SysNoticeController extends BaseController
     /**
      * 查询通知公告列表
      */
-    @PreAuthorize("@ss.hasPermi('system:notice:list')")
+    @PreAuthorize("@ss.hasPerm('system:notice:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysNotice sysNotice)
     {
@@ -48,7 +48,7 @@ public class SysNoticeController extends BaseController
     /**
      * 导出通知公告列表
      */
-    @PreAuthorize("@ss.hasPermi('system:notice:export')")
+    @PreAuthorize("@ss.hasPerm('system:notice:export')")
     @Log(title = "通知公告", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
     public CommonResult export(SysNotice sysNotice)
@@ -61,7 +61,7 @@ public class SysNoticeController extends BaseController
     /**
      * 获取通知公告详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:notice:query')")
+    @PreAuthorize("@ss.hasPerm('system:notice:query')")
     @GetMapping(value = "/{noticeId}")
     public CommonResult getInfo(@PathVariable("noticeId") Integer noticeId)
     {
@@ -71,7 +71,7 @@ public class SysNoticeController extends BaseController
     /**
      * 新增通知公告
      */
-    @PreAuthorize("@ss.hasPermi('system:notice:add')")
+    @PreAuthorize("@ss.hasPerm('system:notice:add')")
     @Log(title = "通知公告", businessType = BusinessType.INSERT)
     @PostMapping
     public CommonResult add(@RequestBody SysNotice sysNotice)
@@ -82,7 +82,7 @@ public class SysNoticeController extends BaseController
     /**
      * 修改通知公告
      */
-    @PreAuthorize("@ss.hasPermi('system:notice:edit')")
+    @PreAuthorize("@ss.hasPerm('system:notice:edit')")
     @Log(title = "通知公告", businessType = BusinessType.UPDATE)
     @PutMapping
     public CommonResult edit(@RequestBody SysNotice sysNotice)
@@ -93,7 +93,7 @@ public class SysNoticeController extends BaseController
     /**
      * 删除通知公告
      */
-    @PreAuthorize("@ss.hasPermi('system:notice:remove')")
+    @PreAuthorize("@ss.hasPerm('system:notice:remove')")
     @Log(title = "通知公告", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{noticeIds}")
     public CommonResult remove(@PathVariable Integer[] noticeIds)

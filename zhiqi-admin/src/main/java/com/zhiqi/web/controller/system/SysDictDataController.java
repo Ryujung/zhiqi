@@ -1,6 +1,8 @@
-package com.zhiqi.system.controller;
+package com.zhiqi.web.controller.system;
 
 import java.util.List;
+
+import com.zhiqi.common.core.domain.entity.SysDictData;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +17,6 @@ import com.zhiqi.common.annotation.Log;
 import com.zhiqi.common.core.controller.BaseController;
 import com.zhiqi.common.core.domain.CommonResult;
 import com.zhiqi.common.enums.BusinessType;
-import com.zhiqi.system.domain.SysDictData;
 import com.zhiqi.system.service.SysDictDataService;
 import com.zhiqi.common.utils.poi.ExcelUtil;
 import com.zhiqi.common.core.page.TableDataInfo;
@@ -36,7 +37,7 @@ public class SysDictDataController extends BaseController
     /**
      * 查询字典数据列表
      */
-    @PreAuthorize("@ss.hasPermi('system:data:list')")
+    @PreAuthorize("@ss.hasPerm('system:data:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysDictData sysDictData)
     {
@@ -48,7 +49,7 @@ public class SysDictDataController extends BaseController
     /**
      * 导出字典数据列表
      */
-    @PreAuthorize("@ss.hasPermi('system:data:export')")
+    @PreAuthorize("@ss.hasPerm('system:data:export')")
     @Log(title = "字典数据", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
     public CommonResult export(SysDictData sysDictData)
@@ -61,7 +62,7 @@ public class SysDictDataController extends BaseController
     /**
      * 获取字典数据详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:data:query')")
+    @PreAuthorize("@ss.hasPerm('system:data:query')")
     @GetMapping(value = "/{dictCode}")
     public CommonResult getInfo(@PathVariable("dictCode") Long dictCode)
     {
@@ -71,7 +72,7 @@ public class SysDictDataController extends BaseController
     /**
      * 新增字典数据
      */
-    @PreAuthorize("@ss.hasPermi('system:data:add')")
+    @PreAuthorize("@ss.hasPerm('system:data:add')")
     @Log(title = "字典数据", businessType = BusinessType.INSERT)
     @PostMapping
     public CommonResult add(@RequestBody SysDictData sysDictData)
@@ -82,7 +83,7 @@ public class SysDictDataController extends BaseController
     /**
      * 修改字典数据
      */
-    @PreAuthorize("@ss.hasPermi('system:data:edit')")
+    @PreAuthorize("@ss.hasPerm('system:data:edit')")
     @Log(title = "字典数据", businessType = BusinessType.UPDATE)
     @PutMapping
     public CommonResult edit(@RequestBody SysDictData sysDictData)
@@ -93,7 +94,7 @@ public class SysDictDataController extends BaseController
     /**
      * 删除字典数据
      */
-    @PreAuthorize("@ss.hasPermi('system:data:remove')")
+    @PreAuthorize("@ss.hasPerm('system:data:remove')")
     @Log(title = "字典数据", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{dictCodes}")
     public CommonResult remove(@PathVariable Long[] dictCodes)

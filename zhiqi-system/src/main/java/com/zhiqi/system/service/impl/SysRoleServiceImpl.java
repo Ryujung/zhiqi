@@ -5,11 +5,11 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import com.zhiqi.common.core.domain.entity.SysRole;
 import com.zhiqi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.zhiqi.system.mapper.SysRoleMapper;
-import com.zhiqi.system.domain.SysRole;
 import com.zhiqi.system.service.SysRoleService;
 
 /**

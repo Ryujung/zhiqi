@@ -2,6 +2,7 @@ package com.zhiqi.framework.web.service;
 
 import com.zhiqi.common.contant.Constants;
 import com.zhiqi.common.core.domain.model.LoginUser;
+import com.zhiqi.common.core.redis.RedisCache;
 import com.zhiqi.common.utils.ServletUtils;
 import com.zhiqi.common.utils.StringUtils;
 import com.zhiqi.common.utils.ip.AddressUtils;
@@ -39,7 +40,7 @@ public class TokenService {
     private int expirationInMinute;
 
     @Autowired
-    private RedisCache redisService;
+    private RedisCache redisCache;
 
     /**
      * 从请求中获取登录用户的信息
@@ -74,7 +75,7 @@ public class TokenService {
                 .getBody();
         String uuid = (String) claims.get(Constants.LOGIN_USER_CLAIMS_TOKEN_NAME);
         String loginUserRedisKey = Constants.LOGIN_USER_REDIS_KEY_PREFIX + uuid;
-        LoginUser loginUser = redisService.getCacheObject(loginUserRedisKey, LoginUser.class);
+        LoginUser loginUser = redisCache.getCacheObject(loginUserRedisKey);
 
         return loginUser;
     }
@@ -84,7 +85,7 @@ public class TokenService {
         loginUser.setLoginTime(loginTime);
         loginUser.setExpireTime(loginTime + expirationInMinute * MILLIS_TO_MINUTE);
         String loginUserRedisKey = getLoginUserRedisKey(loginUser);
-        redisService.setCacheObject(loginUserRedisKey, loginUser, expirationInMinute, TimeUnit.MINUTES);
+        redisCache.setCacheObject(loginUserRedisKey, loginUser, expirationInMinute, TimeUnit.MINUTES);
     }
 
     private String getLoginUserRedisKey(LoginUser loginUser) {
@@ -97,7 +98,7 @@ public class TokenService {
     public void deleteLoginUser(LoginUser loginUser) {
         if (StringUtils.isNotNull(loginUser)) {
             String redisKey = getLoginUserRedisKey(loginUser);
-            redisService.deleteObject(redisKey);
+            redisCache.deleteObject(redisKey);
         }
     }
 

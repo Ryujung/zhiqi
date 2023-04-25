@@ -1,7 +1,8 @@
 package com.zhiqi.system.mapper;
 
+import com.zhiqi.common.core.domain.entity.SysDept;
+
 import java.util.List;
-import com.zhiqi.system.domain.SysDept;
 
 /**
  * 部门Mapper接口

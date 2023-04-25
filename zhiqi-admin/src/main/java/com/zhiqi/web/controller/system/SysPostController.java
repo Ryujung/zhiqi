@@ -1,4 +1,4 @@
-package com.zhiqi.system.controller;
+package com.zhiqi.web.controller.system;
 
 import java.util.List;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,7 +36,7 @@ public class SysPostController extends BaseController
     /**
      * 查询岗位信息列表
      */
-    @PreAuthorize("@ss.hasPermi('system:post:list')")
+    @PreAuthorize("@ss.hasPerm('system:post:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysPost sysPost)
     {
@@ -48,7 +48,7 @@ public class SysPostController extends BaseController
     /**
      * 导出岗位信息列表
      */
-    @PreAuthorize("@ss.hasPermi('system:post:export')")
+    @PreAuthorize("@ss.hasPerm('system:post:export')")
     @Log(title = "岗位信息", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
     public CommonResult export(SysPost sysPost)
@@ -61,7 +61,7 @@ public class SysPostController extends BaseController
     /**
      * 获取岗位信息详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:post:query')")
+    @PreAuthorize("@ss.hasPerm('system:post:query')")
     @GetMapping(value = "/{postId}")
     public CommonResult getInfo(@PathVariable("postId") Long postId)
     {
@@ -71,7 +71,7 @@ public class SysPostController extends BaseController
     /**
      * 新增岗位信息
      */
-    @PreAuthorize("@ss.hasPermi('system:post:add')")
+    @PreAuthorize("@ss.hasPerm('system:post:add')")
     @Log(title = "岗位信息", businessType = BusinessType.INSERT)
     @PostMapping
     public CommonResult add(@RequestBody SysPost sysPost)
@@ -82,7 +82,7 @@ public class SysPostController extends BaseController
     /**
      * 修改岗位信息
      */
-    @PreAuthorize("@ss.hasPermi('system:post:edit')")
+    @PreAuthorize("@ss.hasPerm('system:post:edit')")
     @Log(title = "岗位信息", businessType = BusinessType.UPDATE)
     @PutMapping
     public CommonResult edit(@RequestBody SysPost sysPost)
@@ -93,7 +93,7 @@ public class SysPostController extends BaseController
     /**
      * 删除岗位信息
      */
-    @PreAuthorize("@ss.hasPermi('system:post:remove')")
+    @PreAuthorize("@ss.hasPerm('system:post:remove')")
     @Log(title = "岗位信息", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{postIds}")
     public CommonResult remove(@PathVariable Long[] postIds)

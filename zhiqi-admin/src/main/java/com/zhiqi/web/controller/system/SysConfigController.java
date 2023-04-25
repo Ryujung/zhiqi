@@ -1,4 +1,4 @@
-package com.zhiqi.system.controller;
+package com.zhiqi.web.controller.system;
 
 import java.util.List;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,7 +36,7 @@ public class SysConfigController extends BaseController
     /**
      * 查询参数配置列表
      */
-    @PreAuthorize("@ss.hasPermi('system:config:list')")
+    @PreAuthorize("@ss.hasPerm('system:config:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysConfig sysConfig)
     {
@@ -48,7 +48,7 @@ public class SysConfigController extends BaseController
     /**
      * 导出参数配置列表
      */
-    @PreAuthorize("@ss.hasPermi('system:config:export')")
+    @PreAuthorize("@ss.hasPerm('system:config:export')")
     @Log(title = "参数配置", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
     public CommonResult export(SysConfig sysConfig)
@@ -61,7 +61,7 @@ public class SysConfigController extends BaseController
     /**
      * 获取参数配置详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:config:query')")
+    @PreAuthorize("@ss.hasPerm('system:config:query')")
     @GetMapping(value = "/{configId}")
     public CommonResult getInfo(@PathVariable("configId") Integer configId)
     {
@@ -71,7 +71,7 @@ public class SysConfigController extends BaseController
     /**
      * 新增参数配置
      */
-    @PreAuthorize("@ss.hasPermi('system:config:add')")
+    @PreAuthorize("@ss.hasPerm('system:config:add')")
     @Log(title = "参数配置", businessType = BusinessType.INSERT)
     @PostMapping
     public CommonResult add(@RequestBody SysConfig sysConfig)
@@ -82,7 +82,7 @@ public class SysConfigController extends BaseController
     /**
      * 修改参数配置
      */
-    @PreAuthorize("@ss.hasPermi('system:config:edit')")
+    @PreAuthorize("@ss.hasPerm('system:config:edit')")
     @Log(title = "参数配置", businessType = BusinessType.UPDATE)
     @PutMapping
     public CommonResult edit(@RequestBody SysConfig sysConfig)
@@ -93,7 +93,7 @@ public class SysConfigController extends BaseController
     /**
      * 删除参数配置
      */
-    @PreAuthorize("@ss.hasPermi('system:config:remove')")
+    @PreAuthorize("@ss.hasPerm('system:config:remove')")
     @Log(title = "参数配置", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{configIds}")
     public CommonResult remove(@PathVariable Integer[] configIds)

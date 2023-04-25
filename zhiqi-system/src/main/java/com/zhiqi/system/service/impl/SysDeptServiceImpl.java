@@ -1,11 +1,12 @@
 package com.zhiqi.system.service.impl;
 
 import java.util.List;
+
+import com.zhiqi.common.core.domain.entity.SysDept;
 import com.zhiqi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.zhiqi.system.mapper.SysDeptMapper;
-import com.zhiqi.system.domain.SysDept;
 import com.zhiqi.system.service.SysDeptService;
 
 /**
