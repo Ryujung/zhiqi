@@ -1,45 +1,53 @@
-import request from '@/util/request'
+import request from '@/utils/request'
 
 export function login(username, password, code, uuid) {
   const data = {
-    username, password, code, uuid
+    username,
+    password,
+    code,
+    uuid
   }
   return request({
     data,
     url: '/login',
-    header: {},
-    method: 'post',
+    headers: {
+      isToken: false
+    },
+    method: 'post'
   })
 }
 
 export function register(data) {
-
   return request({
-    data,
     url: '/register',
-    header: {},
+    headers: {
+      isToken: false
+    },
     method: 'post',
+    data: data
   })
 }
 
 export function getInfo() {
   return request({
     url: '/getInfo',
-    method: 'get',
+    method: 'get'
   })
 }
 
 export function logout() {
   return request({
     url: '/logout',
-    method: 'post',
+    method: 'post'
   })
 }
 
 export function getCodeImg() {
   return request({
-    url: '/getCodeImg',
-    header: {},
+    url: '/captchaImage',
+    headers: {
+      isToken: false
+    },
     method: 'get',
     timeout: 20000
   })

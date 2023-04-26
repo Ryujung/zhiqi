@@ -1,18 +1,33 @@
 <template>
   <div class="login">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" label-width="100px" class="login-form">
+
       <h3 class="title">知其后台管理系统</h3>
+
       <el-form-item label="用户名" prop="validateUsername">
-        <el-input type="text" v-model="loginForm.username" autocomplete="off" placeholder="用户名"></el-input>
+        <el-input type="text" v-model="loginForm.username" autocomplete="off" placeholder="用户名">
+          <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
+        </el-input>
       </el-form-item>
 
       <el-form-item label="密码" prop="validatePassword">
-        <el-input type="password" v-model="loginForm.password" autocomplete="off" placeholder="密码"></el-input>
+        <el-input type="password" v-model="loginForm.password" autocomplete="off" placeholder="密码"
+          @keyup.enter.native="handleLogin">
+          <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />
+        </el-input>
       </el-form-item>
 
-      <el-form-item>
-        <el-checkbox label="记住密码" v-model="loginForm.rememberMe">记住密码</el-checkbox>
+      <el-form-item prop="code" v-if="captchaOnOff">
+        <el-input v-model="loginForm.code" auto-complete="off" placeholder="验证码" style="width:63%"
+          @keyup.enter.native="handleLogin">
+          <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon" />
+        </el-input>
+        <div class="login-code">
+          <img :src="codeUrl" @click="getKaptchaCode" class="login-code-image" />
+        </div>
       </el-form-item>
+
+      <el-checkbox label="记住密码" v-model="loginForm.rememberMe">记住密码</el-checkbox>
 
       <el-form-item>
         <el-button :loading="loading" type="primary" size="medium" style="width: 100%"
@@ -25,6 +40,8 @@
         </div>
       </el-form-item>
     </el-form>
+
+    <!-- 底部 -->
     <div class="el-login-foooter">
       <span>Copyright © 2023-2023 ZhiQi All Rights Reserved.</span>
     </div>
@@ -34,7 +51,7 @@
 <script>
 import { login, getCodeImg } from '@/api/login'
 import Cookies from 'js-cookie'
-import { encrypt, decrypt } from 'jsencrypt'
+import { encrypt, decrypt } from "@/utils/jsencrypt";
 
 export default {
   name: 'Login',
@@ -84,8 +101,8 @@ export default {
     getKaptchaCode() {
       getCodeImg().then(res => {
         // TODO captcha request and show
-        this.captchaOnOff = res.chaptchaOnOff === undefined ? true : res.chaptchaOnOff;
-        if (this.chaptchaOnOff) {
+        this.captchaOnOff = res.captchaOnOff === undefined ? true : res.captchaOnOff;
+        if (this.captchaOnOff) {
           this.codeUrl = "data:image/gif;base64," + res.img
           this.loginForm.uuid = res.uuid
         }
@@ -101,7 +118,7 @@ export default {
         rememberMe: rememberMe === undefined ? false : Boolean(rememberMe)
       }
     },
-    handlerLogin() {
+    handleLogin() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           this.loading = true
@@ -135,3 +152,69 @@ export default {
   }
 }
 </script>
+
+<style rel="stylesheet/scss" lang="scss">
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-image: url("../assets/images/login-background.jpg");
+  background-size: cover;
+}
+
+.title {
+  margin: 0px auto 30px auto;
+  text-align: center;
+  color: #707070;
+}
+
+.login-form {
+  border-radius: 6px;
+  background: #ffffff;
+  width: 400px;
+  padding: 25px 25px 5px 25px;
+
+  .el-input {
+    height: 38px;
+
+    input {
+      height: 38px;
+    }
+  }
+
+  .input-icon {
+    height: 39px;
+    width: 14px;
+    margin-left: 2px;
+  }
+}
+
+.login-code {
+  width: 33%;
+  height: 38px;
+  float: right;
+
+  img {
+    cursor: pointer;
+    vertical-align: middle;
+  }
+}
+
+.el-login-foooter {
+  height: 40px;
+  line-height: 40px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.login-code-img {
+  height: 38px;
+}
+</style>
