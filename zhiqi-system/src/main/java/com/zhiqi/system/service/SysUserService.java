@@ -90,4 +90,12 @@ public interface SysUserService {
      * @return true unique ,false not unique
      */
     boolean checkEmailUnique(String email);
+
+    /**
+     * 查询用户信息列表
+     *
+     * @param username 用户名
+     * @return 用户信息集合
+     */
+    SysUser selectUserByUserName(String username);
 }

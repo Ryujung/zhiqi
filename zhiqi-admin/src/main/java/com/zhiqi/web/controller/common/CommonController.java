@@ -1,4 +1,4 @@
-package com.zhiqi.web.controller;
+package com.zhiqi.web.controller.common;
 
 import com.zhiqi.common.config.ZhiQiConfig;
 import com.zhiqi.common.utils.StringUtils;
@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**

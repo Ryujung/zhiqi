@@ -146,4 +146,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{userId}
         </foreach>
     </delete>
+
+    <select id="selectByUserName" parameterType="String" resultMap="SysUserResult">
+        <include refid="selectSysUserVo"/>
+        where user_name = #{userName}
+    </select>
+
 </mapper>

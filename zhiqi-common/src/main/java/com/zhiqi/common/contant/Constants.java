@@ -102,4 +102,13 @@ public class Constants {
      * 字典管理 cache key
      */
     public static final String SYS_DICT_KEY = "sys_dict";
+
+    /**
+     * 验证码有效期（分钟）
+     */
+    public static final Integer CAPTCHA_EXPIRATION_MINUTE = 2;
+    /**
+     * 限流的redis key 前缀
+     */
+    public static final String RATE_LIMIT_KEY = "rate_limit:";
 }

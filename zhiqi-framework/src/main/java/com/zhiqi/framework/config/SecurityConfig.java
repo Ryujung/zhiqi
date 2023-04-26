@@ -9,10 +9,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.web.filter.CorsFilter;
 
 /**
@@ -23,20 +28,23 @@ import org.springframework.web.filter.CorsFilter;
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Value("${swagger.pathMapping}")
-    private String pathMapping;
+    @Autowired
+    private UserDetailsService userDetailService;
 
     @Autowired
-    AuthenticationEntryPointImpl unauthorizedHandler;
+    private AuthenticationEntryPointImpl unauthorizedHandler;
 
     @Autowired
-    LogoutSuccessHandlerImpl logoutSuccessHandler;
+    private LogoutSuccessHandlerImpl logoutSuccessHandler;
 
     @Autowired
-    JwtAuthenticationTokenFilter authenticationTokenFilter;
+    private JwtAuthenticationTokenFilter authenticationTokenFilter;
 
     @Autowired
     private CorsFilter corsFilter;
+
+    @Value("${swagger.pathMapping}")
+    private String pathMapping;
 
     @Bean
     @Override
@@ -91,8 +99,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
 
         // add authentication filter and cors filter
-//        httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class); // FIXME
-//        httpSecurity.addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class);
-//        httpSecurity.addFilterBefore(corsFilter, LogoutFilter.class);
+        httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class);
+        httpSecurity.addFilterBefore(corsFilter, LogoutFilter.class);
+    }
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailService).passwordEncoder(bCryptPasswordEncoder());
     }
 }

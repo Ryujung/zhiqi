@@ -7,8 +7,11 @@ import com.zhiqi.common.utils.ip.AddressUtils;
 import com.zhiqi.common.utils.ip.IpUtils;
 import com.zhiqi.common.utils.spring.SpringUtils;
 import com.zhiqi.system.domain.SysLogininfor;
+import com.zhiqi.system.domain.SysOperLog;
 import com.zhiqi.system.service.SysLogininforService;
+import com.zhiqi.system.service.SysOperLogService;
 import eu.bitwalker.useragentutils.UserAgent;
+import org.apache.tomcat.jni.Address;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,4 +72,21 @@ public class AsyncFactory {
         return "[" + msg + "]";
     }
 
+    /**
+     * 操作日志记录
+     *
+     * @param operLog 操作日志信息
+     * @return 任务task
+     */
+    public static TimerTask recordOper(SysOperLog operLog) {
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                // 远程查询操作地点
+                operLog.setOperLocation(AddressUtils.getRealAddressByIP(operLog.getOperIp()));
+                SpringUtils.getBean(SysOperLogService.class).insertSysOperLog(operLog);
+            }
+        };
+        return task;
+    }
 }

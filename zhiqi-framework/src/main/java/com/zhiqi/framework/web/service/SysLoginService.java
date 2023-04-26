@@ -47,6 +47,7 @@ public class SysLoginService {
 
     /**
      * 登录验证
+     * Authentication会调用 {@link UserDetailServiceImpl#loadUserByUsername(String)}来获取用户对象
      *
      * @param username 用户名
      * @param password 密码
@@ -61,7 +62,9 @@ public class SysLoginService {
         }
         Authentication authentication;
         try {
-            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
+            authentication = authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (AuthenticationException e) {
             if (e instanceof BadCredentialsException) {
                 AsyncManager.me().execute(AsyncFactory.recordLoginInfo(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.expire")));

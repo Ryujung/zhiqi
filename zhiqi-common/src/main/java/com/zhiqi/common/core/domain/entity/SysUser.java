@@ -70,6 +70,10 @@ public class SysUser extends BaseEntity {
     private String avatar;
 
     /**
+     * 用户类型
+     */
+    private String userType;
+    /**
      * 密码
      */
     private String password;
@@ -170,6 +174,14 @@ public class SysUser extends BaseEntity {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     @NotBlank(message = "用户账号不能为空")

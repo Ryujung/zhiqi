@@ -1,4 +1,5 @@
 package com.zhiqi.system.mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.zhiqi.common.core.domain.entity.SysUser;
 
@@ -82,4 +83,12 @@ public interface SysUserMapper {
      * @return 查询到的记录数
      */
     int checkEmailUnique(String email);
+
+    /**
+     * 根据用户名查询
+     *
+     * @param userName 用户名
+     * @return 用户数据
+     */
+    SysUser selectByUserName(String userName);
 }

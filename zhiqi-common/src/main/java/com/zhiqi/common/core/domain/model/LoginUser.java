@@ -1,5 +1,6 @@
 package com.zhiqi.common.core.domain.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.zhiqi.common.core.domain.entity.SysUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,7 +13,8 @@ import java.util.Set;
  * @author RyuJung
  * @since 2023/4/15-0:37
  */
-public class LoginUser implements UserDetails, Serializable {
+public class LoginUser implements UserDetails {
+
     private static final long serialVersionUID = 1L;
 
     private Long userId;
@@ -55,27 +57,31 @@ public class LoginUser implements UserDetails, Serializable {
 
     @Override
     public String getUsername() {
-        return null;
+        return user.getUserName();
     }
 
     @Override
+    @JSONField(serialize = false)
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
+    @JSONField(serialize = false)
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
+    @JSONField(serialize = false)
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
+    @JSONField(serialize = false)
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     public Long getUserId() {

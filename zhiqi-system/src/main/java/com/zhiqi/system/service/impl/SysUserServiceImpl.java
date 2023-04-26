@@ -17,6 +17,7 @@ import com.zhiqi.system.service.SysUserService;
  */
 @Service
 public class SysUserServiceImpl implements SysUserService {
+
     @Autowired
     private SysUserMapper userMapper;
 
@@ -109,5 +110,10 @@ public class SysUserServiceImpl implements SysUserService {
     public boolean checkEmailUnique(String email) {
         int count = userMapper.checkEmailUnique(email);
         return count==0;
+    }
+
+    @Override
+    public SysUser selectUserByUserName(String username) {
+        return userMapper.selectByUserName(username);
     }
 }
