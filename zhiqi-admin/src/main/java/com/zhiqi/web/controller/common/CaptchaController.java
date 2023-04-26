@@ -45,6 +45,7 @@ public class CaptchaController {
     public CommonResult getCode() {
         CommonResult result = CommonResult.success();
         boolean captchaOnOff = configService.selectCaptchaOnOff();
+        result.put("captchaOnOff", captchaOnOff);
         if (!captchaOnOff) {
             return result;
         }
@@ -57,15 +58,12 @@ public class CaptchaController {
         BufferedImage image = null;
 
         // 生成验证码
-        if ("math".equals(captchaType))
-        {
+        if ("math".equals(captchaType)) {
             String capText = captchaProducerMath.createText();
             capStr = capText.substring(0, capText.lastIndexOf("@"));
             code = capText.substring(capText.lastIndexOf("@") + 1);
             image = captchaProducerMath.createImage(capStr);
-        }
-        else if ("char".equals(captchaType))
-        {
+        } else if ("char".equals(captchaType)) {
             capStr = code = captchaProducer.createText();
             image = captchaProducer.createImage(capStr);
         }
@@ -73,12 +71,9 @@ public class CaptchaController {
         redisCache.setCacheObject(verifyKey, code, Constants.CAPTCHA_EXPIRATION_MINUTE, TimeUnit.MINUTES);
         // 转换流信息写出
         FastByteArrayOutputStream os = new FastByteArrayOutputStream();
-        try
-        {
+        try {
             ImageIO.write(image, "jpg", os);
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             return CommonResult.error(e.getMessage());
         }
 
