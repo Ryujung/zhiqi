@@ -23,10 +23,21 @@ Vue.use(VueRouter)
  */
 
 // 公共路由
-const routes = [
+export const constantRouters = [
+  // {
+  //   path: '/redirect',
+  //   component: Layout,
+  //   hidden: true,
+  //   children: [
+  //     {
+  //       path: '/redirect/:path(.*)',
+  //       component: resolve => require(['@/views/redirect'], resolve)
+  //     }
+  //   ]
+  // },
   {
     path: '/login',
-    component: (resolve) => require(['@/views/login'], resolve),
+    component: resolve => require(['@/views/login'], resolve),
     hidden: true
   }
 ]
@@ -34,7 +45,7 @@ const routes = [
 const router = new VueRouter({
   mode: 'history', // 去掉url中的#
   scrollBehavior: () => ({ y: 0 }),
-  routes: routes
+  routes: constantRouters
 })
 
 export default router

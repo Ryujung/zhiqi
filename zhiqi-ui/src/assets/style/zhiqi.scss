@@ -1,0 +1,18 @@
+ /**
+ * 通用css样式布局处理
+ * Copyright (c) 2023 ryujung modify from 2019 ruoyi
+ */
+
+ /** 基础通用 **/
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+
+.el-tree-node__content > .el-checkbox {
+    margin-right: 8px;
+}
+  

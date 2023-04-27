@@ -4,13 +4,13 @@
 
       <h3 class="title">知其后台管理系统</h3>
 
-      <el-form-item label="用户名" prop="validateUsername">
+      <el-form-item prop="validateUsername">
         <el-input type="text" v-model="loginForm.username" autocomplete="off" placeholder="用户名">
           <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
         </el-input>
       </el-form-item>
 
-      <el-form-item label="密码" prop="validatePassword">
+      <el-form-item prop="validatePassword">
         <el-input type="password" v-model="loginForm.password" autocomplete="off" placeholder="密码"
           @keyup.enter.native="handleLogin">
           <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />
@@ -27,9 +27,11 @@
         </div>
       </el-form-item>
 
-      <el-checkbox label="记住密码" v-model="loginForm.rememberMe">记住密码</el-checkbox>
-
       <el-form-item>
+        <el-checkbox class="remember-me-checkbox" v-model="loginForm.rememberMe">记住密码</el-checkbox>
+      </el-form-item>
+
+      <el-form-item style="width: 100%">
         <el-button :loading="loading" type="primary" size="medium" style="width: 100%"
           @click.native.prevent="handlerLogin">
           <span v-if="!loading">登录</span>
@@ -42,14 +44,14 @@
     </el-form>
 
     <!-- 底部 -->
-    <div class="el-login-foooter">
+    <div class="el-login-footer">
       <span>Copyright © 2023-2023 ZhiQi All Rights Reserved.</span>
     </div>
   </div>
 </template>
 
 <script>
-import { login, getCodeImg } from '@/api/login'
+import { getCodeImg } from '@/api/login'
 import Cookies from 'js-cookie'
 import { encrypt, decrypt } from "@/utils/jsencrypt";
 
@@ -60,20 +62,22 @@ export default {
       codeUrl: '',
       cookiePassword: '',
       loading: false,
+      // 验证码开关
       captchaOnOff: true,
+      // 注册开关
       register: false,
       redirect: undefined,
 
       loginForm: {
-        username: '',
-        password: '',
+        username: 'admin',
+        password: 'admin123',
         rememberMe: false,
         code: '',
         uuid: ''
       },
       loginRules: {
         validateUsername: [
-          { require: true, type: 'string', trigger: 'blur', message: '请输入您的账号' }
+          { require: true, trigger: 'blur', message: '请输入您的账号' }
         ],
         validatePassword: [
           { require: true, trigger: 'blur', message: '请输入您的密码' }
@@ -87,8 +91,7 @@ export default {
   watch: {
     $router: {
       handler(route) {
-        // TODO figure this out !! about router
-        // this.redirect =
+        this.redirect = route.query && route.query.redirect
       },
       immediate: true
     }
@@ -100,7 +103,7 @@ export default {
   methods: {
     getKaptchaCode() {
       getCodeImg().then(res => {
-        // TODO captcha request and show
+        // captcha request and show
         this.captchaOnOff = res.captchaOnOff === undefined ? true : res.captchaOnOff;
         if (this.captchaOnOff) {
           this.codeUrl = "data:image/gif;base64," + res.img
@@ -133,23 +136,19 @@ export default {
             Cookies.remove('password')
             Cookies.remove('rememberMe')
           }
-          this.$store
-            .dispatch('Login', this.loginForm)
-            .then(() => {
-              // TODO request login api and handle the response
-            })
-            .catch(() => {
-              this.loading = false
-              // TODO handle error login response
-            })
-          login(username, password, code, uuid)
-        } else {
-          console.log('error submit!!')
-          return false
+          this.$store.dispatch('Login', this.loginForm).then(() => {
+            this.$router.push({ path: this.redirect || '/' }).catch(() => { })
+          }).catch(() => {
+            this.loading = false
+            // 登录失败，刷新验证码
+            if (this.captchaOnOff) {
+              this.getKaptchaCode()
+            }
+          })
         }
       })
     }
-  }
+  },
 }
 </script>
 
@@ -201,7 +200,7 @@ export default {
   }
 }
 
-.el-login-foooter {
+.el-login-footer {
   height: 40px;
   line-height: 40px;
   position: fixed;
@@ -214,7 +213,11 @@ export default {
   letter-spacing: 1px;
 }
 
-.login-code-img {
+.login-code-image {
   height: 38px;
+}
+
+.remember-me-checkbox {
+  margin: 0 0 25xp 0;
 }
 </style>
