@@ -91,7 +91,7 @@ public class Constants {
     /**
      * 验证码 redis key
      */
-    public static final String CAPTCHA_CODE_KEY = "captcha_codes:";
+    public static final String CAPTCHA_CODE_KEY_PREFIX = "captcha_codes:";
 
     /**
      * 令牌前缀
@@ -107,8 +107,14 @@ public class Constants {
      * 验证码有效期（分钟）
      */
     public static final Integer CAPTCHA_EXPIRATION_MINUTE = 2;
+
     /**
      * 限流的redis key 前缀
      */
     public static final String RATE_LIMIT_KEY = "rate_limit:";
+
+    /**
+     * 系统配置中，是否允许新用户注册的配置项key
+     */
+    public static final String SYS_CONFIG_KEY_REGISTER = "sys.account.registerUser";
 }

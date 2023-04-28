@@ -1,0 +1,4 @@
+// 解决 表单item自带左边距的问题
+.el-form-item .el-form-item__content {
+  margin-left: 0px !important;
+}

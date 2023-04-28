@@ -33,7 +33,7 @@ public interface SysUserService {
      * @param sysUser 用户信息
      * @return 结果
      */
-    public int insertSysUser(SysUser sysUser);
+    public boolean insertSysUser(SysUser sysUser);
 
     /**
      * 修改用户信息

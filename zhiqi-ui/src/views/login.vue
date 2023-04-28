@@ -22,8 +22,8 @@
           @keyup.enter.native="handleLogin">
           <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon" />
         </el-input>
-        <div class="login-code">
-          <img :src="codeUrl" @click="getKaptchaCode" class="login-code-image" />
+        <div class="valid-code">
+          <img :src="codeUrl" @click="getKaptchaCode" class="valid-code-image" />
         </div>
       </el-form-item>
 
@@ -190,22 +190,17 @@ export default {
   }
 }
 
-// 解决 item自带左边距的问题
-.el-form-item .el-form-item__content {
-  margin-left: 0px !important;
-}
-
-.login-code {
+.valid-code {
   width: 33%;
   height: 38px;
   float: right;
 
   img {
+    height: 38px;
     cursor: pointer;
     vertical-align: middle;
   }
 }
-
 
 .el-login-footer {
   height: 40px;
@@ -218,10 +213,6 @@ export default {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
   letter-spacing: 1px;
-}
-
-.login-code-image {
-  height: 38px;
 }
 
 .remember-me-checkbox {

@@ -15,7 +15,7 @@ const service = axios.create({
 // reqeust interceptor
 service.interceptors.request.use(
   config => {
-    // 是否需要设置 token
+    // 是否需要设置 token, 当header携带isToken且值为false时，不会在请求前加入认证请求头 Authorization
     const notNeedToken = (config.headers || {}).isToken === false
     if (getToken() && !notNeedToken) {
       // 让每个请求携带自定义token 请根据实际情况自行修改

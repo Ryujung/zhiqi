@@ -50,9 +50,9 @@ public class SysUserServiceImpl implements SysUserService {
      * @return 结果
      */
     @Override
-    public int insertSysUser(SysUser sysUser) {
+    public boolean insertSysUser(SysUser sysUser) {
         sysUser.setCreateTime(DateUtils.getNowDate());
-        return userMapper.insertSysUser(sysUser);
+        return userMapper.insertSysUser(sysUser) > 0;
     }
 
     /**
@@ -109,7 +109,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public boolean checkEmailUnique(String email) {
         int count = userMapper.checkEmailUnique(email);
-        return count==0;
+        return count == 0;
     }
 
     @Override

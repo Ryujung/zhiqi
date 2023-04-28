@@ -89,7 +89,7 @@ public class SysLoginService {
     }
 
     private void validateCaptcha(String username, String code, String uuid) {
-        String verifyKey = Constants.CAPTCHA_CODE_KEY + uuid;
+        String verifyKey = Constants.CAPTCHA_CODE_KEY_PREFIX + uuid;
         String captcha = redisCache.getCacheObject(verifyKey);
         redisCache.deleteObject(verifyKey);
         if (captcha == null) {

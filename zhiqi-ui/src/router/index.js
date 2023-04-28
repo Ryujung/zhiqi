@@ -39,6 +39,11 @@ export const constantRouters = [
     path: '/login',
     component: resolve => require(['@/views/login'], resolve),
     hidden: true
+  },
+  {
+    path: '/register',
+    component: resolve => require(['@/views/register'], resolve),
+    hidden: true
   }
 ]
 
