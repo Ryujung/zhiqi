@@ -44,6 +44,23 @@ export const constantRouters = [
     path: '/register',
     component: resolve => require(['@/views/register'], resolve),
     hidden: true
+  },
+  {
+    path: '',
+    component: Layout,
+    redirect: 'index',
+    children: [
+      {
+        path: 'index',
+        component: resolve => require(['@/views/index'], resolve),
+        name: 'Index',
+        meta: {
+          title: '',
+          icon: 'dashbord',
+          affix: true
+        }
+      }
+    ]
   }
 ]
 

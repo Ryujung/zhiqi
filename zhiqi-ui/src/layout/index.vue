@@ -1,6 +1,17 @@
 <template>
   <div :class="classObj" class="app-wrapper" :style="{ '--current-color': theme }">
-
+    <div v-if="device === 'mobile' && sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
+    <sidebar class="sidebar-container" />
+    <div :class="{ hasTagView: needTagsView }" class="main-container">
+      <div :class="{ 'fixed-header': fixedHeader }">
+        <navbar />
+        <tag-view v-if="needTagView" />
+      </div>
+      <app-main />
+      <right-panel>
+        <settings />
+      </right-panel>
+    </div>
   </div>
 </template>
 

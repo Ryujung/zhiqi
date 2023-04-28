@@ -42,6 +42,9 @@
         </el-button>
 
         <!-- TODO redirect to login page  -->
+        <div style="float: right;">
+          <router-link class="link-type" :to="'/login'">使用已有账号登录</router-link>
+        </div>
       </el-form-item>
 
     </el-form>
@@ -131,7 +134,6 @@ export default ({
           })
         }
       })
-      register()
     }
   }
 })

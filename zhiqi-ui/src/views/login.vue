@@ -37,8 +37,9 @@
           <span v-if="!loading">登录</span>
           <span v-else>登 录 中...</span>
         </el-button>
-        <div>
-          <!-- TODO register router link -->
+
+        <div style="float: right;" v-if="register">
+          <router-link class="link-type" :to="'/register'">前往注册</router-link>
         </div>
       </el-form-item>
     </el-form>
@@ -65,7 +66,7 @@ export default {
       // 验证码开关
       captchaOnOff: true,
       // 注册开关
-      register: false,
+      register: true,
       redirect: undefined,
 
       loginForm: {
@@ -110,6 +111,7 @@ export default {
           this.loginForm.uuid = res.uuid
         }
       })
+
     },
     getUserInfoFromCookie() {
       const username = Cookies.get('username')

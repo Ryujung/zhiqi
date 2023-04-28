@@ -32,3 +32,13 @@ html {
     padding: 0px !important;
 }
 
+.link-type, .link-type:focus {
+    color: #337ab7;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover{
+        color: rgb(32, 160, 255);
+    }
+}
+
