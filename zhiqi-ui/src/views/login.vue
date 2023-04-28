@@ -174,6 +174,7 @@ export default {
   width: 400px;
   padding: 25px 25px 5px 25px;
 
+
   .el-input {
     height: 38px;
 
@@ -189,6 +190,11 @@ export default {
   }
 }
 
+// 解决 item自带左边距的问题
+.el-form-item .el-form-item__content {
+  margin-left: 0px !important;
+}
+
 .login-code {
   width: 33%;
   height: 38px;
@@ -199,6 +205,7 @@ export default {
     vertical-align: middle;
   }
 }
+
 
 .el-login-footer {
   height: 40px;
