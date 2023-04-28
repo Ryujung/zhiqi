@@ -23,7 +23,12 @@ public class SysPermissionService {
 
     @Resource
     private SysMenuService menuService;
-
+    /**
+     * 获取角色数据权限
+     *
+     * @param user 用户信息
+     * @return 角色权限信息
+     */
     public Set<String> getRolePermission(SysUser user) {
         HashSet<String> roleSet = new HashSet<>();
         if (user.isAdmin()) {
@@ -33,5 +38,21 @@ public class SysPermissionService {
         }
 
         return roleSet;
+    }
+
+    /**
+     * 获取菜单数据权限
+     *
+     * @param user 用户信息
+     * @return 菜单权限信息
+     */
+    public Set<String> getMenuPermission(SysUser user) {
+        HashSet<String> permissionSet = new HashSet<>();
+        if (user.isAdmin()) {
+            permissionSet.add("*.*.*");
+        }else{
+            permissionSet.addAll(menuService.selectMenuListByUserId(user.getUserId()));
+        }
+        return permissionSet;
     }
 }

@@ -1,59 +1,88 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiqi.system.mapper.SysMenuMapper">
-    
+
     <resultMap type="SysMenu" id="SysMenuResult">
-        <result property="menuId"    column="menu_id"    />
-        <result property="menuName"    column="menu_name"    />
-        <result property="parentId"    column="parent_id"    />
-        <result property="orderNum"    column="order_num"    />
-        <result property="path"    column="path"    />
-        <result property="component"    column="component"    />
-        <result property="query"    column="query"    />
-        <result property="isFrame"    column="is_frame"    />
-        <result property="isCache"    column="is_cache"    />
-        <result property="menuType"    column="menu_type"    />
-        <result property="visible"    column="visible"    />
-        <result property="status"    column="status"    />
-        <result property="perms"    column="perms"    />
-        <result property="icon"    column="icon"    />
-        <result property="createBy"    column="create_by"    />
-        <result property="createTime"    column="create_time"    />
-        <result property="updateBy"    column="update_by"    />
-        <result property="updateTime"    column="update_time"    />
-        <result property="remark"    column="remark"    />
+        <result property="menuId" column="menu_id"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="orderNum" column="order_num"/>
+        <result property="path" column="path"/>
+        <result property="component" column="component"/>
+        <result property="query" column="query"/>
+        <result property="isFrame" column="is_frame"/>
+        <result property="isCache" column="is_cache"/>
+        <result property="menuType" column="menu_type"/>
+        <result property="visible" column="visible"/>
+        <result property="status" column="status"/>
+        <result property="perms" column="perms"/>
+        <result property="icon" column="icon"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
     </resultMap>
 
     <sql id="selectSysMenuVo">
-        select menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time, update_by, update_time, remark from sys_menu
+        SELECT menu_id,
+               menu_name,
+               parent_id,
+               order_num,
+               path,
+               component,
+               query,
+               is_frame,
+               is_cache,
+               menu_type,
+               visible,
+               status,
+               perms,
+               icon,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark
+        FROM sys_menu
     </sql>
 
     <select id="selectSysMenuList" parameterType="SysMenu" resultMap="SysMenuResult">
         <include refid="selectSysMenuVo"/>
-        <where>  
-            <if test="menuName != null  and menuName != ''"> and menu_name like concat('%', #{menuName}, '%')</if>
-            <if test="parentId != null "> and parent_id = #{parentId}</if>
-            <if test="orderNum != null "> and order_num = #{orderNum}</if>
-            <if test="path != null  and path != ''"> and path = #{path}</if>
-            <if test="component != null  and component != ''"> and component = #{component}</if>
-            <if test="query != null  and query != ''"> and query = #{query}</if>
-            <if test="isFrame != null "> and is_frame = #{isFrame}</if>
-            <if test="isCache != null "> and is_cache = #{isCache}</if>
-            <if test="menuType != null  and menuType != ''"> and menu_type = #{menuType}</if>
-            <if test="visible != null  and visible != ''"> and visible = #{visible}</if>
-            <if test="status != null  and status != ''"> and status = #{status}</if>
-            <if test="perms != null  and perms != ''"> and perms = #{perms}</if>
-            <if test="icon != null  and icon != ''"> and icon = #{icon}</if>
+        <where>
+            <if test="menuName != null  and menuName != ''">and menu_name like concat('%', #{menuName}, '%')</if>
+            <if test="parentId != null ">and parent_id = #{parentId}</if>
+            <if test="orderNum != null ">and order_num = #{orderNum}</if>
+            <if test="path != null  and path != ''">and path = #{path}</if>
+            <if test="component != null  and component != ''">and component = #{component}</if>
+            <if test="query != null  and query != ''">and query = #{query}</if>
+            <if test="isFrame != null ">and is_frame = #{isFrame}</if>
+            <if test="isCache != null ">and is_cache = #{isCache}</if>
+            <if test="menuType != null  and menuType != ''">and menu_type = #{menuType}</if>
+            <if test="visible != null  and visible != ''">and visible = #{visible}</if>
+            <if test="status != null  and status != ''">and status = #{status}</if>
+            <if test="perms != null  and perms != ''">and perms = #{perms}</if>
+            <if test="icon != null  and icon != ''">and icon = #{icon}</if>
         </where>
     </select>
-    
+
     <select id="selectSysMenuByMenuId" parameterType="Long" resultMap="SysMenuResult">
         <include refid="selectSysMenuVo"/>
         where menu_id = #{menuId}
     </select>
-        
+
+    <select id="selectMenuListByUserId" resultType="java.lang.String">
+        SELECT distinct m.perms
+        FROM sys_menu m
+             LEFT JOIN sys_role_menu rm ON m.menu_id = rm.menu_id
+             LEFT JOIN sys_role r ON rm.role_id = r.role_id
+             LEFT JOIN sys_user_role ur ON rm.role_id = ur.role_id
+        WHERE m.status = '0' and r.status = '0'
+          AND ur.user_id = #{userId}
+    </select>
+
     <insert id="insertSysMenu" parameterType="SysMenu" useGeneratedKeys="true" keyProperty="menuId">
         insert into sys_menu
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -75,7 +104,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateBy != null">update_by,</if>
             <if test="updateTime != null">update_time,</if>
             <if test="remark != null">remark,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="menuName != null and menuName != ''">#{menuName},</if>
             <if test="parentId != null">#{parentId},</if>
@@ -95,7 +124,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateBy != null">#{updateBy},</if>
             <if test="updateTime != null">#{updateTime},</if>
             <if test="remark != null">#{remark},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateSysMenu" parameterType="SysMenu">
@@ -124,11 +153,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteSysMenuByMenuId" parameterType="Long">
-        delete from sys_menu where menu_id = #{menuId}
+        DELETE
+        FROM sys_menu
+        WHERE menu_id = #{menuId}
     </delete>
 
     <delete id="deleteSysMenuByMenuIds" parameterType="String">
-        delete from sys_menu where menu_id in 
+        delete from sys_menu where menu_id in
         <foreach item="menuId" collection="array" open="(" separator="," close=")">
             #{menuId}
         </foreach>

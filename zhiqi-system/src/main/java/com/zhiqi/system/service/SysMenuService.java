@@ -2,7 +2,9 @@ package com.zhiqi.system.service;
 
 import com.zhiqi.common.core.domain.entity.SysMenu;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 菜单权限Service接口
@@ -59,4 +61,11 @@ public interface SysMenuService
      * @return 结果
      */
     public int deleteSysMenuByMenuId(Long menuId);
+
+    /**
+     * 根据用户ID查询权限
+     * @param userId
+     * @return
+     */
+    Set<String> selectMenuListByUserId(Long userId);
 }
