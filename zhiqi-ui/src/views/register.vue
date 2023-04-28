@@ -1,28 +1,31 @@
 <template>
   <div class="register">
-    <el-form :model="registerForm" :rules="registerRules" ref="registerForm" label-width="100px" class="register-form">
+    <el-form :model="registerForm" :rules="registerRules" ref="registerForm" class="register-form">
       <h3 class="title">知其后台管理系统</h3>
 
       <el-form-item prop="username">
-        <el-input type="text" v-model="registerForm.username" autocomplete="off" placeholder="账号"></el-input>
+        <el-input type="text" v-model="registerForm.username" auto-complete="off" placeholder="账号">
+        <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
+        </el-input>
       </el-form-item>
 
       <el-form-item prop="password">
-        <el-input type="password" v-model="registerForm.password" autocomplete="off" placeholder="密码"
+        <el-input type="password" v-model="registerForm.password" auto-complete="off" placeholder="密码"
           @keyup.enter.native="handleRegister">
           <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />
         </el-input>
       </el-form-item>
 
       <el-form-item prop="confirmPassword">
-        <el-input type="password" v-model="registerForm.confirmPassword" autocomplete="off" placeholder="确认密码"
+        <el-input type="password" v-model="registerForm.confirmPassword" auto-complete="off" placeholder="确认密码"
           @keyup.enter.native="handleRegister">
           <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />
         </el-input>
       </el-form-item>
 
       <el-form-item prop="code">
-        <el-input v-model="registerForm.code" auto-complete="false" placeholder="验证码" @keyup.enter.native="handleRegister" style="width: 63%">
+        <el-input v-model="registerForm.code" auto-complete="false" placeholder="验证码" @keyup.enter.native="handleRegister"
+          style="width: 63%">
           <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon" />
         </el-input>
 
@@ -32,12 +35,13 @@
       </el-form-item>
 
       <el-form-item style="width:100%">
-        <el-button :loading=loading size="medium" type="primary" style="width:100%" @click="handleRegister">
+        <el-button :loading=loading size="medium" type="primary" style="width:100%"
+          @click.native.prevent="handleRegister">
           <span v-if="!loading">注 册</span>
           <span v-else>注 册 中...</span>
         </el-button>
 
-        <!-- TODO refirect to login as exist users -->
+        <!-- TODO redirect to login page  -->
       </el-form-item>
 
     </el-form>
@@ -106,13 +110,14 @@ export default ({
       })
     },
     handleRegister() {
-      this.$ref.registerForm.validate(valid => {
+      this.$refs.registerForm.validate(valid => {
         if (valid) {
           this.loading = true
           register(this.registerForm).then(res => {
+            this.loading = false
             const username = this.registerForm.username
             this.$alert(`<font color='red'>恭喜您，您的账号：${username} 注册成功！</font>`, '系统提示', {
-              // dangerouslyUseHTMLString: true
+              dangerouslyUseHTMLString: true
             }).then(() => {
               this.$router.push('/login')
             }).catch(() => { })
@@ -120,6 +125,7 @@ export default ({
             // 注册失败
             this.loading = false
             if (this.captchaOnOff) {
+              this.registerForm.code = ''
               this.getCode()
             }
           })

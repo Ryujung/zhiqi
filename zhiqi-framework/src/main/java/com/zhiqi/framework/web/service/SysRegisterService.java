@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SysRegisterService {
+
     @Autowired
     private RedisCache redisCache;
 
@@ -53,7 +54,7 @@ public class SysRegisterService {
             msg = "用户密码不可为空";
         } else if (password.length() < UserConstants.PASSWORD_MIN_LENGTH || password.length() > UserConstants.PASSWORD_MAX_LENGTH) {
             msg = "用户密码长度必须在" + UserConstants.PASSWORD_MIN_LENGTH + "到" + UserConstants.PASSWORD_MAX_LENGTH + "个字符之间";
-        } else if (userService.checkUserNameUnique(username)) {
+        } else if (!userService.checkUserNameUnique(username)) {
             msg = "注册用户" + username + "失败，注册账号已存在";
         } else {
             msg = doRegister(username, password);
@@ -87,4 +88,5 @@ public class SysRegisterService {
             throw new CaptchaException();
         }
     }
+
 }
