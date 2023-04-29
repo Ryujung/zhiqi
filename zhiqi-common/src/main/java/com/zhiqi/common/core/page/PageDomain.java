@@ -45,6 +45,12 @@ public class PageDomain {
         return pageDomain;
     }
 
+    /**
+     * 从请求中获取分页相关的信息，包括：
+     * 当前记录起始索引、每页显示记录数、排序列、排序的方向、分页参数合理化
+     *
+     * @return
+     */
     public static PageDomain build() {
         return getPageDomainFromRequest();
     }
