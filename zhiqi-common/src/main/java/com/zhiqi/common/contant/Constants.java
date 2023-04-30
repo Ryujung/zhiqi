@@ -117,4 +117,9 @@ public class Constants {
      * 系统配置中，是否允许新用户注册的配置项key
      */
     public static final String SYS_CONFIG_KEY_REGISTER = "sys.account.registerUser";
+
+    /**
+     * redis用于保存重复提交请求的key前缀
+     */
+    public static final String REPEAT_SUBMIT_PREFIX = "repeat_submit:";
 }

@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.zhiqi.common.annotation.RepeatSubmit;
 import com.zhiqi.common.core.domain.CommonResult;
 import com.zhiqi.common.utils.ServletUtils;
-import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -18,7 +17,6 @@ import java.lang.reflect.Method;
  * @author RyuJung
  * @since 2023/4/29-23:10
  */
-@Component
 public abstract class RepeatSubmitInterceptor implements HandlerInterceptor {
 
     @Override
