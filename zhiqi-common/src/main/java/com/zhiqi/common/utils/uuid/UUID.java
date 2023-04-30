@@ -1,6 +1,6 @@
 package com.zhiqi.common.utils.uuid;
 
-import com.sun.xml.internal.ws.util.UtilException;
+import com.zhiqi.common.exception.UtilException;
 
 import java.io.Serializable;
 import java.security.MessageDigest;

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
 
     /**
-     *
+     * 为了将
      * @param request    当前请求
      * @param annotation 请求携带的 {@link RepeatSubmit} 注解
      * @return

@@ -1,6 +1,5 @@
 package com.zhiqi.common.utils.poi;
 
-import com.sun.xml.internal.ws.util.UtilException;
 import com.zhiqi.common.annotation.Excel;
 import com.zhiqi.common.annotation.Excel.Type;
 import com.zhiqi.common.annotation.Excel.ColumnType;
@@ -8,6 +7,7 @@ import com.zhiqi.common.annotation.Excels;
 import com.zhiqi.common.config.ZhiQiConfig;
 import com.zhiqi.common.core.domain.CommonResult;
 import com.zhiqi.common.core.text.Converter;
+import com.zhiqi.common.exception.UtilException;
 import com.zhiqi.common.utils.DateUtils;
 import com.zhiqi.common.utils.DictUtils;
 import com.zhiqi.common.utils.StringUtils;

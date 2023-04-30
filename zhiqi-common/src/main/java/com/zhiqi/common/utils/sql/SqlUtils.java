@@ -1,7 +1,7 @@
 package com.zhiqi.common.utils.sql;
 
+import com.zhiqi.common.exception.UtilException;
 import com.zhiqi.common.utils.StringUtils;
-import com.sun.xml.internal.ws.util.UtilException;
 
 /**
  * sql操作工具类
