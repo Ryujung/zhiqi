@@ -1,5 +1,6 @@
 package com.zhiqi.web.controller.system;
 
+import com.zhiqi.common.annotation.RepeatSubmit;
 import com.zhiqi.common.contant.Constants;
 import com.zhiqi.common.core.controller.BaseController;
 import com.zhiqi.common.core.domain.CommonResult;
@@ -35,8 +36,8 @@ public class SysLoginController extends BaseController {
 
     @PostMapping("/login")
     public CommonResult login(@RequestBody LoginBody loginBody) {
-        String token =
-                loginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(), loginBody.getUuid());
+        String token = loginService.login(loginBody.getUsername(), loginBody.getPassword(),
+                loginBody.getCode(), loginBody.getUuid());
 
         CommonResult result = CommonResult.success();
         result.put(Constants.TOKEN, token);
@@ -44,6 +45,7 @@ public class SysLoginController extends BaseController {
     }
 
     @GetMapping("/getInfo")
+    @RepeatSubmit
     public CommonResult getInfo() {
         SysUser user = SecurityUtils.getLoginUser().getUser();
         Set<String> rolePermissionSet = permissionService.getRolePermission(user);

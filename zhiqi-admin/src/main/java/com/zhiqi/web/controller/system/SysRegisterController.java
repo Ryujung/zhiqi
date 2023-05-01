@@ -1,5 +1,6 @@
 package com.zhiqi.web.controller.system;
 
+import com.zhiqi.common.annotation.RepeatSubmit;
 import com.zhiqi.common.contant.Constants;
 import com.zhiqi.common.core.controller.BaseController;
 import com.zhiqi.common.core.domain.CommonResult;
@@ -27,6 +28,14 @@ public class SysRegisterController extends BaseController {
     @Autowired
     private SysConfigService configService;
 
+    /**
+     * 注册接口
+     *
+     * 当开启验证码时，每次请求都要验证单次可用的验证码，可以防止表单重复提交
+     * 其他场景可以使用 {@link RepeatSubmit} 注解来实现一定时间间隔的重复表单提交
+     *
+     * @param registerInfo 注册信息
+     */
     @PostMapping("/register")
     public CommonResult register(@RequestBody RegisterBody registerInfo) {
         String isAllowedRegister = configService.selectSysConfigByKey(Constants.SYS_CONFIG_KEY_REGISTER);

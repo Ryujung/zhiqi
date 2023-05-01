@@ -23,6 +23,7 @@ import javax.annotation.Resource;
  */
 @Service
 public class SysConfigServiceImpl implements SysConfigService {
+
     @Resource
     private SysConfigMapper configMapper;
 

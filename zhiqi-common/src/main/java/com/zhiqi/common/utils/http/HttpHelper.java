@@ -20,15 +20,14 @@ public class HttpHelper {
 
     public static String getRequestBodyString(RepeatableReadRequestWrapper requestWrapper) {
         StringBuilder sb = new StringBuilder();
-        try (
-                ServletInputStream inputStream = requestWrapper.getInputStream();
-                InputStreamReader reader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(reader)
-        ) {
+        try (ServletInputStream inputStream = requestWrapper.getInputStream();
+             InputStreamReader reader = new InputStreamReader(inputStream);
+             BufferedReader bufferedReader = new BufferedReader(reader)) {
             String lineStr;
             while ((lineStr = bufferedReader.readLine()) != null) {
                 sb.append(lineStr);
             }
+            return sb.toString();
         } catch (IOException e) {
             log.warn("读取请求体字符串异常！原因：{}", e.getMessage());
         }

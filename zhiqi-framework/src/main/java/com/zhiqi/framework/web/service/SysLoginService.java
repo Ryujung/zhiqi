@@ -62,7 +62,7 @@ public class SysLoginService {
         }
         Authentication authentication;
         try {
-            // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
+            // 该方法会去调用 UserDetailsServiceImpl.loadUserByUsername 方法获取用户对象
             authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (AuthenticationException e) {

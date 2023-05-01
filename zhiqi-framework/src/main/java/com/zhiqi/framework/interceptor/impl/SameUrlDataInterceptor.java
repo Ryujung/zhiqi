@@ -7,7 +7,7 @@ import com.zhiqi.common.core.redis.RedisCache;
 import com.zhiqi.common.filter.RepeatableReadRequestWrapper;
 import com.zhiqi.common.utils.StringUtils;
 import com.zhiqi.common.utils.http.HttpHelper;
-import com.zhiqi.framework.interceptor.RepeatSubmitInterceptor;
+import com.zhiqi.framework.interceptor.AbstractRepeatSubmitInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
  * @since 2023/4/29-23:23
  */
 @Component
-public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
+public class SameUrlDataInterceptor extends AbstractRepeatSubmitInterceptor {
 
     public static final String REPEAT_PARAMS_KEY = "repeatParams";
     public static final String REPEAT_TIME_KEY = "repeatTime";
@@ -55,7 +55,8 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
         }
         if (StringUtils.isEmpty(requestBodyString)) {
             // 不能读取request的InputStream，否则会导致inputStream失效（只可读取一次）
-            requestBodyString = JSONObject.toJSONString(request);
+            //！ 注意不能直接对request进行JSON解析，会报错
+            requestBodyString = JSONObject.toJSONString(request.getParameterMap());
         }
         HashMap<String, Object> repeatDataMap = new HashMap<>(16);
         repeatDataMap.put(REPEAT_PARAMS_KEY, requestBodyString);

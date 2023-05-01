@@ -17,10 +17,10 @@ import java.lang.reflect.Method;
  * @author RyuJung
  * @since 2023/4/29-23:10
  */
-public abstract class RepeatSubmitInterceptor implements HandlerInterceptor {
+public abstract class AbstractRepeatSubmitInterceptor implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         if (handler instanceof HandlerMethod) {
             Method method = ((HandlerMethod) handler).getMethod();
             RepeatSubmit annotation = method.getAnnotation(RepeatSubmit.class);

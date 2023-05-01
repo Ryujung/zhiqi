@@ -1,12 +1,17 @@
 package com.zhiqi.framework.config;
 
+import com.zhiqi.common.annotation.RepeatSubmit;
 import com.zhiqi.common.config.ZhiQiConfig;
 import com.zhiqi.common.contant.Constants;
+import com.zhiqi.framework.interceptor.AbstractRepeatSubmitInterceptor;
+import com.zhiqi.framework.interceptor.impl.SameUrlDataInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -18,6 +23,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class ResourcesConfig implements WebMvcConfigurer {
+
+    @Autowired
+    private AbstractRepeatSubmitInterceptor repeatSubmitInterceptor;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -32,6 +40,11 @@ public class ResourcesConfig implements WebMvcConfigurer {
                         "/v2/api-docs",
                         "/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/");
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(repeatSubmitInterceptor);
     }
 
     /**

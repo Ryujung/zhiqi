@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private CorsFilter corsFilter;
 
     @Value("${swagger.pathMapping}")
-    private String pathMapping;
+    private String swaggerPathMapping;
 
     @Bean
     @Override
@@ -89,7 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, STATIC_RESOURCES).permitAll()
                 .antMatchers(DRUID_RESOURCES).anonymous()
                 .antMatchers(SWAGGER_RESOURCES).anonymous()
-                .antMatchers(pathMapping + "/**").anonymous()
+                .antMatchers(swaggerPathMapping + "/**").anonymous()
                 .anyRequest().authenticated();
 
         // config exception handler
