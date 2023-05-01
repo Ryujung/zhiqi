@@ -58,26 +58,33 @@ public class SameUrlDataInterceptor extends AbstractRepeatSubmitInterceptor {
             //！ 注意不能直接对request进行JSON解析，会报错
             requestBodyString = JSONObject.toJSONString(request.getParameterMap());
         }
-        HashMap<String, Object> repeatDataMap = new HashMap<>(16);
-        repeatDataMap.put(REPEAT_PARAMS_KEY, requestBodyString);
-        repeatDataMap.put(REPEAT_TIME_KEY, System.currentTimeMillis());
+        HashMap<String, Object> currentDataMap = new HashMap<>(16);
+        currentDataMap.put(REPEAT_PARAMS_KEY, requestBodyString);
+        currentDataMap.put(REPEAT_TIME_KEY, System.currentTimeMillis());
 
         String uniqueKey = request.getHeader(authHeader);
 
+        String url = request.getRequestURI();
         if (StringUtils.isEmpty(uniqueKey)) {
             // 如果没有认证请求头，就把当前请求的uri当做唯一键（是否欠妥） FIXME
-            uniqueKey = request.getRequestURI();
+            uniqueKey = url;
         }
 
         // 重复请求前缀 + 用户的认证header作为redis的唯一键
         String redisKey = Constants.REPEAT_SUBMIT_PREFIX + uniqueKey;
-        Map<String, Object> cacheMap = redisCache.getCacheMap(redisKey);
-        if (StringUtils.isNotEmpty(cacheMap)) {
-            return equalsRepeatData(repeatDataMap, cacheMap)
-                    && isLessThanRepeatInterval(repeatDataMap, cacheMap, annotation.interval());
+
+        // 尝试对比已缓存的数据
+        Map<String, Map<String, Object>> inCachedMap = redisCache.getCacheMap(redisKey);
+        if (StringUtils.isNotEmpty(inCachedMap) && inCachedMap.containsKey(url)) {
+            Map<String, Object> cachedMap = inCachedMap.get(url);
+            return equalsRepeatData(currentDataMap, cachedMap)
+                    && isLessThanRepeatInterval(currentDataMap, cachedMap, annotation.interval());
         }
 
-        redisCache.setCacheMap(redisKey, repeatDataMap);
+        // 缓存中不存在，将当前请求加入到缓存中，过期时间为注解标注的interval（ms）
+        HashMap<String, Map<String, Object>> cacheMap = new HashMap<>(16);
+        cacheMap.put(url, currentDataMap);
+        redisCache.setCacheMap(redisKey, cacheMap);
         redisCache.expire(redisKey, annotation.interval(), TimeUnit.MILLISECONDS);
         return false;
     }
