@@ -1,10 +1,8 @@
 package com.zhiqi.framework.config;
 
-import com.zhiqi.common.annotation.RepeatSubmit;
 import com.zhiqi.common.config.ZhiQiConfig;
 import com.zhiqi.common.contant.Constants;
 import com.zhiqi.framework.interceptor.AbstractRepeatSubmitInterceptor;
-import com.zhiqi.framework.interceptor.impl.SameUrlDataInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

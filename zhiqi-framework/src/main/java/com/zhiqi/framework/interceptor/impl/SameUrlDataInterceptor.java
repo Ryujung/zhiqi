@@ -40,7 +40,8 @@ public class SameUrlDataInterceptor extends AbstractRepeatSubmitInterceptor {
     /**
      * 通过判断请求的请求体和路径、请求间隔来判断是否为一个重复请求
      *
-     * 如果不是重复请求，则根据注解的间隔要求，将当前用户（或路径）的请求参数和请求时间timestamp保存到redis中
+     * 如果不是重复请求，则根据注解的间隔要求，将当前用户（或路径）
+     * 的请求参数和请求时间timestamp保存到redis中
      *
      * 过期时间即为注解要求的间隔
      *
